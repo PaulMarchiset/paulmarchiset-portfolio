@@ -1,0 +1,126 @@
+{
+  "id": "credits",
+  "type": "SharedSlice",
+  "name": "Credits",
+  "description": "Credits",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "client": {
+          "type": "Group",
+          "config": {
+            "label": "Client",
+            "repeat": true,
+            "fields": {
+              "content": {
+                "type": "Text",
+                "config": {
+                  "label": "content",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        },
+        "year": {
+          "type": "Group",
+          "config": {
+            "label": "Year",
+            "repeat": true,
+            "fields": {
+              "year": {
+                "type": "Text",
+                "config": {
+                  "label": "year",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        },
+        "role": {
+          "type": "Group",
+          "config": {
+            "label": "role",
+            "repeat": true,
+            "fields": {
+              "role": {
+                "type": "Text",
+                "config": {
+                  "label": "role",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        },
+        "softwares": {
+          "type": "Group",
+          "config": {
+            "label": "Softwares",
+            "repeat": true,
+            "fields": {
+              "software": {
+                "type": "Text",
+                "config": {
+                  "label": "software",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        },
+        "skills": {
+          "type": "Group",
+          "config": {
+            "label": "Skills",
+            "repeat": true,
+            "fields": {
+              "skill": {
+                "type": "Text",
+                "config": {
+                  "label": "skill",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        },
+        "link": {
+          "type": "Group",
+          "config": {
+            "label": "link",
+            "repeat": true,
+            "fields": {
+              "title": {
+                "type": "Text",
+                "config": {
+                  "label": "title",
+                  "placeholder": ""
+                }
+              },
+              "link": {
+                "type": "Link",
+                "config": {
+                  "label": "link",
+                  "placeholder": "",
+                  "select": null,
+                  "allowTargetBlank": true,
+                  "allowText": true,
+                  "repeat": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

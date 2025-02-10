@@ -1,0 +1,27 @@
+{
+  "id": "big_image",
+  "type": "SharedSlice",
+  "name": "BigImage",
+  "description": "BigImage",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "imgbig": {
+          "type": "Image",
+          "config": {
+            "label": "imgBig",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"catchphrase": {
+				"__TYPE__": "FieldContent",
+				"value": "dangerous",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

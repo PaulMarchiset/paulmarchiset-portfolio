@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Bahnschrift";
+  src: url("../fonts/Bahnschrift.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IntelOneMono";
+  src: url("../fonts/IntelOneMono-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@theme {
+  --font-title: "Bahnschrift";
+  --font-sans: "Outfit";
+  --font-mono: "IntelOneMOno";
+
+  --text-title: 12.5rem;
+  --leading-title: 80%;
+  --leading-100: 100%;
+
+  --spacing-project: 9rem;
+
+  --bigImageRatio: 81/70;
+
+  --main-white: #fafafa;
+  --linear-black: linear-gradient(0deg,#00000080,#0000);
+}
+
+body {
+  @apply bg-black;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 1.25rem;
+}
+
+.project-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transition: transform 0.25s cubic-bezier(.83, 0, .29, .99);
+  transform-origin: left;
+}
+
+.hover-underline-animation:hover {
+  cursor: pointer;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+}
+
+.hover-underline-animation:not(:hover)::after {
+  transform-origin: right;
+  transform: scaleX(0);
+}
+
+@media screen and (min-width: 850px) {
+  .container {
+    max-width: unset !important;
+    padding: 3.125rem;
+  }
+}

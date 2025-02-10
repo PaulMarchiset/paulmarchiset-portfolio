@@ -1,0 +1,26 @@
+{
+  "id": "catchphrase",
+  "type": "SharedSlice",
+  "name": "Catchphrase",
+  "description": "Catchphrase",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "catchphrase": {
+          "type": "Text",
+          "config": {
+            "label": "catchphrase",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"client": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"content",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "course",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"year": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"year",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "course",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"softwares": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"software",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "two",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"skills": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"skill",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "ranch",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"role": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"role",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "goes",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"link": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "toward",
+									"type": "Text"
+								}
+							],
+							[
+								"link",
+								{
+									"__TYPE__": "LinkContent",
+									"key": "7bc6cdf3-d020-4739-b9ae-4c7e3b813e9f",
+									"value": {
+										"__TYPE__": "ExternalLink",
+										"url": "http://twitter.com",
+										"text": "pan"
+									}
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

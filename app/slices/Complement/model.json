@@ -1,0 +1,42 @@
+{
+  "id": "complement",
+  "type": "SharedSlice",
+  "name": "Complement",
+  "description": "Complement",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "about": {
+          "type": "Text",
+          "config": {
+            "label": "about",
+            "placeholder": ""
+          }
+        },
+        "img_1": {
+          "type": "Image",
+          "config": {
+            "label": "img 1",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "img_2": {
+          "type": "Image",
+          "config": {
+            "label": "img 2",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
