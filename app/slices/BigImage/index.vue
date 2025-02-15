@@ -14,5 +14,5 @@ defineProps(
 </script>
 
 <template>
-  <PrismicImage :field="slice.primary.imgbig" class="px-(--spacing-project) w-full h-auto aspect-(--bigImageRatio) object-cover"/>
+  <PrismicImage :field="slice.primary.imgbig" class=" lg:px-(--spacing-project) w-full lg:h-auto lg:aspect-(--bigImageRatio) object-cover"/>
 </template>

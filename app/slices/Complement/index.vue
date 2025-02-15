@@ -19,37 +19,38 @@ const projectAbout = props.slice.primary.about;
 
 
 onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger);
+
+  if (window.innerWidth > 1024) {
+
+    gsap.registerPlugin(ScrollTrigger);
 
 
     const scrollingImage = document.querySelector('.scrollingImage');
     const scrollingAnimation = document.querySelector('.scrollingAnimation');
     let bottomHeight = (scrollingAnimation ? scrollingAnimation.getBoundingClientRect().bottom : 0) - (scrollingImage ? scrollingImage.getBoundingClientRect().bottom : 0);
-   console.log(bottomHeight);
+    console.log(bottomHeight);
 
-   bottomHeight = bottomHeight - (bottomHeight % 5);
+    bottomHeight = bottomHeight - (bottomHeight % 5);
 
-  ScrollTrigger.create ({
-    trigger: ".scrollingImage",
-    pin: true,
-    start: "top 15%",
-    end: `+=${bottomHeight}`,
-    markers: true,
-    scrub: 1,
-  });
-  
-  console.log(bottomHeight);
+    ScrollTrigger.create({
+      trigger: ".scrollingImage",
+      pin: true,
+      start: "top 15%",
+      end: `+=${bottomHeight}`,
+      markers: true,
+      scrub: 1,
+    });
 
-
-
+    console.log(bottomHeight);
+  }
 });
 
 </script>
 
 <template>
-  <section class="grid grid-cols-4 gap-5 px-(--spacing-project) mt-16 scrollingAnimation">
-    <div class="col-start-1 col-span-2">
-      <div class="py-24 flex items-center justify-center">
+  <section class="flex flex-col lg:grid grid-cols-4 gap-10 lg:gap-5 px-(--spacing-project-mobile) lg:px-(--spacing-project) mt-16 scrollingAnimation">
+    <div class="flex flex-col gap-16 lg:block col-start-1 col-span-2">
+      <div class="lg:py-24 flex items-center justify-center">
         <p class="max-w-[45ch]" style="white-space: pre-wrap;">{{ projectAbout }}</p>
       </div>
       <PrismicImage :field="props.slice.primary.img_1" class="w-full" />

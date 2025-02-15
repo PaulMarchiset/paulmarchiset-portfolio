@@ -7,7 +7,7 @@ const menuStore = useMenuStore()
 </script>
 
 <template>
-    <div class="overflow-x-hidden" :class="{ 'overflow-y-hidden': menuStore.isOpen }">
+    <div class="overflow-x-hidden">
         <LayoutHeader />
         <LayoutMenu />
         <slot />

@@ -26,33 +26,33 @@ const link = props.slice.primary.link?.[0]?.link.text;
 </script>
 
 <template>
-  <section class="px-(--spacing-project) my-16 w-full flex flex-col gap-10 text-xl font-mono font-light capitalize">
-    <div class="grid grid-cols-4 gap-5">
+  <section class="px-(--spacing-project-mobile) lg:px-(--spacing-project) my-16 w-full flex flex-col gap-5 lg:gap-10  text-xl font-mono font-light capitalize">
+    <div class="flex flex-col lg:grid grid-cols-4 gap-5">
       <div>
         <h3 class="font-bold">Client</h3>
-        <p>{{ client }}</p>
+        <p class="hover:italic">{{ client }}</p>
       </div>
       <div>
         <h3 class="font-bold">Year</h3>
-        <p>{{ year }}</p>
+        <p class="hover:italic">{{ year }}</p>
       </div>
     </div>
     
-    <div class="grid grid-cols-4 gap-5">
+    <div class="flex flex-col lg:grid grid-cols-4 gap-5">
       <div>
         <h3 class="font-bold">Role</h3>
-        <p>{{ role }}</p>
+        <p class="hover:italic">{{ role }}</p>
       </div>
     <div>
     <h3 class="font-bold">Softwares</h3>
     <ul>
-      <li v-for="software in softwares">{{ software }}</li>
+      <li v-for="software in softwares" class="hover:italic">{{ software }}</li>
     </ul>
     </div>
     <div>
       <h3 class="font-bold">Skills</h3>
       <ul>
-        <li v-for="skill in skills">{{ skill }}</li>
+        <li v-for="skill in skills" class="hover:italic">{{ skill }}</li>
       </ul>
     </div>
     <div>

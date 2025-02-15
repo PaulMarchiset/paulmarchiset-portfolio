@@ -77,32 +77,71 @@ onMounted(() => {
       });
     });
   }
+
 });
+
+
+watch(() => menuStore.isOpen, (newVal) => {
+    const iconMenuPan = document.querySelector("#pan");
+    const menuText = document.querySelector("#menu-text");
+    if (newVal === true && menuText) {
+      gsap.to(iconMenuPan, {
+        y: 7.5,
+        duration: 0.4,
+        ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
+        stagger: 0.1
+      });
+      gsap.to(menuText, {
+        duration: 0.6,
+        ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
+        stagger: 0.1,
+        innerHTML: 'close'
+      });
+    }
+    if (newVal === false && menuText) {
+      gsap.to(iconMenuPan, {
+        y: 0,
+        duration: 0.4,
+        ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
+        stagger: 0.1
+
+      });
+      gsap.to(menuText, {
+        duration: 0.6,
+        ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
+        stagger: 0.1,
+        innerHTML: 'menu'
+      });
+
+    }
+  });
 
 </script>
 <template>
   <header class="fixed top-8 flex items-center justify-center z-50 w-full mix-blend-difference">
     <nav
-      class="flex items-center justify-center lg:justify-between uppercase mix-blend-difference font-sans text-xl md:gap-[10vw] w-[95%]">
+      class="flex items-center justify-center lg:justify-between uppercase font-sans text-xl md:gap-[10vw] w-[95%]">
       <div class="flex items-center gap-12">
         <NuxtLink to="/" class="flex gap-2 items-center icon-logo">
           <div class="flex gap-1.5 scale-90">
             <LogoP class="logoP" />
             <LogoM class="logoM" />
           </div>
-          <div class="flex flex-col text-white mix-blend-difference capitalize font-title leading-(--leading-100)">
+          <div class="hidden lg:flex flex-col text-white mix-blend-difference capitalize font-title leading-(--leading-100)">
             <h1>Paul</h1>
             <h1>Marchiset</h1>
           </div>
         </NuxtLink>
-        <button @click="menuStore.toggleMenu" class="opacity-50 hover:opacity-100 cursor-pointer mix-blend-difference">
-            <IconMenuOpen v-if="!menuStore.isOpen" />
-          <IconMenuClose v-else />
+        <button @click="menuStore.toggleMenu" class="hidden lg:block opacity-50 hover:opacity-100 cursor-pointer mix-blend-difference">
+            <IconMenu />
         </button>
       </div>
       <NuxtLink to="/contact" class="hidden lg:block nav-link font-mono">contact</NuxtLink>
     </nav>
   </header>
+<p @click="menuStore.toggleMenu" id="menu-text" class="z-30 w-fit uppercase fixed bottom-8 lg:hidden hover:opacity-100 cursor-pointer text-2xl p-4 bg-white font-mono mix-blend-normal left-0 right-0 mx-auto">
+      menu
+  </p>
 </template>
 
 <style>

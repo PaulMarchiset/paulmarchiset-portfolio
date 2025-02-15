@@ -16,20 +16,30 @@ defineProps(
 </script>
 
 <template>
-  <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="container font-mono font-regular text-xl uppercase">
+  <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" class="container font-mono font-regular text-l lg:text-xl uppercase">
 
-    <p class="z-10 h-fit self-end justify-self-start row-start-5 col-start-1 col-span-2">course aondh</p>
-    <p class="z-10 h-fit self-end justify-self-start row-start-5 col-start-4 col-span-2">aftermovie</p>
-    <p class="z-10 h-fit self-end justify-self-start row-start-5 col-start-7">2023</p>
+    <p class="z-10 h-fit self-end justify-self-start row-start-5 col-start-1 col-span-2 font-bold lg:font-regular">course aondh</p>
+    <p class="hidden z-10 h-fit self-end justify-self-start row-start-5 col-start-4 col-span-2 lg:block">aftermovie</p>
+    <p class=" z-10 h-fit self-end justify-self-start row-start-5 col-start-7">2023</p>
 
-    <NuxtLink class="z-10 h-fit self-end row-start-5 col-start-8 col-span-2 text-right hover-underline-animation justify-self-end">
+    <NuxtLink class="hidden z-10 h-fit self-end row-start-5 col-start-8 col-span-2 text-right hover-underline-animation justify-self-end lg:block">
       discover
     </NuxtLink>
-
-    <NuxtLink class="row-start-3 row-span-5 col-start-3 col-span-4 bg-amber-200"></NuxtLink>
+    <NuxtLink class="col-start-1 col-span-6 lg:row-start-3 lg:row-span-5 lg:col-start-3 lg:col-span-4 bg-amber-200"></NuxtLink>
   </section>
 </template>
 
-
 <style scoped>
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: transform 0.25s cubic-bezier(.83, 0, .29, .99);
+  transform-origin: left;
+}
 </style>
