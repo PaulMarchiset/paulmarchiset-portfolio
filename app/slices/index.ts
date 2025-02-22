@@ -8,10 +8,7 @@ export const components = defineSliceZoneComponents({
   catchphrase: defineAsyncComponent(() => import("./Catchphrase/index.vue")),
   complement: defineAsyncComponent(() => import("./Complement/index.vue")),
   credits: defineAsyncComponent(() => import("./Credits/index.vue")),
-  header: defineAsyncComponent(() => import("./Header/index.vue")),
   hero: defineAsyncComponent(() => import("./Hero/index.vue")),
   next_project: defineAsyncComponent(() => import("./NextProject/index.vue")),
-  project_display: defineAsyncComponent(
-    () => import("./ProjectDisplay/index.vue"),
-  ),
+  works: defineAsyncComponent(() => import("./Works/index.vue")),
 });

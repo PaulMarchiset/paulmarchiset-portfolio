@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <template>
-     <nav class="opacity-50 row-start-3 row-span-5 col-span-3 col-end-8 flex flex-col uppercase justify-evenly font-title items-end text-5xl z-10 text-whitezero text-white leading-[88%]">
+     <nav class="mr-4 opacity-50 row-start-3 row-span-5 col-span-3 col-end-8 flex flex-col uppercase justify-evenly font-title items-end text-5xl z-10 text-whitezero text-white leading-[88%]">
        <NuxtLink to="design" id="design" class="design-text">Design</NuxtLink>
        <NuxtLink to="web" id="web" class="web-text">web</NuxtLink>
        <NuxtLink to="video" id="video" class="video-text">video</NuxtLink>

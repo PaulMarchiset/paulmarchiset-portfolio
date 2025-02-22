@@ -20,8 +20,9 @@ const projectCategory = props.slice.primary.category;
       <PrismicImage :field="slice.primary.imghero" class="object-cover w-full h-full" />
     </div>
     <div class="flex flex-col uppercase z-10 text-white pl-[10vw] w-fit">
-      <h1 class="font-title font-semibold font-stretch-condensed text-7xl lg:text-9xl w-min leading-(--leading-title)">{{
-        projectName }}</h1>
+      <h1 class="font-title font-semibold font-stretch-condensed text-7xl lg:text-9xl w-min leading-(--leading-title)">
+        {{
+          projectName }}</h1>
       <h4 class="font-mono font-light text-2xl w-fit">{{ projectCategory }}</h4>
     </div>
   </header>

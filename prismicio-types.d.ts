@@ -9,13 +9,23 @@ type DesignDocumentDataSlicesSlice =
   | CatchphraseSlice
   | CreditsSlice
   | ComplementSlice
-  | BigImageSlice
-  | HeroSlice;
+  | BigImageSlice;
 
 /**
  * Content for Design documents
  */
 interface DesignDocumentData {
+  /**
+   * name field in *Design*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: design.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
   /**
    * year field in *Design*
    *
@@ -145,7 +155,322 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = DesignDocument | PageDocument;
+type PhotoDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Photo documents
+ */
+interface PhotoDocumentData {
+  /**
+   * Slice Zone field in *Photo*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PhotoDocumentDataSlicesSlice> /**
+   * Meta Title field in *Photo*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: photo.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Photo*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: photo.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Photo*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Photo document from Prismic
+ *
+ * - **API ID**: `photo`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PhotoDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<PhotoDocumentData>, "photo", Lang>;
+
+type VideoDocumentDataSlicesSlice =
+  | CreditsSlice
+  | BigImageSlice
+  | CatchphraseSlice
+  | ComplementSlice;
+
+/**
+ * Content for Video documents
+ */
+interface VideoDocumentData {
+  /**
+   * name field in *Video*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * year field in *Video*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.year
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  year: prismic.KeyTextField;
+
+  /**
+   * category field in *Video*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.category
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  category: prismic.KeyTextField;
+
+  /**
+   * image_presentation field in *Video*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.image_presentation
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_presentation: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *Video*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<VideoDocumentDataSlicesSlice> /**
+   * Meta Title field in *Video*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: video.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Video*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: video.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Video*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Video document from Prismic
+ *
+ * - **API ID**: `video`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type VideoDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<VideoDocumentData>, "video", Lang>;
+
+type WebDocumentDataSlicesSlice =
+  | CreditsSlice
+  | ComplementSlice
+  | CatchphraseSlice
+  | BigImageSlice;
+
+/**
+ * Content for Web documents
+ */
+interface WebDocumentData {
+  /**
+   * name field in *Web*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: web.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * category field in *Web*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: web.category
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  category: prismic.KeyTextField;
+
+  /**
+   * year field in *Web*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: web.year
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  year: prismic.KeyTextField;
+
+  /**
+   * image presentation field in *Web*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: web.image_presentation
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_presentation: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *Web*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: web.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<WebDocumentDataSlicesSlice> /**
+   * Meta Title field in *Web*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: web.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Web*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: web.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Web*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: web.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Web document from Prismic
+ *
+ * - **API ID**: `web`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type WebDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<WebDocumentData>, "web", Lang>;
+
+type WorksDocumentDataSlicesSlice = WorksSlice;
+
+/**
+ * Content for works documents
+ */
+interface WorksDocumentData {
+  /**
+   * Slice Zone field in *works*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: works.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<WorksDocumentDataSlicesSlice>;
+}
+
+/**
+ * works document from Prismic
+ *
+ * - **API ID**: `works`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type WorksDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<WorksDocumentData>, "works", Lang>;
+
+export type AllDocumentTypes =
+  | DesignDocument
+  | PageDocument
+  | PhotoDocument
+  | VideoDocument
+  | WebDocument
+  | WorksDocument;
 
 /**
  * Primary content in *BigImage → Default → Primary*
@@ -176,9 +501,37 @@ export type BigImageSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *BigImage → video → Primary*
+ */
+export interface BigImageSliceVideoPrimary {
+  /**
+   * video field in *BigImage → video → Primary*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: big_image.video.primary.video
+   * - **Documentation**: https://prismic.io/docs/field#embed
+   */
+  video: prismic.EmbedField;
+}
+
+/**
+ * video variation for BigImage Slice
+ *
+ * - **API ID**: `video`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BigImageSliceVideo = prismic.SharedSliceVariation<
+  "video",
+  Simplify<BigImageSliceVideoPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *BigImage*
  */
-type BigImageSliceVariation = BigImageSliceDefault;
+type BigImageSliceVariation = BigImageSliceDefault | BigImageSliceVideo;
 
 /**
  * BigImage Shared Slice
@@ -286,9 +639,57 @@ export type ComplementSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *Complement → video → Primary*
+ */
+export interface ComplementSliceVideoPrimary {
+  /**
+   * about field in *Complement → video → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: complement.video.primary.about
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  about: prismic.KeyTextField;
+
+  /**
+   * img 1 field in *Complement → video → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: complement.video.primary.img_1
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  img_1: prismic.ImageField<never>;
+
+  /**
+   * video field in *Complement → video → Primary*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: complement.video.primary.video
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  video: prismic.LinkToMediaField<prismic.FieldState, never>;
+}
+
+/**
+ * video variation for Complement Slice
+ *
+ * - **API ID**: `video`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ComplementSliceVideo = prismic.SharedSliceVariation<
+  "video",
+  Simplify<ComplementSliceVideoPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *Complement*
  */
-type ComplementSliceVariation = ComplementSliceDefault;
+type ComplementSliceVariation = ComplementSliceDefault | ComplementSliceVideo;
 
 /**
  * Complement Shared Slice
@@ -403,6 +804,31 @@ export interface CreditsSliceDefaultPrimaryLinkItem {
 }
 
 /**
+ * Item in *Credits → Default → Primary → misc*
+ */
+export interface CreditsSliceDefaultPrimaryMiscItem {
+  /**
+   * title field in *Credits → Default → Primary → misc*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: credits.default.primary.misc[].title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * content field in *Credits → Default → Primary → misc*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: credits.default.primary.misc[].content
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  content: prismic.RichTextField;
+}
+
+/**
  * Primary content in *Credits → Default → Primary*
  */
 export interface CreditsSliceDefaultPrimary {
@@ -467,6 +893,16 @@ export interface CreditsSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   link: prismic.GroupField<Simplify<CreditsSliceDefaultPrimaryLinkItem>>;
+
+  /**
+   * misc field in *Credits → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: credits.default.primary.misc[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  misc: prismic.GroupField<Simplify<CreditsSliceDefaultPrimaryMiscItem>>;
 }
 
 /**
@@ -498,33 +934,6 @@ export type CreditsSlice = prismic.SharedSlice<
   "credits",
   CreditsSliceVariation
 >;
-
-/**
- * Default variation for Header Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type HeaderSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *Header*
- */
-type HeaderSliceVariation = HeaderSliceDefault;
-
-/**
- * Header Shared Slice
- *
- * - **API ID**: `header`
- * - **Description**: Header
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
 
 /**
  * Primary content in *Hero → Default → Primary*
@@ -640,34 +1049,71 @@ export type NextProjectSlice = prismic.SharedSlice<
 >;
 
 /**
- * Default variation for ProjectDisplay Slice
+ * Item in *Works → Default → Primary → Works*
+ */
+export interface WorksSliceDefaultPrimaryWorksItem {
+  /**
+   * name field in *Works → Default → Primary → Works*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: works.default.primary.works[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * image field in *Works → Default → Primary → Works*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: works.default.primary.works[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *Works → Default → Primary*
+ */
+export interface WorksSliceDefaultPrimary {
+  /**
+   * Works field in *Works → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: works.default.primary.works[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  works: prismic.GroupField<Simplify<WorksSliceDefaultPrimaryWorksItem>>;
+}
+
+/**
+ * Default variation for Works Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type ProjectDisplaySliceDefault = prismic.SharedSliceVariation<
+export type WorksSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<WorksSliceDefaultPrimary>,
   never
 >;
 
 /**
- * Slice variation for *ProjectDisplay*
+ * Slice variation for *Works*
  */
-type ProjectDisplaySliceVariation = ProjectDisplaySliceDefault;
+type WorksSliceVariation = WorksSliceDefault;
 
 /**
- * ProjectDisplay Shared Slice
+ * Works Shared Slice
  *
- * - **API ID**: `project_display`
- * - **Description**: ProjectDisplay
+ * - **API ID**: `works`
+ * - **Description**: Works
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type ProjectDisplaySlice = prismic.SharedSlice<
-  "project_display",
-  ProjectDisplaySliceVariation
->;
+export type WorksSlice = prismic.SharedSlice<"works", WorksSliceVariation>;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -696,19 +1142,35 @@ declare module "@prismicio/client" {
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
+      PhotoDocument,
+      PhotoDocumentData,
+      PhotoDocumentDataSlicesSlice,
+      VideoDocument,
+      VideoDocumentData,
+      VideoDocumentDataSlicesSlice,
+      WebDocument,
+      WebDocumentData,
+      WebDocumentDataSlicesSlice,
+      WorksDocument,
+      WorksDocumentData,
+      WorksDocumentDataSlicesSlice,
       AllDocumentTypes,
       BigImageSlice,
       BigImageSliceDefaultPrimary,
+      BigImageSliceVideoPrimary,
       BigImageSliceVariation,
       BigImageSliceDefault,
+      BigImageSliceVideo,
       CatchphraseSlice,
       CatchphraseSliceDefaultPrimary,
       CatchphraseSliceVariation,
       CatchphraseSliceDefault,
       ComplementSlice,
       ComplementSliceDefaultPrimary,
+      ComplementSliceVideoPrimary,
       ComplementSliceVariation,
       ComplementSliceDefault,
+      ComplementSliceVideo,
       CreditsSlice,
       CreditsSliceDefaultPrimaryClientItem,
       CreditsSliceDefaultPrimaryYearItem,
@@ -716,12 +1178,10 @@ declare module "@prismicio/client" {
       CreditsSliceDefaultPrimarySoftwaresItem,
       CreditsSliceDefaultPrimarySkillsItem,
       CreditsSliceDefaultPrimaryLinkItem,
+      CreditsSliceDefaultPrimaryMiscItem,
       CreditsSliceDefaultPrimary,
       CreditsSliceVariation,
       CreditsSliceDefault,
-      HeaderSlice,
-      HeaderSliceVariation,
-      HeaderSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
@@ -730,9 +1190,11 @@ declare module "@prismicio/client" {
       NextProjectSliceDefaultPrimary,
       NextProjectSliceVariation,
       NextProjectSliceDefault,
-      ProjectDisplaySlice,
-      ProjectDisplaySliceVariation,
-      ProjectDisplaySliceDefault,
+      WorksSlice,
+      WorksSliceDefaultPrimaryWorksItem,
+      WorksSliceDefaultPrimary,
+      WorksSliceVariation,
+      WorksSliceDefault,
     };
   }
 }

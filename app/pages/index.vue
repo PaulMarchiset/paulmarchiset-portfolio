@@ -3,8 +3,8 @@ import { components } from '~/slices'
 
 const prismic = usePrismic()
 const { data: page } = await useAsyncData('index', () =>
-  prismic.client.getByUID('page', 'home')
-)
+  prismic.client.getByUID('page', 'home',
+  ))
 
 
 useHead({
@@ -32,54 +32,20 @@ onMounted(() => {
         markers: true
       }
     });
-      tl.to('.container', {
-        duration: 1
-      })
+    tl.to('scriptiner', {
+      duration: 1
+    })
   }
-
-  const heroContainer = document.querySelector('.hero-container');
-  const links = document.querySelectorAll('.hero-works a');
-
-  links.forEach(link => {
-    link.addEventListener('mouseover', function () {
-      //@ts-ignore
-      let image = this.getAttribute('id') + '.jpg';
-      //@ts-ignore
-      heroContainer.style.backgroundImage = `url('img/menu/${image}')`;
-      //@ts-ignore
-      heroContainer.style.animation = 'fadeIn 0.5s forwards';
-      //@ts-ignore
-      this.style.color = 'white';
-      links.forEach(otherLink => {
-        if (otherLink !== link) {
-          //@ts-ignore
-          otherLink.style.color = 'rgba(255, 255, 255, 0.5)';
-        } else {
-          //@ts-ignore
-          otherLink.style.color = 'white';
-        }
-      });
-    });
-
-    link.addEventListener('mouseout', function () {
-      //@ts-ignore
-      heroContainer.style.backgroundImage = '';
-      //@ts-ignore
-      this.style.color = 'rgba(255, 255, 255, 0.5)';
-      //@ts-ignore
-      heroContainer.style.animation = 'fadeOut 0.5s forwards';
-    });
-  });
 });
 </script>
 
 
 <template>
-  <section class="size-full">
-    <div
-      class="container hidden lg:block z-0 col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center">
+  <section class="size-full overflow-hidden">
+    <div class="container hidden lg:block z-0 col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center">
       <Name />
       <Works />
+      <div class="col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center"><img src="" alt=""></div>
     </div>
   </section>
 </template>

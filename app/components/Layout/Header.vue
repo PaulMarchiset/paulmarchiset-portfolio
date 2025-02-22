@@ -122,7 +122,7 @@ watch(() => menuStore.isOpen, (newVal) => {
     <nav
       class="flex items-center justify-center lg:justify-between uppercase font-sans text-xl md:gap-[10vw] w-[95%]">
       <div class="flex items-center gap-12">
-        <NuxtLink to="/" class="flex gap-2 items-center icon-logo">
+        <NuxtLink to="/" class="flex gap-2 items-center icon-logo" @click="menuStore.isOpen = false">
           <div class="flex gap-1.5 scale-90">
             <LogoP class="logoP" />
             <LogoM class="logoM" />

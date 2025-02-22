@@ -7,7 +7,7 @@ const menuStore = useMenuStore()
 </script>
 
 <template>
-    <div class="overflow-x-hidden">
+    <div>
         <LayoutHeader />
         <LayoutMenu />
         <slot />

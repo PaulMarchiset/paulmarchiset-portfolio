@@ -19,6 +19,11 @@ const role = props.slice.primary.role?.[0]?.role;
 const softwares = props.slice.primary.softwares?.map((software) => software.software);
 const skills = props.slice.primary.skills?.map((skill) => skill.skill);
 
+const misc = {
+  title: props.slice.primary.misc?.[0]?.title,
+  content: props.slice.primary.misc?.[0]?.content[0]?.type === 'paragraph' ? props.slice.primary.misc?.[0]?.content[0]?.text : '',
+};
+
 const linkTitle = props.slice.primary.link?.[0]?.title;
 
 const link = props.slice.primary.link?.[0]?.link.text;
@@ -35,6 +40,10 @@ const link = props.slice.primary.link?.[0]?.link.text;
       <div>
         <h3 class="font-bold">Year</h3>
         <p class="hover:italic">{{ year }}</p>
+      </div>
+      <div v-if="misc.title">
+        <h3 class="font-bold">{{ misc.title }}</h3>
+        <p class="hover:italic">{{ misc.content }}</p>
       </div>
     </div>
     

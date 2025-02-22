@@ -110,13 +110,45 @@
 							[
 								"link",
 								{
-									"__TYPE__": "LinkContent",
 									"key": "7bc6cdf3-d020-4739-b9ae-4c7e3b813e9f",
+									"__TYPE__": "LinkContent",
 									"value": {
 										"__TYPE__": "ExternalLink",
 										"url": "http://twitter.com",
 										"text": "pan"
 									}
+								}
+							]
+						]
+					}
+				]
+			},
+			"misc": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "thin",
+									"type": "Text"
+								}
+							],
+							[
+								"content",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Et aliquip est ex Lorem. Sunt eiusmod aliquip eu cillum aliqua. Nulla excepteur fugiat consequat quis incididunt fugiat adipisicing exercitation ex Lorem nisi id consectetur ut."
+											}
+										}
+									]
 								}
 							]
 						]

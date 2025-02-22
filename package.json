@@ -31,6 +31,7 @@
     "@tailwindcss/vite": "^4.0.3",
     "gsap": "^3.12.7",
     "pinta": "^0.1.0",
+    "swiper": "^11.2.4",
     "tailwindcss": "^4.0.3"
   }
 }

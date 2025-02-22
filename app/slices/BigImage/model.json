@@ -22,6 +22,24 @@
         }
       },
       "items": {}
+    },
+    {
+      "id": "video",
+      "name": "video",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "video": {
+          "type": "Embed",
+          "config": {
+            "label": "video",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
     }
   ]
 }

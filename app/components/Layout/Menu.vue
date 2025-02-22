@@ -51,7 +51,7 @@ watch(() => menuStore.isOpen, (newVal) => {
 <template>
     <nav id="menu"
         class="menu h-screen w-screen bg-(--main-white) flex flex-col justify-center gap-12 px-12 lg:p-24 pb-0 lg:pb-0 uppercase z-20 font-title text-7xl lg:text-9xl font-light">
-        <NuxtLink to="/" class=" w-fit" @click="menuStore.isOpen = false">home</NuxtLink>
+        <NuxtLink to="/" class=" w-fit" @click="menuStore.isOpen = false">works</NuxtLink>
         <NuxtLink to="/about" class="w-fit" @click="menuStore.isOpen = false">about</NuxtLink>
         <NuxtLink to="/contact" class=" w-fit" @click="menuStore.isOpen = false">contact</NuxtLink>
     </nav>

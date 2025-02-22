@@ -14,5 +14,13 @@ defineProps(
 </script>
 
 <template>
-  <PrismicImage :field="slice.primary.imgbig" class=" lg:px-(--spacing-project) w-full lg:h-auto lg:aspect-(--bigImageRatio) object-cover"/>
+  <PrismicImage v-if="slice.variation === 'default'" :field="slice.primary.imgbig" class=" lg:px-(--spacing-project) w-full lg:h-auto lg:aspect-(--bigImageRatio) object-cover"/>
+  <PrismicEmbed v-else :field="slice.primary.video" class="aspect-video object-cover w-full lg:px-12"/>
 </template>
+
+<style>
+iframe {
+  width: 100%;
+  height: 100%;
+}
+</style>
