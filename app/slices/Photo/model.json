@@ -1,0 +1,50 @@
+{
+  "id": "photo",
+  "type": "SharedSlice",
+  "name": "Photo",
+  "description": "Photo",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "onephoto": {
+          "type": "Group",
+          "config": {
+            "label": "onePhoto",
+            "repeat": true,
+            "fields": {
+              "name": {
+                "type": "Text",
+                "config": {
+                  "label": "name",
+                  "placeholder": ""
+                }
+              },
+              "date": {
+                "type": "Text",
+                "config": {
+                  "label": "date",
+                  "placeholder": ""
+                }
+              },
+              "photo": {
+                "type": "Image",
+                "config": {
+                  "label": "photo",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

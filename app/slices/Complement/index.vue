@@ -33,8 +33,8 @@ if (props.slice.variation === 'video') {
     </div>
     <PrismicImage v-if="props.slice.variation === 'default'" :field="props.slice.primary.img_2"
       class="col-start-3 col-span-2 sticky top-12" />
-    <video v-if="props.slice.variation === 'video'" muted autoplay loop>
-      <source :src="props.slice.primary.video.url" type="video/mp4" />
+    <video v-if="props.slice.variation === 'video'" muted autoplay loop class="col-start-3 col-span-2 sticky top-12">
+      <source :src="projectVideo" type="video/mp4"  />
       Your browser does not support the video tag.
     </video>
   </section>

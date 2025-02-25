@@ -155,7 +155,7 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-type PhotoDocumentDataSlicesSlice = never;
+type PhotoDocumentDataSlicesSlice = PhotoSlice;
 
 /**
  * Content for Photo documents
@@ -1049,6 +1049,83 @@ export type NextProjectSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *Photo → Default → Primary → onePhoto*
+ */
+export interface PhotoSliceDefaultPrimaryOnephotoItem {
+  /**
+   * name field in *Photo → Default → Primary → onePhoto*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo.default.primary.onephoto[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * date field in *Photo → Default → Primary → onePhoto*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo.default.primary.onephoto[].date
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  date: prismic.KeyTextField;
+
+  /**
+   * photo field in *Photo → Default → Primary → onePhoto*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo.default.primary.onephoto[].photo
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  photo: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *Photo → Default → Primary*
+ */
+export interface PhotoSliceDefaultPrimary {
+  /**
+   * onePhoto field in *Photo → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo.default.primary.onephoto[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  onephoto: prismic.GroupField<Simplify<PhotoSliceDefaultPrimaryOnephotoItem>>;
+}
+
+/**
+ * Default variation for Photo Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PhotoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PhotoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Photo*
+ */
+type PhotoSliceVariation = PhotoSliceDefault;
+
+/**
+ * Photo Shared Slice
+ *
+ * - **API ID**: `photo`
+ * - **Description**: Photo
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PhotoSlice = prismic.SharedSlice<"photo", PhotoSliceVariation>;
+
+/**
  * Item in *Works → Default → Primary → Works*
  */
 export interface WorksSliceDefaultPrimaryWorksItem {
@@ -1190,6 +1267,11 @@ declare module "@prismicio/client" {
       NextProjectSliceDefaultPrimary,
       NextProjectSliceVariation,
       NextProjectSliceDefault,
+      PhotoSlice,
+      PhotoSliceDefaultPrimaryOnephotoItem,
+      PhotoSliceDefaultPrimary,
+      PhotoSliceVariation,
+      PhotoSliceDefault,
       WorksSlice,
       WorksSliceDefaultPrimaryWorksItem,
       WorksSliceDefaultPrimary,
