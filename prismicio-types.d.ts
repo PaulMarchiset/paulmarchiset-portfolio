@@ -4,6 +4,111 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type AboutDocumentDataSlicesSlice = never;
+
+/**
+ * Content for About documents
+ */
+interface AboutDocumentData {
+  /**
+   * activity field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.activity
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  activity: prismic.KeyTextField;
+
+  /**
+   * born field in *About*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.born
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  born: prismic.DateField;
+
+  /**
+   * about field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.about
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  about: prismic.KeyTextField;
+
+  /**
+   * image presentation field in *About*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.image_presentation
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_presentation: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *About*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice> /**
+   * Meta Title field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: about.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: about.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *About*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * About document from Prismic
+ *
+ * - **API ID**: `about`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AboutDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<AboutDocumentData>, "about", Lang>;
+
 type DesignDocumentDataSlicesSlice =
   | NextProjectSlice
   | CatchphraseSlice
@@ -114,7 +219,72 @@ interface DesignDocumentData {
 export type DesignDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<DesignDocumentData>, "design", Lang>;
 
-type PageDocumentDataSlicesSlice = never;
+type HomepageDocumentDataSlicesSlice = WorksSlice | NameSlice;
+
+/**
+ * Content for Homepage documents
+ */
+interface HomepageDocumentData {
+  /**
+   * Slice Zone field in *Homepage*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HomepageDocumentDataSlicesSlice> /**
+   * Meta Title field in *Homepage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: homepage.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Homepage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: homepage.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Homepage*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Homepage document from Prismic
+ *
+ * - **API ID**: `homepage`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HomepageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<HomepageDocumentData>,
+    "homepage",
+    Lang
+  >;
+
+type PageDocumentDataSlicesSlice = NameSlice | WorksSlice;
 
 /**
  * Content for Page documents
@@ -216,7 +386,133 @@ interface PhotoDocumentData {
 export type PhotoDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<PhotoDocumentData>, "photo", Lang>;
 
+type ProjectDocumentDataSlicesSlice =
+  | CreditsSlice
+  | VideoSlice
+  | ComplementSlice
+  | BigImageSlice
+  | CatchphraseSlice;
+
+/**
+ * Content for Project documents
+ */
+interface ProjectDocumentData {
+  /**
+   * type field in *Project*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.type
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  type: prismic.SelectField<"design" | "web" | "video">;
+
+  /**
+   * name field in *Project*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * year field in *Project*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.year
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  year: prismic.KeyTextField;
+
+  /**
+   * category field in *Project*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.category
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  category: prismic.KeyTextField;
+
+  /**
+   * image presentation field in *Project*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.image_presentation
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_presentation: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *Project*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ProjectDocumentDataSlicesSlice> /**
+   * Meta Title field in *Project*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: project.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Project*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: project.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Project*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Project document from Prismic
+ *
+ * - **API ID**: `project`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ProjectDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ProjectDocumentData>,
+    "project",
+    Lang
+  >;
+
 type VideoDocumentDataSlicesSlice =
+  | VideoSlice
   | CreditsSlice
   | BigImageSlice
   | CatchphraseSlice
@@ -326,6 +622,7 @@ export type VideoDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<VideoDocumentData>, "video", Lang>;
 
 type WebDocumentDataSlicesSlice =
+  | VideoSlice
   | CreditsSlice
   | ComplementSlice
   | CatchphraseSlice
@@ -465,9 +762,12 @@ export type WorksDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<WorksDocumentData>, "works", Lang>;
 
 export type AllDocumentTypes =
+  | AboutDocument
   | DesignDocument
+  | HomepageDocument
   | PageDocument
   | PhotoDocument
+  | ProjectDocument
   | VideoDocument
   | WebDocument
   | WorksDocument;
@@ -501,37 +801,9 @@ export type BigImageSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Primary content in *BigImage → video → Primary*
- */
-export interface BigImageSliceVideoPrimary {
-  /**
-   * video field in *BigImage → video → Primary*
-   *
-   * - **Field Type**: Embed
-   * - **Placeholder**: *None*
-   * - **API ID Path**: big_image.video.primary.video
-   * - **Documentation**: https://prismic.io/docs/field#embed
-   */
-  video: prismic.EmbedField;
-}
-
-/**
- * video variation for BigImage Slice
- *
- * - **API ID**: `video`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type BigImageSliceVideo = prismic.SharedSliceVariation<
-  "video",
-  Simplify<BigImageSliceVideoPrimary>,
-  never
->;
-
-/**
  * Slice variation for *BigImage*
  */
-type BigImageSliceVariation = BigImageSliceDefault | BigImageSliceVideo;
+type BigImageSliceVariation = BigImageSliceDefault;
 
 /**
  * BigImage Shared Slice
@@ -639,57 +911,9 @@ export type ComplementSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Primary content in *Complement → video → Primary*
- */
-export interface ComplementSliceVideoPrimary {
-  /**
-   * about field in *Complement → video → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: complement.video.primary.about
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  about: prismic.KeyTextField;
-
-  /**
-   * img 1 field in *Complement → video → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: complement.video.primary.img_1
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  img_1: prismic.ImageField<never>;
-
-  /**
-   * video field in *Complement → video → Primary*
-   *
-   * - **Field Type**: Link to Media
-   * - **Placeholder**: *None*
-   * - **API ID Path**: complement.video.primary.video
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  video: prismic.LinkToMediaField<prismic.FieldState, never>;
-}
-
-/**
- * video variation for Complement Slice
- *
- * - **API ID**: `video`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type ComplementSliceVideo = prismic.SharedSliceVariation<
-  "video",
-  Simplify<ComplementSliceVideoPrimary>,
-  never
->;
-
-/**
  * Slice variation for *Complement*
  */
-type ComplementSliceVariation = ComplementSliceDefault | ComplementSliceVideo;
+type ComplementSliceVariation = ComplementSliceDefault;
 
 /**
  * Complement Shared Slice
@@ -863,6 +1087,20 @@ export interface CreditsSliceDefaultPrimary {
   role: prismic.GroupField<Simplify<CreditsSliceDefaultPrimaryRoleItem>>;
 
   /**
+   * Software/Techno Title field in *Credits → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: Softwares
+   * - **API ID Path**: credits.default.primary.softwareTechno_title
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  softwareTechno_title: prismic.SelectField<
+    "Softwares" | "Technologies",
+    "filled"
+  >;
+
+  /**
    * Softwares field in *Credits → Default → Primary*
    *
    * - **Field Type**: Group
@@ -998,6 +1236,33 @@ type HeroSliceVariation = HeroSliceDefault;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Default variation for Name Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NameSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *Name*
+ */
+type NameSliceVariation = NameSliceDefault;
+
+/**
+ * Name Shared Slice
+ *
+ * - **API ID**: `name`
+ * - **Description**: Name
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NameSlice = prismic.SharedSlice<"name", NameSliceVariation>;
+
+/**
  * Primary content in *NextProject → Default → Primary*
  */
 export interface NextProjectSliceDefaultPrimary {
@@ -1126,6 +1391,76 @@ type PhotoSliceVariation = PhotoSliceDefault;
 export type PhotoSlice = prismic.SharedSlice<"photo", PhotoSliceVariation>;
 
 /**
+ * Primary content in *BigVideo → Default → Primary*
+ */
+export interface VideoSliceDefaultPrimary {
+  /**
+   * video field in *BigVideo → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.default.primary.video
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  video: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+/**
+ * Default variation for BigVideo Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type VideoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<VideoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Primary content in *BigVideo → youtube → Primary*
+ */
+export interface VideoSliceYoutubePrimary {
+  /**
+   * link field in *BigVideo → youtube → Primary*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video.youtube.primary.link
+   * - **Documentation**: https://prismic.io/docs/field#embed
+   */
+  link: prismic.EmbedField;
+}
+
+/**
+ * youtube variation for BigVideo Slice
+ *
+ * - **API ID**: `youtube`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type VideoSliceYoutube = prismic.SharedSliceVariation<
+  "youtube",
+  Simplify<VideoSliceYoutubePrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BigVideo*
+ */
+type VideoSliceVariation = VideoSliceDefault | VideoSliceYoutube;
+
+/**
+ * BigVideo Shared Slice
+ *
+ * - **API ID**: `video`
+ * - **Description**: Video
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type VideoSlice = prismic.SharedSlice<"video", VideoSliceVariation>;
+
+/**
  * Item in *Works → Default → Primary → Works*
  */
 export interface WorksSliceDefaultPrimaryWorksItem {
@@ -1213,15 +1548,24 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AboutDocument,
+      AboutDocumentData,
+      AboutDocumentDataSlicesSlice,
       DesignDocument,
       DesignDocumentData,
       DesignDocumentDataSlicesSlice,
+      HomepageDocument,
+      HomepageDocumentData,
+      HomepageDocumentDataSlicesSlice,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
       PhotoDocument,
       PhotoDocumentData,
       PhotoDocumentDataSlicesSlice,
+      ProjectDocument,
+      ProjectDocumentData,
+      ProjectDocumentDataSlicesSlice,
       VideoDocument,
       VideoDocumentData,
       VideoDocumentDataSlicesSlice,
@@ -1234,20 +1578,16 @@ declare module "@prismicio/client" {
       AllDocumentTypes,
       BigImageSlice,
       BigImageSliceDefaultPrimary,
-      BigImageSliceVideoPrimary,
       BigImageSliceVariation,
       BigImageSliceDefault,
-      BigImageSliceVideo,
       CatchphraseSlice,
       CatchphraseSliceDefaultPrimary,
       CatchphraseSliceVariation,
       CatchphraseSliceDefault,
       ComplementSlice,
       ComplementSliceDefaultPrimary,
-      ComplementSliceVideoPrimary,
       ComplementSliceVariation,
       ComplementSliceDefault,
-      ComplementSliceVideo,
       CreditsSlice,
       CreditsSliceDefaultPrimaryClientItem,
       CreditsSliceDefaultPrimaryYearItem,
@@ -1263,6 +1603,9 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      NameSlice,
+      NameSliceVariation,
+      NameSliceDefault,
       NextProjectSlice,
       NextProjectSliceDefaultPrimary,
       NextProjectSliceVariation,
@@ -1272,6 +1615,12 @@ declare module "@prismicio/client" {
       PhotoSliceDefaultPrimary,
       PhotoSliceVariation,
       PhotoSliceDefault,
+      VideoSlice,
+      VideoSliceDefaultPrimary,
+      VideoSliceYoutubePrimary,
+      VideoSliceVariation,
+      VideoSliceDefault,
+      VideoSliceYoutube,
       WorksSlice,
       WorksSliceDefaultPrimaryWorksItem,
       WorksSliceDefaultPrimary,

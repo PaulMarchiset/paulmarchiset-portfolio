@@ -154,6 +154,11 @@
 						]
 					}
 				]
+			},
+			"softwareTechno_title": {
+				"__TYPE__": "FieldContent",
+				"value": "Softwares",
+				"type": "Select"
 			}
 		},
 		"items": []

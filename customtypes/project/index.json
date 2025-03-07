@@ -1,7 +1,7 @@
 {
   "format": "page",
-  "id": "web",
-  "label": "Web",
+  "id": "project",
+  "label": "Project",
   "repeatable": true,
   "status": true,
   "json": {
@@ -12,6 +12,14 @@
           "label": "UID"
         }
       },
+      "type": {
+        "type": "Select",
+        "config": {
+          "label": "type",
+          "placeholder": "",
+          "options": ["design", "web", "video"]
+        }
+      },
       "name": {
         "type": "Text",
         "config": {
@@ -19,17 +27,17 @@
           "placeholder": ""
         }
       },
-      "category": {
-        "type": "Text",
-        "config": {
-          "label": "category",
-          "placeholder": ""
-        }
-      },
       "year": {
         "type": "Text",
         "config": {
           "label": "year",
+          "placeholder": ""
+        }
+      },
+      "category": {
+        "type": "Text",
+        "config": {
+          "label": "category",
           "placeholder": ""
         }
       },
@@ -46,19 +54,19 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "video": {
+            "credits": {
               "type": "SharedSlice"
             },
-            "credits": {
+            "video": {
               "type": "SharedSlice"
             },
             "complement": {
               "type": "SharedSlice"
             },
-            "catchphrase": {
+            "big_image": {
               "type": "SharedSlice"
             },
-            "big_image": {
+            "catchphrase": {
               "type": "SharedSlice"
             }
           }

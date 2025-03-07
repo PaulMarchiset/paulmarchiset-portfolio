@@ -60,6 +60,18 @@
             }
           }
         },
+        "softwareTechno_title": {
+          "type": "Select",
+          "config": {
+            "label": "Software/Techno Title",
+            "placeholder": "",
+            "options": [
+              "Softwares",
+              "Technologies"
+            ],
+            "default_value": "Softwares"
+          }
+        },
         "softwares": {
           "type": "Group",
           "config": {

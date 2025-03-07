@@ -19,18 +19,18 @@ const nextProject =  props.slice.primary.nextproject.uid;
 console.log(nextProject);
 const router = useRouter();
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
-onMounted(() => {
-  ScrollTrigger.create({
-    trigger: ".test",
-    start: "top 50%",
-    endTrigger: "bottom bottom",
-    end: "bottom 50%",
-    onEnter: () => router.push({ path: nextProject }),
-    markers: true,
-  });
-});
+// onMounted(() => {
+//   ScrollTrigger.create({
+//     trigger: ".test",
+//     start: "top 50%",
+//     endTrigger: "bottom bottom",
+//     end: "bottom 50%",
+//     onEnter: () => router.push({ path: nextProject }),
+//     markers: true,
+//   });
+// });
 
 </script>
 

@@ -37,41 +37,6 @@
         }
       },
       "items": {}
-    },
-    {
-      "id": "video",
-      "name": "video",
-      "docURL": "...",
-      "version": "initial",
-      "description": "Default",
-      "imageUrl": "",
-      "primary": {
-        "about": {
-          "type": "Text",
-          "config": {
-            "label": "about",
-            "placeholder": ""
-          }
-        },
-        "img_1": {
-          "type": "Image",
-          "config": {
-            "label": "img 1",
-            "constraint": {},
-            "thumbnails": []
-          }
-        },
-        "video": {
-          "type": "Link",
-          "config": {
-            "label": "video",
-            "placeholder": "",
-            "select": "media",
-            "allowText": true
-          }
-        }
-      },
-      "items": {}
     }
   ]
 }

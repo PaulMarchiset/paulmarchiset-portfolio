@@ -23,7 +23,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class=" ml-4 row-start-4 row-span-3 col-start-2 col-span-3 flex flex-col justify-center relative text-7xl font-title text-white uppercase font-stretch-semi-condensed leading-[88%] ">
+    <div class=" ml-8 row-start-4 row-span-3 col-start-2 col-span-3 flex flex-col justify-center relative text-7xl font-title text-white uppercase font-stretch-semi-condensed leading-[88%] ">
      <div>
        <h1 class="paul">Paul</h1>
        <h1 class="marchiset">Marchiset</h1>

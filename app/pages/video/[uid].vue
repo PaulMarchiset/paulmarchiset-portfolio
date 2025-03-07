@@ -40,7 +40,7 @@ const projectImage = page.value?.data.image_presentation.url ?? '';
   <SliceZone
   wrapper="main"
   :slices="page?.data.slices ?? []"
-  :components="components" class="bg-(--main-white) project-container"
+  :components="components" class="bg-(--main-white) project-container py-48"
   />
 </template>
 

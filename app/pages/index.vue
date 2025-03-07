@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { components } from '~/slices'
 
-const prismic = usePrismic()
-const { data: page } = await useAsyncData('index', () =>
-  prismic.client.getByUID('page', 'home',
-  ))
-
-
-useHead({
-  title: prismic.asText(page.value?.data.title)
-})
+const prismic = usePrismic();
+const { data: page } = await useAsyncData("[homepage]", () =>
+  prismic.client.getSingle("homepage"),
+);
 
 import { onMounted } from 'vue'
 import gsap from 'gsap'
@@ -41,11 +36,27 @@ onMounted(() => {
 
 
 <template>
+  <Intro />
   <section class="size-full overflow-hidden">
     <div class="container hidden lg:block z-0 col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center">
-      <Name />
+      <!-- <Name />
       <Works />
-      <div class="col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center"><img src="" alt=""></div>
+      <div class="col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center"><img src="" alt=""></div> -->
+      <SliceZone :components="components" :slices="page?.data.slices ?? []" />
     </div>
   </section>
 </template>
+<!-- 
+<script setup lang="ts">
+import { components } from '~/slices'
+
+const prismic = usePrismic()
+    const { data: page } = useAsyncData('index', () =>
+        prismic.client.getByUID('page', 'home')
+    )
+
+</script>
+
+<template>
+    <SliceZone :components="components" :slices="page?.data.slices ?? []" />
+</template> -->

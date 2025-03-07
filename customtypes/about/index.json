@@ -1,35 +1,29 @@
 {
   "format": "page",
-  "id": "web",
-  "label": "Web",
-  "repeatable": true,
+  "id": "about",
+  "label": "About",
+  "repeatable": false,
   "status": true,
   "json": {
     "Main": {
-      "uid": {
-        "type": "UID",
-        "config": {
-          "label": "UID"
-        }
-      },
-      "name": {
+      "activity": {
         "type": "Text",
         "config": {
-          "label": "name",
+          "label": "activity",
           "placeholder": ""
         }
       },
-      "category": {
-        "type": "Text",
+      "born": {
+        "type": "Date",
         "config": {
-          "label": "category",
+          "label": "born",
           "placeholder": ""
         }
       },
-      "year": {
+      "about": {
         "type": "Text",
         "config": {
-          "label": "year",
+          "label": "about",
           "placeholder": ""
         }
       },
@@ -45,23 +39,7 @@
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
-          "choices": {
-            "video": {
-              "type": "SharedSlice"
-            },
-            "credits": {
-              "type": "SharedSlice"
-            },
-            "complement": {
-              "type": "SharedSlice"
-            },
-            "catchphrase": {
-              "type": "SharedSlice"
-            },
-            "big_image": {
-              "type": "SharedSlice"
-            }
-          }
+          "choices": {}
         }
       }
     },

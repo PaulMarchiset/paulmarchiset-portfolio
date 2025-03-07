@@ -71,7 +71,7 @@
   --leading-title: 80%;
   --leading-100: 100%;
 
-  --spacing-project: 9rem;
+  --spacing-project: 6rem;
   --spacing-project-mobile: 3rem;
 
   --bigImageRatio: 81/70;
@@ -97,6 +97,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 6rem;
 }
 
 
@@ -141,7 +142,7 @@ body {
   justify-content: center;
 }
 
-@media screen and (min-width: 850px) {
+@media screen and (min-width: 1024px) {
   .photo-container {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -157,5 +158,8 @@ body {
     max-width: unset !important;
     padding: 3.125rem;
     gap: 1.25rem;
+  }
+  .project-container {
+    gap: 12rem;
   }
 }

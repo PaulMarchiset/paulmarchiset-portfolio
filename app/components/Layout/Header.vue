@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import LogoP from '@/components/LogoP.vue'
-import LogoM from '@/components/LogoM.vue'
 import gsap from 'gsap';
 
 import { useMenuStore } from '@/stores/menu'
