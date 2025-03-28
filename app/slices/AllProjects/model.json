@@ -1,8 +1,8 @@
 {
-  "id": "name",
+  "id": "all_projects",
   "type": "SharedSlice",
-  "name": "Name",
-  "description": "Name",
+  "name": "AllProjects",
+  "description": "AllProjects",
   "variations": [
     {
       "id": "default",
@@ -12,12 +12,15 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "image": {
-          "type": "Image",
+        "project": {
+          "type": "Link",
           "config": {
-            "label": "image",
-            "constraint": {},
-            "thumbnails": []
+            "label": "Project",
+            "select": "document",
+            "repeat": false,
+            "customtypes": [
+              "project"
+            ]
           }
         }
       },

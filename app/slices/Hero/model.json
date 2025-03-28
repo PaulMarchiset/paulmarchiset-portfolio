@@ -19,13 +19,6 @@
             "placeholder": ""
           }
         },
-        "category": {
-          "type": "Text",
-          "config": {
-            "label": "Category",
-            "placeholder": ""
-          }
-        },
         "imghero": {
           "type": "Image",
           "config": {

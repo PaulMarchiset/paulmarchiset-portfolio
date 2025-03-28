@@ -20,6 +20,13 @@
           "placeholder": ""
         }
       },
+      "city": {
+        "type": "Text",
+        "config": {
+          "label": "city",
+          "placeholder": ""
+        }
+      },
       "about": {
         "type": "Text",
         "config": {
@@ -31,6 +38,14 @@
         "type": "Image",
         "config": {
           "label": "image presentation",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "image_1": {
+        "type": "Image",
+        "config": {
+          "label": "image 1",
           "constraint": {},
           "thumbnails": []
         }

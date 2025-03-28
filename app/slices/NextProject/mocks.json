@@ -4,8 +4,8 @@
 		"variation": "default",
 		"primary": {
 			"nextproject": {
-				"__TYPE__": "LinkContent",
 				"key": "497badd9-e83c-4cb7-ba61-ad9c311c57ab",
+				"__TYPE__": "LinkContent",
 				"value": {
 					"__TYPE__": "ExternalLink",
 					"url": "https://slicemachine.dev",

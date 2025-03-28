@@ -17,7 +17,6 @@ onMounted(() => {
 
   const windowWidth = window.innerWidth;
   if (windowWidth < 1024) {
-    //generate scrolltrigger that when it reaches the end of the page it loads works.vue
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: 'scroll',
@@ -38,25 +37,8 @@ onMounted(() => {
 <template>
   <Intro />
   <section class="size-full overflow-hidden">
-    <div class="container hidden lg:block z-0 col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center">
-      <!-- <Name />
-      <Works />
-      <div class="col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center"><img src="" alt=""></div> -->
+    <div class="z-0 flex flex-col bg-cover bg-center">
       <SliceZone :components="components" :slices="page?.data.slices ?? []" />
     </div>
   </section>
 </template>
-<!-- 
-<script setup lang="ts">
-import { components } from '~/slices'
-
-const prismic = usePrismic()
-    const { data: page } = useAsyncData('index', () =>
-        prismic.client.getByUID('page', 'home')
-    )
-
-</script>
-
-<template>
-    <SliceZone :components="components" :slices="page?.data.slices ?? []" />
-</template> -->

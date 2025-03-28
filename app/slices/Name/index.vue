@@ -14,5 +14,13 @@ defineProps(
 </script>
 
 <template>
-  <Name />
+  <section class="index-container">
+    <Name class="hidden lg:flex" />
+    <section class="block lg:hidden relative h-screen w-full">
+      <Name class="absolute top-[60vh] lg:relative flex lg:hidden z-10" />
+      <div class="hero-image absolute top-0 h-full w-full">
+        <PrismicImage :field="slice.primary.image" class="object-cover w-full h-full"/>
+      </div>
+    </section>
+  </section>
 </template>

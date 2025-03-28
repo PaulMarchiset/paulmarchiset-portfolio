@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { components } from '~/slices'
+import type { Content } from "@prismicio/client";
+
+const props = defineProps(
+  getSliceComponentProps<Content.AllProjectsSlice>([
+    "slice",
+    "index",
+    "slices",
+    "context",
+  ]),
+);
 
 const prismic = usePrismic()
 const { data: page } = await useAsyncData('projects', () =>
@@ -8,18 +17,10 @@ const { data: page } = await useAsyncData('projects', () =>
 
 const projects = ref(page.value)
 
-
-useHead({
-  title: 'Works',
-})
-
-console.log(projects)
-
-
 </script>
 
 <template>
-  <section class="flex flex-col relative top-[30vh] lg:top-0">
+  <section class="flex flex-col relative top-[30vh] lg:top-0 pb-48">
     <article v-for="project in projects" :key="project.uid"
       class="container font-mono font-regular uppercase text-white">
 

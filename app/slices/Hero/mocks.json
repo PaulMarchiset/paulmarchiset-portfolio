@@ -8,13 +8,7 @@
 				"value": "mental",
 				"type": "Text"
 			},
-			"category": {
-				"__TYPE__": "FieldContent",
-				"value": "throughout",
-				"type": "Text"
-			},
 			"imghero": {
-				"__TYPE__": "ImageContent",
 				"origin": {
 					"id": "main",
 					"url": "https://images.unsplash.com/photo-1494173853739-c21f58b16055",
@@ -32,6 +26,9 @@
 					},
 					"background": "transparent"
 				},
+				"credits": null,
+				"alt": null,
+				"__TYPE__": "ImageContent",
 				"thumbnails": {}
 			}
 		},

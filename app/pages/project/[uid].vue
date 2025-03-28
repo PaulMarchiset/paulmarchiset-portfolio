@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { Static } from 'vue'
 import { components } from '~/slices'
 
 const prismic = usePrismic()
 const route = useRoute()
 const { data: page } = await useAsyncData(route.params.uid as string, () =>
-  prismic.client.getByUID('design', route.params.uid as string)
+  prismic.client.getByUID('project', route.params.uid as string)
 )
 
 const title = page.value?.data.meta_title
@@ -31,8 +30,7 @@ const projectImage = page.value?.data.image_presentation.url ?? '';
     </div>
     <div class="flex flex-col uppercase z-10 text-white pl-[10vw] w-fit">
       <h1 class="font-title font-semibold font-stretch-condensed text-7xl lg:text-9xl w-min leading-(--leading-title)">
-        {{
-          projectName }}</h1>
+        {{ projectName }}</h1>
       <h4 class="font-mono font-light text-2xl w-fit">{{ projectCategory }}</h4>
     </div>
   </header>
@@ -52,6 +50,6 @@ const projectImage = page.value?.data.image_presentation.url ?? '';
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--linear-black);
+  background: var(--linear-black-0);
 }
 </style>

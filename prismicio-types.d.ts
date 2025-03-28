@@ -33,6 +33,17 @@ interface AboutDocumentData {
   born: prismic.DateField;
 
   /**
+   * city field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.city
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  city: prismic.KeyTextField;
+
+  /**
    * about field in *About*
    *
    * - **Field Type**: Text
@@ -53,6 +64,17 @@ interface AboutDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   image_presentation: prismic.ImageField<never>;
+
+  /**
+   * image 1 field in *About*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.image_1
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_1: prismic.ImageField<never>;
 
   /**
    * Slice Zone field in *About*
@@ -219,7 +241,10 @@ interface DesignDocumentData {
 export type DesignDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<DesignDocumentData>, "design", Lang>;
 
-type HomepageDocumentDataSlicesSlice = WorksSlice | NameSlice;
+type HomepageDocumentDataSlicesSlice =
+  | AllProjectsSlice
+  | WorksSlice
+  | NameSlice;
 
 /**
  * Content for Homepage documents
@@ -325,7 +350,7 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-type PhotoDocumentDataSlicesSlice = PhotoSlice;
+type PhotoDocumentDataSlicesSlice = HeroSlice | PhotoSlice;
 
 /**
  * Content for Photo documents
@@ -773,6 +798,51 @@ export type AllDocumentTypes =
   | WorksDocument;
 
 /**
+ * Primary content in *AllProjects → Default → Primary*
+ */
+export interface AllProjectsSliceDefaultPrimary {
+  /**
+   * Project field in *AllProjects → Default → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: all_projects.default.primary.project
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  project: prismic.ContentRelationshipField<"project">;
+}
+
+/**
+ * Default variation for AllProjects Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type AllProjectsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<AllProjectsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *AllProjects*
+ */
+type AllProjectsSliceVariation = AllProjectsSliceDefault;
+
+/**
+ * AllProjects Shared Slice
+ *
+ * - **API ID**: `all_projects`
+ * - **Description**: AllProjects
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type AllProjectsSlice = prismic.SharedSlice<
+  "all_projects",
+  AllProjectsSliceVariation
+>;
+
+/**
  * Primary content in *BigImage → Default → Primary*
  */
 export interface BigImageSliceDefaultPrimary {
@@ -1188,16 +1258,6 @@ export interface HeroSliceDefaultPrimary {
   name: prismic.KeyTextField;
 
   /**
-   * Category field in *Hero → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.category
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  category: prismic.KeyTextField;
-
-  /**
    * imgHero field in *Hero → Default → Primary*
    *
    * - **Field Type**: Image
@@ -1236,6 +1296,21 @@ type HeroSliceVariation = HeroSliceDefault;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Primary content in *Name → Default → Primary*
+ */
+export interface NameSliceDefaultPrimary {
+  /**
+   * image field in *Name → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: name.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
  * Default variation for Name Slice
  *
  * - **API ID**: `default`
@@ -1244,7 +1319,7 @@ export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
  */
 export type NameSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<NameSliceDefaultPrimary>,
   never
 >;
 
@@ -1576,6 +1651,10 @@ declare module "@prismicio/client" {
       WorksDocumentData,
       WorksDocumentDataSlicesSlice,
       AllDocumentTypes,
+      AllProjectsSlice,
+      AllProjectsSliceDefaultPrimary,
+      AllProjectsSliceVariation,
+      AllProjectsSliceDefault,
       BigImageSlice,
       BigImageSliceDefaultPrimary,
       BigImageSliceVariation,
@@ -1604,6 +1683,7 @@ declare module "@prismicio/client" {
       HeroSliceVariation,
       HeroSliceDefault,
       NameSlice,
+      NameSliceDefaultPrimary,
       NameSliceVariation,
       NameSliceDefault,
       NextProjectSlice,
