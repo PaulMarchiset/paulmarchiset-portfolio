@@ -11,10 +11,10 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "all_projects": {
+            "contact_white": {
               "type": "SharedSlice"
             },
-            "works": {
+            "all_projects": {
               "type": "SharedSlice"
             },
             "name": {

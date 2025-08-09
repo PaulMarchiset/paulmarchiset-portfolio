@@ -35,8 +35,8 @@ onMounted(() => {
 
 
 <template>
-  <Intro />
-  <section class="size-full overflow-hidden">
+  <!-- <Intro /> -->
+  <section class="size-full overflow-hidden bg-(--main-black)">
     <div class="z-0 flex flex-col bg-cover bg-center">
       <SliceZone :components="components" :slices="page?.data.slices ?? []" />
     </div>

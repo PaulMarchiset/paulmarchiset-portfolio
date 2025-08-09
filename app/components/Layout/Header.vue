@@ -21,7 +21,7 @@ onMounted(() => {
     console.log('mouse over')
     gsap.to([logoP1, logoP2, logoM1, logoM2, logoM3], {
       y: 100,
-      duration: 0.6,
+      duration: 0.75,
       ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
       opacity: 0,
       stagger: 0.1
@@ -30,7 +30,7 @@ onMounted(() => {
     setTimeout(() => {
       gsap.to([logoP1, logoP2, logoM1, logoM2, logoM3], {
         y: 0,
-        duration: 0.6,
+        duration: 0.75,
         ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
         opacity: 1,
         stagger: 0.1
@@ -40,41 +40,39 @@ onMounted(() => {
 
 
   if (window.innerWidth > 1024) {
+    const nav = document.querySelector('.nav')
+    const elements = document.querySelectorAll('.nav-link')
 
-    let elements = document.querySelectorAll('.nav-link');
     elements.forEach((element) => {
-
-      let innerText: string | undefined;
+      let innerText: string | undefined
       if (element instanceof HTMLElement) {
-        innerText = element.innerText;
-      }
-      element.innerHTML = '';
-
-      let textContainer = document.createElement('div');
-      textContainer.classList.add('block');
-
-      for (let lettre of innerText!) {
-        let span = document.createElement('span');
-        span.innerText = lettre.trim() === '' ? '\xa0' : lettre;
-        span.classList.add('lettre');
-        textContainer.appendChild(span);
+        innerText = element.innerText
       }
 
-      element.appendChild(textContainer);
-      element.appendChild(textContainer.cloneNode(true));
-    });
+      element.innerHTML = ''
 
-    elements.forEach((element) => {
-      element.addEventListener('mouseenter', () => {
-        element.classList.add('play');
+      const textContainer = document.createElement('div')
+      textContainer.classList.add('block')
 
-      });
-      element.addEventListener('mouseleave', () => {
-        element.classList.remove('play');
-      });
-    });
+      for (const lettre of innerText!) {
+        const span = document.createElement('span')
+        span.innerText = lettre.trim() === '' ? '\xa0' : lettre
+        span.classList.add('lettre')
+        textContainer.appendChild(span)
+      }
+
+      element.appendChild(textContainer)
+      element.appendChild(textContainer.cloneNode(true))
+    })
+
+    // 🔥 Add/remove "play" class to all nav-links when nav is hovered
+    nav?.addEventListener('mouseenter', () => {
+      elements.forEach(el => el.classList.add('play'))
+    })
+    nav?.addEventListener('mouseleave', () => {
+      elements.forEach(el => el.classList.remove('play'))
+    })
   }
-
 });
 
 
@@ -112,38 +110,40 @@ watch(() => menuStore.isOpen, (newVal) => {
 
   }
 });
-
 </script>
+
 <template>
   <header class="fixed top-8 flex items-center justify-center z-50 w-full mix-blend-difference">
-    <nav class="flex items-center justify-center lg:justify-between uppercase font-sans text-xl md:gap-[10vw] w-[95%]">
+    <nav class="flex items-center justify-between font-sans text-xl md:gap-[10vw] w-[95%]">
       <div class="flex items-center gap-12">
         <NuxtLink to="/" class="flex gap-2 items-center icon-logo" @click="menuStore.isOpen = false">
-          <div class="flex gap-1.5 scale-90">
+          <div class="flex gap-1.5 scale-75 lg:scale-90">
             <LogoP class="logoP" />
             <LogoM class="logoM" />
           </div>
-          <div
-            class="hidden lg:flex flex-col text-white mix-blend-difference capitalize font-title leading-(--leading-100)">
-            <h1>Paul</h1>
-            <h1>Marchiset</h1>
-          </div>
         </NuxtLink>
-        
+
       </div>
-      <div class="flex justify-end gap-4 items-end">
-        <!-- <button @click="menuStore.toggleMenu"
-          class="hidden lg:block opacity-50 hover:opacity-100 cursor-pointer mix-blend-difference">
-          <IconMenu />
-        </button> -->
-        <h3 class="hidden lg:block nav-link font-mono mix-blend-difference hover:cursor-pointer" @click="menuStore.toggleMenu">menu</h3>
+      <div class="flex items-center justify-end gap-3 nav">
+        <h3 class="hidden lg:block nav-link font-light font-sans uppercase mix-blend-difference cursor-pointer"
+          @click="menuStore.toggleMenu">
+          menu
+        </h3>
+
+        <div class="flex flex-col justify-center items-center w-8 h-16 cursor-pointer mr-2 lg:m-0" @click="menuStore.toggleMenu">
+          <div :class="[
+            'w-full h-[1.5px] bg-(--main-white) transition-transform duration-500 ease-[cubic-bezier(0.83,0,0.29,0.99)]',
+            menuStore.isOpen ? 'rotate-45 translate-y-[1px]' : '-translate-y-[3px]'
+          ]"></div>
+          <div :class="[
+            'w-full h-[1.5px] bg-(--main-white) transition-transform duration-500 ease-[cubic-bezier(0.83,0,0.29,0.99)]',
+            menuStore.isOpen ? '-rotate-45 -translate-y-[1px]' : 'translate-y-[3px]'
+          ]"></div>
+        </div>
       </div>
+
     </nav>
   </header>
-  <p @click="menuStore.toggleMenu" id="menu-text"
-    class="z-30 w-fit uppercase fixed bottom-8 lg:hidden hover:opacity-100 cursor-pointer text-2xl p-4 bg-white font-mono mix-blend-normal left-0 right-0 mx-auto">
-    menu
-  </p>
 </template>
 
 <style>
@@ -153,7 +153,6 @@ watch(() => menuStore.isOpen, (newVal) => {
   color: white;
 }
 
-.nav-link:hover .lettre,
 .nav-link.play .lettre {
   transform: translateY(-100%);
 }
@@ -201,4 +200,4 @@ watch(() => menuStore.isOpen, (newVal) => {
 .lettre:nth-child(8) {
   transition-delay: 0.21s;
 }
-</style>~~/stores/menu
+</style>

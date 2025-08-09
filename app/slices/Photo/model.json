@@ -39,6 +39,21 @@
                   "constraint": {},
                   "thumbnails": []
                 }
+              },
+              "album": {
+                "type": "Select",
+                "config": {
+                  "label": "album",
+                  "placeholder": "",
+                  "options": [
+                    "Lights night",
+                    "Espace muséal",
+                    "Summer thoughts",
+                    "Jump!",
+                    "Canada",
+                    "Subway"
+                  ]
+                }
               }
             }
           }

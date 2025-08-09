@@ -11,31 +11,17 @@ const props = defineProps(
 );
 
 const projectName = props.slice.primary.name;
-const projectCategory = props.slice.primary.category;
 </script>
 
 <template>
-  <header class="h-screen flex flex-col justify-end pb-32 lg:pb-24 w-full relative">
-    <div class="hero-image absolute top-0 w-full h-full">
-      <PrismicImage :field="slice.primary.imghero" class="object-cover w-full h-full" />
+  <section class="h-screen flex flex-col justify-end w-full relative">
+    <div class="absolute top-0 w-full h-full">
+      <PrismicImage :field="slice.primary.image_mobile" class="object-cover w-full h-full block md:hidden" />
+      <PrismicImage :field="slice.primary.image_desktop" class="object-cover w-full h-full hidden md:block" />
     </div>
-    <div class="flex flex-col uppercase z-10 text-white pl-[10vw] w-fit">
-      <h1 class="font-title font-semibold font-stretch-condensed text-7xl lg:text-9xl w-min leading-(--leading-title)">
-        {{
-          projectName }}</h1>
-      <h4 class="font-mono font-light text-2xl w-fit">{{ projectCategory }}</h4>
+    <div class="flex flex-col z-10 items-center justify-center w-full h-full">
+      <h1 class="font-title font-light text-3xl leading-(--leading-title)">
+        {{ projectName }}</h1>
     </div>
-  </header>
+  </section>
 </template>
-
-<style scoped>
-.hero-image::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--linear-black);
-}
-</style>

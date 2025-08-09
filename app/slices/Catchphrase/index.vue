@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { Content } from "@prismicio/client";
-// The array passed to `getSliceComponentProps` is purely optional.
-// Consider it as a visual hint for you when templating your slice.
 
 
 const props = defineProps(
@@ -13,12 +11,13 @@ const props = defineProps(
   ]),
 );
 
-const catchphrase = props.slice.primary.catchphrase;
 
-console.log(catchphrase);
+const catchphrase = props.slice.primary.catchphrase || "This is kind of a project";
 
 </script>
 
 <template>
-  <h3 class="text-2xl lg:text-4xl font-mono font-light px-(--spacing-project-mobile) lg:px-0 lg:w-3xl">{{ catchphrase }}</h3>
+  <div class="h-[50vh] lg:h-[75vh] flex items-center justify-center px-12 lg:px-20">
+      <h2 class="font-serif text-4xl lg:text-6xl">{{ catchphrase }}</h2>
+    </div>
 </template>

@@ -12,41 +12,82 @@
           "label": "UID"
         }
       },
-      "type": {
-        "type": "Select",
-        "config": {
-          "label": "type",
-          "placeholder": "",
-          "options": ["design", "web", "video"]
-        }
-      },
       "name": {
         "type": "Text",
         "config": {
-          "label": "name",
+          "label": "Name",
           "placeholder": ""
         }
       },
-      "year": {
+      "date": {
         "type": "Text",
         "config": {
-          "label": "year",
+          "label": "Date",
           "placeholder": ""
         }
       },
-      "category": {
-        "type": "Text",
+      "main_categories": {
+        "type": "Group",
         "config": {
-          "label": "category",
-          "placeholder": ""
+          "label": "Main categories",
+          "repeat": true,
+          "fields": {
+            "main_category": {
+              "type": "Select",
+              "config": {
+                "label": "main category",
+                "placeholder": "",
+                "options": ["Design", "Web", "Video", "Misc."]
+              }
+            }
+          }
         }
       },
-      "image_presentation": {
+      "categories": {
+        "type": "Group",
+        "config": {
+          "label": "Categories",
+          "repeat": true,
+          "fields": {
+            "category": {
+              "type": "Select",
+              "config": {
+                "label": "Category",
+                "placeholder": "",
+                "options": [
+                  "Art Direction",
+                  "Branding & Identity",
+                  "Typography",
+                  "Web Design",
+                  "Print Design",
+                  "Web Development",
+                  "Video Direction",
+                  "Web development",
+                  "Editing",
+                  "Experimental"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "image_main": {
         "type": "Image",
         "config": {
-          "label": "image presentation",
+          "label": "Image Main",
           "constraint": {},
           "thumbnails": []
+        }
+      },
+      "view_more": {
+        "type": "Link",
+        "config": {
+          "label": "View more",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
         }
       },
       "slices": {
@@ -54,19 +95,16 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "credits": {
-              "type": "SharedSlice"
-            },
-            "video": {
-              "type": "SharedSlice"
-            },
-            "complement": {
+            "about": {
               "type": "SharedSlice"
             },
             "big_image": {
               "type": "SharedSlice"
             },
             "catchphrase": {
+              "type": "SharedSlice"
+            },
+            "project_content": {
               "type": "SharedSlice"
             }
           }

@@ -4,8 +4,8 @@
 		"variation": "default",
 		"primary": {
 			"project": {
-				"__TYPE__": "LinkContent",
 				"key": "e3474717-ed25-49a1-a67e-fab8c9b5a6ea",
+				"__TYPE__": "LinkContent",
 				"value": {
 					"__TYPE__": "DocumentLink",
 					"id": "mock_document_id"

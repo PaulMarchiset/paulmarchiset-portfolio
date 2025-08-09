@@ -3,7 +3,7 @@ import type { Content } from "@prismicio/client";
 
 // The array passed to `getSliceComponentProps` is purely optional.
 // Consider it as a visual hint for you when templating your slice.
-defineProps(
+const props = defineProps(
   getSliceComponentProps<Content.BigImageSlice>([
     "slice",
     "index",
@@ -14,5 +14,5 @@ defineProps(
 </script>
 
 <template>
-  <PrismicImage :field="slice.primary.imgbig" class="lg:px-(--spacing-project) w-full lg:h-auto lg:aspect-(--bigImageRatio) object-cover"/>
+    <PrismicImage :field="props.slice.primary.image" class="w-full" />
 </template>

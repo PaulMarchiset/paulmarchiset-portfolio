@@ -6,13 +6,6 @@
   "status": true,
   "json": {
     "Main": {
-      "activity": {
-        "type": "Text",
-        "config": {
-          "label": "activity",
-          "placeholder": ""
-        }
-      },
       "born": {
         "type": "Date",
         "config": {
@@ -27,25 +20,26 @@
           "placeholder": ""
         }
       },
-      "about": {
-        "type": "Text",
+      "activities": {
+        "type": "Group",
         "config": {
-          "label": "about",
-          "placeholder": ""
+          "label": "activities",
+          "repeat": true,
+          "fields": {
+            "activity": {
+              "type": "Text",
+              "config": {
+                "label": "activity",
+                "placeholder": ""
+              }
+            }
+          }
         }
       },
-      "image_presentation": {
+      "image_cover": {
         "type": "Image",
         "config": {
-          "label": "image presentation",
-          "constraint": {},
-          "thumbnails": []
-        }
-      },
-      "image_1": {
-        "type": "Image",
-        "config": {
-          "label": "image 1",
+          "label": "image cover",
           "constraint": {},
           "thumbnails": []
         }
@@ -54,7 +48,20 @@
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
-          "choices": {}
+          "choices": {
+            "contact_white": {
+              "type": "SharedSlice"
+            },
+            "about": {
+              "type": "SharedSlice"
+            },
+            "big_image": {
+              "type": "SharedSlice"
+            },
+            "catchphrase": {
+              "type": "SharedSlice"
+            }
+          }
         }
       }
     },

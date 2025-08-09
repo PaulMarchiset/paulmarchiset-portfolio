@@ -1,0 +1,28 @@
+{
+  "id": "contact_white",
+  "type": "SharedSlice",
+  "name": "Contact",
+  "description": "ContactWhite",
+  "variations": [
+    {
+      "id": "default",
+      "name": "White",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {}
+    },
+    {
+      "id": "black",
+      "name": "Black",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {}
+    }
+  ]
+}

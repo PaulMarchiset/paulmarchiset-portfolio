@@ -12,10 +12,18 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "image": {
+        "image_mobile": {
           "type": "Image",
           "config": {
-            "label": "image",
+            "label": "image mobile",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_desktop": {
+          "type": "Image",
+          "config": {
+            "label": "image desktop",
             "constraint": {},
             "thumbnails": []
           }

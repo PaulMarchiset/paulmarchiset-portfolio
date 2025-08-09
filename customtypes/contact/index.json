@@ -1,44 +1,44 @@
 {
   "format": "page",
-  "id": "design",
-  "label": "Design",
-  "repeatable": true,
+  "id": "contact",
+  "label": "Contact",
+  "repeatable": false,
   "status": true,
   "json": {
     "Main": {
-      "uid": {
-        "type": "UID",
-        "config": {
-          "label": "UID"
-        }
-      },
-      "name": {
+      "mail": {
         "type": "Text",
         "config": {
-          "label": "name",
+          "label": "mail",
           "placeholder": ""
         }
       },
-      "year": {
-        "type": "Text",
-        "config": {
-          "label": "year",
-          "placeholder": ""
-        }
-      },
-      "category": {
-        "type": "Text",
-        "config": {
-          "label": "category",
-          "placeholder": ""
-        }
-      },
-      "image_presentation": {
+      "image": {
         "type": "Image",
         "config": {
-          "label": "image presentation",
+          "label": "image",
           "constraint": {},
           "thumbnails": []
+        }
+      },
+      "socials": {
+        "type": "Group",
+        "config": {
+          "label": "socials",
+          "repeat": true,
+          "fields": {
+            "social": {
+              "type": "Link",
+              "config": {
+                "label": "social",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": false
+              }
+            }
+          }
         }
       },
       "slices": {
@@ -46,19 +46,10 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "next_project": {
+            "big_image": {
               "type": "SharedSlice"
             },
             "catchphrase": {
-              "type": "SharedSlice"
-            },
-            "credits": {
-              "type": "SharedSlice"
-            },
-            "complement": {
-              "type": "SharedSlice"
-            },
-            "big_image": {
               "type": "SharedSlice"
             }
           }

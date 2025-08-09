@@ -19,10 +19,18 @@
             "placeholder": ""
           }
         },
-        "imghero": {
+        "image_mobile": {
           "type": "Image",
           "config": {
-            "label": "imgHero",
+            "label": "image mobile",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "image_desktop": {
+          "type": "Image",
+          "config": {
+            "label": "image desktop",
             "constraint": {},
             "thumbnails": []
           }

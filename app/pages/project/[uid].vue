@@ -7,49 +7,46 @@ const { data: page } = await useAsyncData(route.params.uid as string, () =>
   prismic.client.getByUID('project', route.params.uid as string)
 )
 
-const title = page.value?.data.meta_title
+const title = page.value?.data.name
 
 useHead({
-  title: title
+  title: title + ' - Paul Marchiset',
 })
 
 console.log(page)
 
 
 const projectName = page.value?.data.name;
-const projectCategory = page.value?.data.category;
-const projectImage = page.value?.data.image_presentation.url ?? '';
+const projectDate = page.value?.data.date;
+const projectCategories = page.value?.data.categories?.map(cat => cat.category) || ['Project'];
 
 
 </script>
 
 <template>
-  <header class="h-screen flex flex-col justify-end pb-32 lg:pb-24 w-full relative">
-    <div class="hero-image absolute top-0 w-full h-full">
-       <img :src="projectImage" alt="" class="object-cover w-full h-full">
+  <section class="bg-(--main-white) text-black z-10">
+    <header class="flex flex-col pt-[60vh] gap-12">
+      <div class="flex flex-col px-8 lg:px-24">
+        <h1
+          class="font-title uppercase font-stretch-condensed font-semibold text-7xl lg:text-9xl leading-(--leading-title)">
+          {{ projectName }}</h1>
+        <div class="flex gap-24">
+          <p class="text-lg font-sans font-light">©{{ projectDate }}</p>
+          <ul class="flex flex-col">
+            <li class="text-lg font-sans font-light" v-for="category in projectCategories"
+              :key="category || 'default-category'">{{ category }}</li>
+          </ul>
+        </div>
+      </div>
+      <PrismicImage :field="page?.data.image_main" class="w-full h-full object-cover object-center" />
+    </header>
+    <div class="flex flex-col gap-32 py-32">
+      <SliceZone :slices="page?.data.slices ?? []" :components="components" class="flex flex-col gap-32 " />
+      <div class="flex flex-col md:flex-row gap-6 md:gap-auto px-8 lg:px-16 justify-between items-start md:items-center">
+        <h3 class="text-5xl lg:text-8xl font-medium">{{ projectName }}</h3>
+        <PrismicLink :field="page?.data.view_more" class="text-xl leading-none font-light rounded-full border text-black px-5 py-3 h-fit flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300" />
+      </div>
     </div>
-    <div class="flex flex-col uppercase z-10 text-white pl-[10vw] w-fit">
-      <h1 class="font-title font-semibold font-stretch-condensed text-7xl lg:text-9xl w-min leading-(--leading-title)">
-        {{ projectName }}</h1>
-      <h4 class="font-mono font-light text-2xl w-fit">{{ projectCategory }}</h4>
-    </div>
-  </header>
-  
-  <SliceZone
-  wrapper="main"
-  :slices="page?.data.slices ?? []"
-  :components="components" class="bg-(--main-white) project-container py-48"
-  />
+  </section>
+  <LayoutFooter />
 </template>
-
-<style scoped>
-.hero-image::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--linear-black-0);
-}
-</style>

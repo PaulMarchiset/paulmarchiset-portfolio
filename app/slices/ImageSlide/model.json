@@ -1,8 +1,8 @@
 {
-  "id": "complement",
+  "id": "project_content",
   "type": "SharedSlice",
-  "name": "Complement",
-  "description": "Complement",
+  "name": "ImageSlide",
+  "description": "ProjectContent",
   "variations": [
     {
       "id": "default",
@@ -12,25 +12,18 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "about": {
-          "type": "Text",
-          "config": {
-            "label": "about",
-            "placeholder": ""
-          }
-        },
-        "img_1": {
+        "image_vertical": {
           "type": "Image",
           "config": {
-            "label": "img 1",
+            "label": "Image_vertical",
             "constraint": {},
             "thumbnails": []
           }
         },
-        "img_2": {
+        "image_horizontal": {
           "type": "Image",
           "config": {
-            "label": "img 2",
+            "label": "Image_horizontal",
             "constraint": {},
             "thumbnails": []
           }
