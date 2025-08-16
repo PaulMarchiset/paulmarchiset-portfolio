@@ -21,11 +21,15 @@ export default defineNuxtConfig({
         { hid: "description", name: "description", content: "" },
         { name: "format-detection", content: "telephone=no" },
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      link: [{ rel: "icon", type: "image/x-icon", href: "/logo.svg" }],
     },
   },
 
-  modules: ["@nuxt/eslint", "@nuxtjs/prismic", "@pinia/nuxt"],
+  modules: ["@nuxt/eslint", "@nuxtjs/prismic", "@pinia/nuxt", "nuxt-gtag"],
+
+  gtag: {
+    id: "G-JWDW19ZCXB"
+  },
 
   prismic: {
     endpoint: apiEndpoint || repositoryName,
