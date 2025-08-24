@@ -44,7 +44,7 @@ const projectCategories = page.value?.data.categories?.map(cat => cat.category) 
       <SliceZone :slices="page?.data.slices ?? []" :components="components" class="flex flex-col gap-32 " />
       <div class="flex flex-col md:flex-row gap-6 md:gap-auto px-8 lg:px-16 justify-between items-start md:items-center">
         <h3 class="text-5xl lg:text-8xl font-medium">{{ projectName }}</h3>
-        <PrismicLink :field="page?.data.view_more" class="text-xl leading-none font-light rounded-full border text-black px-5 py-3 h-fit flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300" />
+        <PrismicLink v-if="page?.data.view_more.link_type != 'Any'" :field="page?.data.view_more" class="text-xl leading-none font-light rounded-full border text-black px-5 py-3 h-fit flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300" />
       </div>
     </div>
   </section>

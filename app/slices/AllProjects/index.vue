@@ -90,7 +90,8 @@
       <!-- Project list -->
       <client-only>
         <Swiper :modules="[Autoplay, Pagination]" :slides-per-view="'auto'" :space-between="30" :centered-slides="true"
-          :loop="true" :autoplay="{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true }"
+          :loop="true" 
+          :autoplay="{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true }"
           :pagination="{ el: '.swiper-pagination', clickable: true }" class="mySwiper">
           <SwiperSlide v-for="project in filteredProjects" :key="project.id" class="relative aspect-3/4 lg:aspect-video">
             <!-- Background Image -->
@@ -114,6 +115,22 @@
                 class="text-m leading-none font-light rounded-full bg-(--main-white) text-black px-5 py-2 h-fit flex items-center justify-center w-min">
                 <p>Discover</p>
               </NuxtLink>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide class="relative aspect-3/4 lg:aspect-video">
+            <!-- Background Image -->
+            <PrismicImage :field="slice.primary.image" class="w-full h-full object-cover rounded" />
+
+            <!-- Overlayed Text -->
+            <div 
+              class="absolute bottom-0 left-0 w-full h-full p-6 z-10 flex flex-col items-center justify-between text-white">
+              <div class="h-full flex flex-col gap-4 justify-center items-center">
+                <h2 class="font-serif text-4xl font-light leading-title">Discover all works</h2>
+                <NuxtLink :to="`/project`"
+                  class="text-m leading-none font-light rounded-full bg-(--main-white) text-black px-5 py-2 h-fit flex items-center justify-center ">
+                  <p>See more projects</p>
+                </NuxtLink>
+              </div>
             </div>
           </SwiperSlide>
           <div class="swiper-pagination"></div>

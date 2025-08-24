@@ -85,7 +85,7 @@ function cycleActivities() {
       </div>
     </header>
 
-    <section class="flex flex-col gap-32 py-32">
+    <section class="flex flex-col gap-32 pt-32">
       <SliceZone :components="components" :slices="about?.data.slices ?? []" />
     </section>
   </section>
