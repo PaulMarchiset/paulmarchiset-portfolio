@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import { useMenuStore } from '@/stores/menu'
+import { onMounted } from 'vue'
+import gsap from 'gsap'
 
 const menuStore = useMenuStore()
 
-import gsap from 'gsap';
+onMounted(() => {
+    const links = document.querySelectorAll('#menu a')
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            gsap.to(link, { x: 5, duration: 0.2, ease: "cubic-bezier(0.83, 0, 0.29, 0.99)" })
+        })
+        link.addEventListener('mouseleave', () => {
+            gsap.to(link, { x: 0, duration: 0.2, ease: "cubic-bezier(0.83, 0, 0.29, 0.99)" })
+        })
+    })
+})
 
 </script>
+
 
 <template>
     <nav id="menu"

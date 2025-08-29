@@ -38,7 +38,7 @@ const filteredPhotos = computed(() => {
 
 onMounted(() => {
   let randomAlbum = allAlbums.value[Math.floor(Math.random() * allAlbums.value.length)]
-  
+
   if (!selectedAlbum.value && allAlbums.value.length > 0) {
     selectedAlbum.value = randomAlbum ?? null
   }
@@ -54,12 +54,12 @@ onMounted(() => {
           {{ album }}
         </button>
         <span v-if="index < allAlbums.length - 1" class="mx-1 select-none">—</span>
-</template>
+      </template>
 
-</div>
+    </div>
 
-<div v-for="(photoItem, idx) in filteredPhotos" :key="idx" class="mb-16 text-base capitalize font-light">
-  <!-- <div
+    <div v-for="(photoItem, idx) in filteredPhotos" :key="idx" class="mb-16 text-base capitalize font-light">
+      <!-- <div
     v-if="photoItem.photo?.dimensions?.height && photoItem.photo?.dimensions?.width && (photoItem.photo.dimensions.height > photoItem.photo.dimensions.width) || (photoItem.photo.dimensions.height === photoItem.photo.dimensions.width)"
     class="flex items-center justify-center uppercase w-full gap-4">
     <p class="hidden md:block w-1/8 text-right">{{ photoItem.name }}</p>
@@ -75,12 +75,12 @@ onMounted(() => {
     <PrismicImage :field="photoItem.photo" class="max-h-[110vh] max-w-full object-contain" />
     <p class=" hidden md:block text-center">{{ photoItem.date }}</p>
   </div> -->
-  <div class="flex flex-col items-center gap-2">
-    <PrismicImage :field="photoItem.photo" class="max-h-[110vh] max-w-full object-contain" />
-    <p class="text-center opacity-65">{{ photoItem.name }}, {{ photoItem.date }}</p>
+      <div class="flex flex-col items-center gap-2">
+        <PrismicImage :field="photoItem.photo" class="max-h-[110vh] max-w-full object-contain" />
+        <p class="text-center opacity-65">{{ photoItem.name }}, {{ photoItem.date }}</p>
+      </div>
     </div>
-</div>
-</section>
+  </section>
 </template>
 
 <style scoped>
