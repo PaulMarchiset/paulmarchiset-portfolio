@@ -22,13 +22,13 @@ export default defineNuxtConfig({
         { name: "format-detection", content: "telephone=no" },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/logo.svg" }],
-    },
+    }
   },
 
   modules: ["@nuxt/eslint", "@nuxtjs/prismic", "@pinia/nuxt", "nuxt-gtag"],
 
   gtag: {
-    id: "G-JWDW19ZCXB"
+    id: "G-JWDW19ZCXB" // if you see this, yes it is my token gtag and I know that it's visible for anyone
   },
 
   prismic: {
