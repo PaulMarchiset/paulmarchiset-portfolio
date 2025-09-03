@@ -1091,9 +1091,49 @@ export type ProjectContentSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *ImageSlide → VideoSlide → Primary*
+ */
+export interface ProjectContentSliceVideoSlidePrimary {
+  /**
+   * Image_vertical field in *ImageSlide → VideoSlide → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_content.videoSlide.primary.image_vertical
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_vertical: prismic.ImageField<never>;
+
+  /**
+   * video field in *ImageSlide → VideoSlide → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_content.videoSlide.primary.video
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  video: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+/**
+ * VideoSlide variation for ImageSlide Slice
+ *
+ * - **API ID**: `videoSlide`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ProjectContentSliceVideoSlide = prismic.SharedSliceVariation<
+  "videoSlide",
+  Simplify<ProjectContentSliceVideoSlidePrimary>,
+  never
+>;
+
+/**
  * Slice variation for *ImageSlide*
  */
-type ProjectContentSliceVariation = ProjectContentSliceDefault;
+type ProjectContentSliceVariation =
+  | ProjectContentSliceDefault
+  | ProjectContentSliceVideoSlide;
 
 /**
  * ImageSlide Shared Slice
@@ -1254,8 +1294,10 @@ declare module "@prismicio/client" {
       PhotoSliceDefault,
       ProjectContentSlice,
       ProjectContentSliceDefaultPrimary,
+      ProjectContentSliceVideoSlidePrimary,
       ProjectContentSliceVariation,
       ProjectContentSliceDefault,
+      ProjectContentSliceVideoSlide,
       WorksSlice,
       WorksSliceDefaultPrimaryWorksItem,
       WorksSliceDefaultPrimary,

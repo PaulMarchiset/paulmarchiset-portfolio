@@ -13,24 +13,23 @@ useHead({
   title: 'Paul Marchiset'
 })
 
-onMounted(() => {
+// onMounted(() => {
 
-  const windowWidth = window.innerWidth;
-  if (windowWidth < 1024) {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: 'scroll',
-        start: '50% 50%',
-        end: 'bottom bottom',
-        scrub: 1,
-        markers: true
-      }
-    });
-    tl.to('scriptiner', {
-      duration: 1
-    })
-  }
-});
+//   const windowWidth = window.innerWidth;
+//   if (windowWidth < 1024) {
+//     const tl = gsap.timeline({
+//       scrollTrigger: {
+//         trigger: 'scroll',
+//         start: '50% 50%',
+//         end: 'bottom bottom',
+//         scrub: 1,
+//       }
+//     });
+//     tl.to('scriptiner', {
+//       duration: 1
+//     })
+//   }
+// });
 </script>
 
 

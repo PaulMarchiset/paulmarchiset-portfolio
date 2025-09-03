@@ -30,6 +30,36 @@
         }
       },
       "items": {}
+    },
+    {
+      "id": "videoSlide",
+      "name": "VideoSlide",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "image_vertical": {
+          "type": "Image",
+          "config": {
+            "label": "Image_vertical",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "video": {
+          "type": "Link",
+          "config": {
+            "label": "video",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": false,
+            "allowText": false,
+            "repeat": false
+          }
+        }
+      },
+      "items": {}
     }
   ]
 }

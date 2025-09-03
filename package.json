@@ -31,7 +31,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "gsap": "^3.12.7",
-    "lenis": "^1.3.4",
+    "lenis": "^1.3.10",
     "pinta": "^0.1.0",
     "swiper": "^11.2.4",
     "tailwindcss": "^4.0.3"

@@ -7,6 +7,7 @@ function customEase(t: number) {
 }
 
 export function openHeaderAnimation({
+  isMobile = false,
   yOffset = 0,
   borderRadius = 25,
   duration = 1.5
@@ -15,7 +16,7 @@ export function openHeaderAnimation({
   gsap.set('#main', { y: yOffset, pointerEvents: 'none'})
   gsap.to('#main', {
     borderRadius,
-    y: yOffset + 0.9 * window.innerHeight,
+    y: isMobile ? yOffset + 0.85 * window.innerHeight : yOffset + 0.9 * window.innerHeight,
     scaleX: 0.96,
     scaleY: 0.96,
     duration,

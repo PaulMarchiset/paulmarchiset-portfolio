@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   app: {
+    pageTransition: { name: 'scale-slide' },
     head: {
       title: "Paul Marchiset - Portfolio",
       htmlAttrs: {
@@ -25,7 +26,7 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ["@nuxt/eslint", "@nuxtjs/prismic", "@pinia/nuxt", "nuxt-gtag"],
+  modules: ["@nuxt/eslint", "@nuxtjs/prismic", "@pinia/nuxt", "nuxt-gtag", "lenis/nuxt"],
 
   gtag: {
     id: "G-JWDW19ZCXB" // if you see this, yes it is my token gtag and I know that it's visible for anyone

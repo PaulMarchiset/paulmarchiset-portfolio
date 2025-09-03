@@ -28,7 +28,7 @@ const projectCategories = page.value?.data.categories?.map(cat => cat.category) 
     <header class="flex flex-col pt-[60vh] gap-12">
       <div class="flex flex-col px-8 lg:px-24">
         <h1
-          class="font-title uppercase font-stretch-condensed font-semibold text-7xl lg:text-9xl leading-(--leading-title)">
+          class="font-title uppercase text-balance font-stretch-condensed font-semibold text-7xl lg:text-9xl leading-(--leading-title)">
           {{ projectName }}</h1>
         <div class="flex gap-24">
           <p class="text-lg font-sans font-light">©{{ projectDate }}</p>
