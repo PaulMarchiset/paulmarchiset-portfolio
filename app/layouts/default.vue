@@ -5,7 +5,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { openHeaderAnimation, closeHeaderAnimation } from '@/animations/menuAnimation'
 
-const menuStore = useMenuStore()
 const lenisRef = ref()
 
 // Register GSAP plugin once
@@ -52,6 +51,12 @@ watch(() => lenisRef.value?.lenis, (lenis) => {
 })
 })
 
+let menuStore = useMenuStore()
+
+onMounted(() => {
+  menuStore = useMenuStore()
+})
+
 // Menu open/close animations (unrelated to scroll)
 watch(() => menuStore.isOpen, (isOpen) => {
   if (process.server) return
@@ -73,7 +78,6 @@ watch(() => menuStore.isOpen, (isOpen) => {
   }
 })
 
-
 const router = useRouter()
 
 onMounted(() => {
@@ -94,7 +98,6 @@ onMounted(() => {
     observer.observe(mainContent)
   }
 })
-
 
 </script>
 

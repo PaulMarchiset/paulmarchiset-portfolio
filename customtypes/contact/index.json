@@ -13,10 +13,18 @@
           "placeholder": ""
         }
       },
-      "image": {
+      "image_up": {
         "type": "Image",
         "config": {
-          "label": "image",
+          "label": "image up",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "image_down": {
+        "type": "Image",
+        "config": {
+          "label": "image down",
           "constraint": {},
           "thumbnails": []
         }

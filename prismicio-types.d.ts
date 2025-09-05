@@ -161,15 +161,26 @@ interface ContactDocumentData {
   mail: prismic.KeyTextField;
 
   /**
-   * image field in *Contact*
+   * image up field in *Contact*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: contact.image
+   * - **API ID Path**: contact.image_up
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#image
    */
-  image: prismic.ImageField<never>;
+  image_up: prismic.ImageField<never>;
+
+  /**
+   * image down field in *Contact*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.image_down
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_down: prismic.ImageField<never>;
 
   /**
    * socials field in *Contact*
