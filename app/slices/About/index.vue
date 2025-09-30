@@ -15,7 +15,7 @@ const about = props.slice.primary.about || "Lorem ipsum dolor sit amet, consecte
 </script>
 
 <template>
-  <div class="px-8 lg:px-16 lg:w-3xl">
+  <div class="px-8 lg:ml-24 lg:px-0 lg:w-3xl">
       <p class="font-medium text-xl lg:text-2xl" style="white-space: pre-wrap;">{{ about }}</p>
     </div>
 </template>

@@ -20,7 +20,7 @@ export interface AboutDocumentDataActivitiesItem {
 }
 
 type AboutDocumentDataSlicesSlice =
-  | ContactWhiteSlice
+  | SkillsSlice
   | AboutSlice
   | BigImageSlice
   | CatchphraseSlice;
@@ -252,10 +252,41 @@ export type ContactDocument<Lang extends string = string> =
     Lang
   >;
 
-type HomepageDocumentDataSlicesSlice =
-  | ContactWhiteSlice
-  | AllProjectsSlice
-  | NameSlice;
+type FooterDocumentDataSlicesSlice = ContactSlice;
+
+/**
+ * Content for Footer documents
+ */
+interface FooterDocumentData {
+  /**
+   * Slice Zone field in *Footer*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<FooterDocumentDataSlicesSlice>;
+}
+
+/**
+ * Footer document from Prismic
+ *
+ * - **API ID**: `footer`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type FooterDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<FooterDocumentData>,
+    "footer",
+    Lang
+  >;
+
+type HomepageDocumentDataSlicesSlice = AllProjectsSlice | NameSlice;
 
 /**
  * Content for Homepage documents
@@ -320,7 +351,7 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
-type PhotoDocumentDataSlicesSlice = ContactWhiteSlice | HeroSlice | PhotoSlice;
+type PhotoDocumentDataSlicesSlice = HeroSlice | PhotoSlice;
 
 /**
  * Content for Photo documents
@@ -422,6 +453,21 @@ export interface ProjectDocumentDataCategoriesItem {
   >;
 }
 
+/**
+ * Item in *Project → collaborators*
+ */
+export interface ProjectDocumentDataCollaboratorsItem {
+  /**
+   * name field in *Project → collaborators*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.collaborators[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+}
+
 type ProjectDocumentDataSlicesSlice =
   | AboutSlice
   | BigImageSlice
@@ -507,6 +553,31 @@ interface ProjectDocumentData {
   >;
 
   /**
+   * favorite field in *Project*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: project.favorite
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  favorite: prismic.BooleanField;
+
+  /**
+   * collaborators field in *Project*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.collaborators[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  collaborators: prismic.GroupField<
+    Simplify<ProjectDocumentDataCollaboratorsItem>
+  >;
+
+  /**
    * Slice Zone field in *Project*
    *
    * - **Field Type**: Slice Zone
@@ -568,6 +639,7 @@ export type ProjectDocument<Lang extends string = string> =
 export type AllDocumentTypes =
   | AboutDocument
   | ContactDocument
+  | FooterDocument
   | HomepageDocument
   | PhotoDocument
   | ProjectDocument;
@@ -760,48 +832,83 @@ export type CatchphraseSlice = prismic.SharedSlice<
 >;
 
 /**
- * White variation for Contact Slice
+ * Item in *Contact → Default → Primary → socials*
+ */
+export interface ContactSliceDefaultPrimarySocialsItem {
+  /**
+   * icon field in *Contact → Default → Primary → socials*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.default.primary.socials[].icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * social field in *Contact → Default → Primary → socials*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.default.primary.socials[].social
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  social: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+/**
+ * Primary content in *Contact → Default → Primary*
+ */
+export interface ContactSliceDefaultPrimary {
+  /**
+   * mail field in *Contact → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.default.primary.mail
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  mail: prismic.KeyTextField;
+
+  /**
+   * socials field in *Contact → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.default.primary.socials[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  socials: prismic.GroupField<Simplify<ContactSliceDefaultPrimarySocialsItem>>;
+}
+
+/**
+ * Default variation for Contact Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type ContactWhiteSliceDefault = prismic.SharedSliceVariation<
+export type ContactSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Black variation for Contact Slice
- *
- * - **API ID**: `black`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type ContactWhiteSliceBlack = prismic.SharedSliceVariation<
-  "black",
-  Record<string, never>,
+  Simplify<ContactSliceDefaultPrimary>,
   never
 >;
 
 /**
  * Slice variation for *Contact*
  */
-type ContactWhiteSliceVariation =
-  | ContactWhiteSliceDefault
-  | ContactWhiteSliceBlack;
+type ContactSliceVariation = ContactSliceDefault;
 
 /**
  * Contact Shared Slice
  *
- * - **API ID**: `contact_white`
- * - **Description**: ContactWhite
+ * - **API ID**: `contact`
+ * - **Description**: Contact
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type ContactWhiteSlice = prismic.SharedSlice<
-  "contact_white",
-  ContactWhiteSliceVariation
+export type ContactSlice = prismic.SharedSlice<
+  "contact",
+  ContactSliceVariation
 >;
 
 /**
@@ -1159,6 +1266,119 @@ export type ProjectContentSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *Skills → Default → Primary → abilities*
+ */
+export interface SkillsSliceDefaultPrimaryAbilitiesItem {
+  /**
+   * name field in *Skills → Default → Primary → abilities*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.abilities[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Skills → Default → Primary → technologies*
+ */
+export interface SkillsSliceDefaultPrimaryTechnologiesItem {
+  /**
+   * name field in *Skills → Default → Primary → technologies*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.technologies[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Skills → Default → Primary → softwares*
+ */
+export interface SkillsSliceDefaultPrimarySoftwaresItem {
+  /**
+   * name field in *Skills → Default → Primary → softwares*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.softwares[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *Skills → Default → Primary*
+ */
+export interface SkillsSliceDefaultPrimary {
+  /**
+   * abilities field in *Skills → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.abilities[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  abilities: prismic.GroupField<
+    Simplify<SkillsSliceDefaultPrimaryAbilitiesItem>
+  >;
+
+  /**
+   * technologies field in *Skills → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.technologies[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  technologies: prismic.GroupField<
+    Simplify<SkillsSliceDefaultPrimaryTechnologiesItem>
+  >;
+
+  /**
+   * softwares field in *Skills → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.softwares[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  softwares: prismic.GroupField<
+    Simplify<SkillsSliceDefaultPrimarySoftwaresItem>
+  >;
+}
+
+/**
+ * Default variation for Skills Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SkillsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<SkillsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Skills*
+ */
+type SkillsSliceVariation = SkillsSliceDefault;
+
+/**
+ * Skills Shared Slice
+ *
+ * - **API ID**: `skills`
+ * - **Description**: Skills
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SkillsSlice = prismic.SharedSlice<"skills", SkillsSliceVariation>;
+
+/**
  * Item in *Works → Default → Primary → Works*
  */
 export interface WorksSliceDefaultPrimaryWorksItem {
@@ -1254,6 +1474,9 @@ declare module "@prismicio/client" {
       ContactDocumentData,
       ContactDocumentDataSocialsItem,
       ContactDocumentDataSlicesSlice,
+      FooterDocument,
+      FooterDocumentData,
+      FooterDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -1264,6 +1487,7 @@ declare module "@prismicio/client" {
       ProjectDocumentData,
       ProjectDocumentDataMainCategoriesItem,
       ProjectDocumentDataCategoriesItem,
+      ProjectDocumentDataCollaboratorsItem,
       ProjectDocumentDataSlicesSlice,
       AllDocumentTypes,
       AboutSlice,
@@ -1282,10 +1506,11 @@ declare module "@prismicio/client" {
       CatchphraseSliceDefaultPrimary,
       CatchphraseSliceVariation,
       CatchphraseSliceDefault,
-      ContactWhiteSlice,
-      ContactWhiteSliceVariation,
-      ContactWhiteSliceDefault,
-      ContactWhiteSliceBlack,
+      ContactSlice,
+      ContactSliceDefaultPrimarySocialsItem,
+      ContactSliceDefaultPrimary,
+      ContactSliceVariation,
+      ContactSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
@@ -1309,6 +1534,13 @@ declare module "@prismicio/client" {
       ProjectContentSliceVariation,
       ProjectContentSliceDefault,
       ProjectContentSliceVideoSlide,
+      SkillsSlice,
+      SkillsSliceDefaultPrimaryAbilitiesItem,
+      SkillsSliceDefaultPrimaryTechnologiesItem,
+      SkillsSliceDefaultPrimarySoftwaresItem,
+      SkillsSliceDefaultPrimary,
+      SkillsSliceVariation,
+      SkillsSliceDefault,
       WorksSlice,
       WorksSliceDefaultPrimaryWorksItem,
       WorksSliceDefaultPrimary,

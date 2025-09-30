@@ -70,7 +70,7 @@ const filteredProjects = computed(() => {
     <div class="p-8 lg:p-12 flex flex-col">
       <h2 class="font-serif text-7xl lg:text-9xl">Works</h2>
       <div
-        class="group flex flex-wrap items-center gap-x-1 lg:gap-x-2 text-white font-light text-xl lg:text-3xl relative">
+        class="group flex flex-wrap items-center gap-x-1 lg:gap-x-2 text-white font-light text-3xl relative">
 
         <button :class="[selectedMainCategory === null ? 'text-white' : '']" @click="selectedMainCategory = null">
           All ({{ projects.length }})
@@ -144,7 +144,7 @@ const filteredProjects = computed(() => {
 
 .group:hover button:not(:hover),
 .group:hover span {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .nuxt-link-hover {

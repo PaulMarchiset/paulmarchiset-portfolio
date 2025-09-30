@@ -47,37 +47,38 @@ onMounted(() => {
 
 <template>
   <section class="p-8 lg:p-12 flex flex-col gap-32 bg-(--main-white)">
-    <div
-      class="group flex flex-wrap items-center gap-x-1 lg:gap-x-2 text-black font-light text-xl lg:text-3xl relative">
+    <div class="group flex flex-wrap items-center gap-x-1 lg:gap-x-2 text-black font-light text-3xl relative">
       <template v-for="(album, index) in allAlbums" :key="album">
         <button :class="[selectedAlbum === album ? 'text-black' : '']" @click="selectedAlbum = album">
           {{ album }}
         </button>
         <span v-if="index < allAlbums.length - 1" class="mx-1 select-none">—</span>
       </template>
-
     </div>
 
-    <div v-for="(photoItem, idx) in filteredPhotos" :key="idx" class="mb-16 text-base capitalize font-light">
-      <!-- <div
-    v-if="photoItem.photo?.dimensions?.height && photoItem.photo?.dimensions?.width && (photoItem.photo.dimensions.height > photoItem.photo.dimensions.width) || (photoItem.photo.dimensions.height === photoItem.photo.dimensions.width)"
-    class="flex items-center justify-center uppercase w-full gap-4">
-    <p class="hidden md:block w-1/8 text-right">{{ photoItem.name }}</p>
-    <div class="flex justify-center">
-      <PrismicImage :field="photoItem.photo" class="max-h-[110vh] max-w-full object-contain" />
-    </div>
-    <p class="hidden md:block w-1/8 text-left">{{ photoItem.date }}</p>
-  </div>
-
-
-  <div v-else class="flex flex-col items-center gap-2">
-    <p class=" hidden md:block text-center">{{ photoItem.name }}</p>
-    <PrismicImage :field="photoItem.photo" class="max-h-[110vh] max-w-full object-contain" />
-    <p class=" hidden md:block text-center">{{ photoItem.date }}</p>
-  </div> -->
-      <div class="flex flex-col items-center gap-2">
+    <div class="flex flex-col gap-6 items-center">
+      <h3 class="font-light font-serif text-5xl">{{ selectedAlbum }}</h3>
+      <div v-for="(photoItem, idx) in filteredPhotos" :key="idx" class="mb-16 text-base capitalize font-light">
+        <!-- <div
+        v-if="photoItem.photo?.dimensions?.height && photoItem.photo?.dimensions?.width && (photoItem.photo.dimensions.height > photoItem.photo.dimensions.width) || (photoItem.photo.dimensions.height === photoItem.photo.dimensions.width)"
+        class="flex items-center justify-center uppercase w-full gap-4">
+        <p class="hidden md:block w-1/8 text-right">{{ photoItem.name }}</p>
+        <div class="flex justify-center">
+          <PrismicImage :field="photoItem.photo" class="max-h-[110vh] max-w-full object-contain" />
+        </div>
+        <p class="hidden md:block w-1/8 text-left">{{ photoItem.date }}</p>
+      </div>
+      
+      
+      <div v-else class="flex flex-col items-center gap-2">
+        <p class=" hidden md:block text-center">{{ photoItem.name }}</p>
         <PrismicImage :field="photoItem.photo" class="max-h-[110vh] max-w-full object-contain" />
-        <p class="text-center opacity-65">{{ photoItem.name }}, {{ photoItem.date }}</p>
+        <p class=" hidden md:block text-center">{{ photoItem.date }}</p>
+      </div> -->
+        <div class="flex flex-col items-center gap-2">
+          <PrismicImage :field="photoItem.photo" class="max-h-[95vh] max-w-full object-contain" />
+          <p class="text-center opacity-65">{{ photoItem.name }}, {{ photoItem.date }}</p>
+        </div>
       </div>
     </div>
   </section>

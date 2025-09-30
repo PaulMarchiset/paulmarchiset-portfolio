@@ -42,11 +42,34 @@ const projectCategories = page.value?.data.categories?.map(cat => cat.category) 
     </header>
     <div class="flex flex-col gap-32 py-32">
       <SliceZone :slices="page?.data.slices ?? []" :components="components" class="flex flex-col gap-32 " />
-      <div class="flex flex-col md:flex-row gap-6 md:gap-auto px-8 lg:px-16 justify-between items-start md:items-center">
-        <h3 class="text-5xl lg:text-8xl font-medium">{{ projectName }}</h3>
-        <PrismicLink v-if="page?.data.view_more.link_type != 'Any'" :field="page?.data.view_more" class="text-xl leading-none font-light rounded-full border text-black px-5 py-3 h-fit flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300" />
+      <div class="flex flex-col px-8 lg:px-16">
+        <div class="flex flex-col md:flex-row gap-6 md:gap-auto  justify-between items-start md:items-center">
+          <div class="flex flex-col">
+            <h3 class="text-5xl lg:text-8xl font-medium">{{ projectName }}</h3>
+            <div v-if="page?.data.collaborators?.length" class="flex md:hidden gap-3">
+              <h5 class="text-lg font-sans font-light">With
+                <span v-for="(oneCollaborator, index) in page.data.collaborators" :key="index">
+                  {{ oneCollaborator.name }}
+                  <template v-if="index < page.data.collaborators.length - 2">, </template>
+                  <template v-else-if="index === page.data.collaborators.length - 2"> and </template>
+                </span>
+              </h5>
+            </div>
+          </div>
+          <PrismicLink v-if="page?.data.view_more.link_type != 'Any'" :field="page?.data.view_more"
+            class="text-xl leading-none font-light rounded-full border text-black px-5 py-3 h-fit flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300" />
+        </div>
+        <div v-if="page?.data.collaborators?.length" class="hidden md:flex gap-3">
+          <h5 class="text-base font-sans font-light">With
+            <span v-for="(oneCollaborator, index) in page.data.collaborators" :key="index">
+              {{ oneCollaborator.name }}
+              <template v-if="index < page.data.collaborators.length - 2">, </template>
+              <template v-else-if="index === page.data.collaborators.length - 2"> and </template>
+            </span>
+          </h5>
+        </div>
+
       </div>
     </div>
   </section>
-  <LayoutFooter />
 </template>

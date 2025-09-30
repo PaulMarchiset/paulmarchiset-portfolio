@@ -113,10 +113,10 @@ watch(() => menuStore.isOpen, (newVal) => {
 </script>
 
 <template>
-  <header class="fixed top-8 flex items-center justify-center z-50 w-full mix-blend-difference">
-    <nav class="flex items-center justify-between font-sans text-xl md:gap-[10vw] w-[95%]">
+  <header class="fixed top-8 flex items-center justify-center z-50 w-full mix-blend-difference pointer-events-none">
+    <nav class="flex items-center justify-between font-sans text-xl md:gap-[10vw] w-[95%] pointer-events-none">
       <div class="flex items-center gap-12">
-        <NuxtLink to="/" class="flex gap-2 items-center icon-logo" @click="menuStore.isOpen = false">
+        <NuxtLink to="/" class="flex gap-2 items-center icon-logo pointer-events-auto" @click="menuStore.isOpen = false">
           <div class="flex gap-1.5 scale-75 lg:scale-90">
             <LogoP class="logoP" />
             <LogoM class="logoM" />
@@ -124,7 +124,7 @@ watch(() => menuStore.isOpen, (newVal) => {
         </NuxtLink>
 
       </div>
-      <div class="flex items-center justify-end gap-3 nav">
+      <div class="flex items-center justify-end gap-3 nav pointer-events-auto">
         <h3 class="hidden lg:block nav-link font-light font-sans uppercase mix-blend-difference cursor-pointer"
           @click="menuStore.toggleMenu">
           menu

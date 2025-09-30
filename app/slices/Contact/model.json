@@ -1,27 +1,53 @@
 {
-  "id": "contact_white",
+  "id": "contact",
   "type": "SharedSlice",
   "name": "Contact",
-  "description": "ContactWhite",
+  "description": "Contact",
   "variations": [
     {
       "id": "default",
-      "name": "White",
+      "name": "Default",
       "docURL": "...",
       "version": "initial",
       "description": "Default",
       "imageUrl": "",
-      "primary": {},
-      "items": {}
-    },
-    {
-      "id": "black",
-      "name": "Black",
-      "docURL": "...",
-      "version": "initial",
-      "description": "Default",
-      "imageUrl": "",
-      "primary": {},
+      "primary": {
+        "mail": {
+          "type": "Text",
+          "config": {
+            "label": "mail",
+            "placeholder": ""
+          }
+        },
+        "socials": {
+          "type": "Group",
+          "config": {
+            "label": "socials",
+            "repeat": true,
+            "fields": {
+              "icon": {
+                "type": "Image",
+                "config": {
+                  "label": "icon",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "social": {
+                "type": "Link",
+                "config": {
+                  "label": "social",
+                  "placeholder": "",
+                  "select": null,
+                  "allowTargetBlank": true,
+                  "allowText": true,
+                  "repeat": false
+                }
+              }
+            }
+          }
+        }
+      },
       "items": {}
     }
   ]

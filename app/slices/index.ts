@@ -8,11 +8,12 @@ export const components = defineSliceZoneComponents({
   all_projects: defineAsyncComponent(() => import("./AllProjects/index.vue")),
   big_image: defineAsyncComponent(() => import("./BigImage/index.vue")),
   catchphrase: defineAsyncComponent(() => import("./Catchphrase/index.vue")),
-  contact_white: defineAsyncComponent(() => import("./Contact/index.vue")),
+  contact: defineAsyncComponent(() => import("./Contact/index.vue")),
   hero: defineAsyncComponent(() => import("./Hero/index.vue")),
   name: defineAsyncComponent(() => import("./Name/index.vue")),
   next_project: defineAsyncComponent(() => import("./NextProject/index.vue")),
   photo: defineAsyncComponent(() => import("./Photo/index.vue")),
   project_content: defineAsyncComponent(() => import("./ImageSlide/index.vue")),
+  skills: defineAsyncComponent(() => import("./Skills/index.vue")),
   works: defineAsyncComponent(() => import("./Works/index.vue")),
 });

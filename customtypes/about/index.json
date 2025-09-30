@@ -49,7 +49,7 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "contact_white": {
+            "skills": {
               "type": "SharedSlice"
             },
             "about": {

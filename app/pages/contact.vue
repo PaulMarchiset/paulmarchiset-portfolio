@@ -35,24 +35,20 @@ function copyEmail() {
       })
   }
 }
-
-
 </script>
 
 
 <template>
-  <main class="flex flex-col items-start justify-center bg-(--main-white) min-h-screen gap-20 px-12 lg:px-20">
-    <PrismicImage :field="page?.data.image_up ?? {}" class="h-[10vh] md:h-[25vh] object-cover object-center" target="_blank" />
+  <main class="flex flex-col items-center justify-center bg-(--main-white) min-h-screen px-12 lg:px-20">
+    <!-- <PrismicImage :field="page?.data.image_up ?? {}" class="h-[10vh] md:h-[25vh] object-cover object-center" target="_blank" /> -->
     <div class="flex flex-col gap-2 items-center justify-center px-0 lg:px-20">
-      <h2 class="font-serif text-5xl md:text-6xl">Available for anything, don’t hesitate to reach me :)</h2>
+      <h2 class="font-serif text-5xl md:text-6xl">Available for anything, don't hesitate to reach me :)</h2>
       <p class="hover-animation w-min text-2xl md:text-base" id="mail" @click="copyEmail">{{ page?.data.mail }}</p>
     </div>
-    <div class="flex justify-between items-center w-full">
-      <div class="flex flex-col">
-        <PrismicLink class="hover-animation w-min text-2xl md:text-base" v-for="(item, idx) in page?.data.socials" :field="item.social"
+    <div class="absolute flex gap-4 w-full justify-center items-center bottom-[20vh]">
+        <PrismicLink class="hover-animation w-min text-lg md:text-base" v-for="(item, idx) in page?.data.socials" :field="item.social"
           :key="idx" />
-      </div>
-      <PrismicImage :field="page?.data.image_down ?? {}" class="h-[10vh] md:h-[25vh]  object-cover object-center" target="_blank" />
+      <!-- <PrismicImage :field="page?.data.image_down ?? {}" class="h-[10vh] md:h-[25vh]  object-cover object-center" target="_blank" /> -->
     </div>
   </main>
 </template>
@@ -74,7 +70,7 @@ function copyEmail() {
   left: 0;
   background-color: black;
   transform-origin: bottom right;
-  transition: transform 1s cubic-bezier(0.83, 0, 0.29, 0.99);
+  transition: transform 0.5s cubic-bezier(0.83, 0, 0.29, 0.99);
 }
 
 .hover-animation:hover:after {

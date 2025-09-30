@@ -20,7 +20,7 @@ const projectName = props.slice.primary.name;
       <PrismicImage :field="slice.primary.image_desktop" class="object-cover w-full h-full hidden md:block" />
     </div>
     <div class="flex flex-col z-10 items-center justify-center w-full h-full">
-      <h1 class="font-title font-light text-3xl leading-(--leading-title)">
+      <h1 class="font-serif font-light text-6xl leading-(--leading-title)">
         {{ projectName }}</h1>
     </div>
   </section>

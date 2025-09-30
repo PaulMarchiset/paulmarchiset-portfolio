@@ -11,9 +11,6 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "contact_white": {
-              "type": "SharedSlice"
-            },
             "all_projects": {
               "type": "SharedSlice"
             },
