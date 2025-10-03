@@ -6,15 +6,45 @@
   "status": true,
   "json": {
     "Main": {
+      "city": {
+        "type": "Text",
+        "config": {
+          "label": "city",
+          "placeholder": ""
+        }
+      },
+      "mail": {
+        "type": "Text",
+        "config": {
+          "label": "mail",
+          "placeholder": ""
+        }
+      },
+      "socials": {
+        "type": "Group",
+        "config": {
+          "label": "socials",
+          "repeat": true,
+          "fields": {
+            "social": {
+              "type": "Link",
+              "config": {
+                "label": "social",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": false
+              }
+            }
+          }
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
-          "choices": {
-            "contact": {
-              "type": "SharedSlice"
-            }
-          }
+          "choices": {}
         }
       }
     }

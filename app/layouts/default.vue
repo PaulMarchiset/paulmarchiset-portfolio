@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref, watchEffect, onMounted } from "vue";
+import { ref, watchEffect, onMounted, computed } from "vue";
 import { useMenuStore } from "@/stores/menu";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { openHeaderAnimation, closeHeaderAnimation } from "@/animations/menuAnimation";
+
+const router = useRouter();
+
+const route = useRoute()
+const theme = computed(() => route.meta.theme || 'light')
 
 const lenisRef = ref();
 
@@ -81,8 +86,6 @@ watch(
   }
 );
 
-const router = useRouter();
-
 onMounted(() => {
   router.afterEach(() => {
     requestAnimationFrame(() => {
@@ -101,6 +104,7 @@ onMounted(() => {
     observer.observe(mainContent);
   }
 });
+
 </script>
 
 <template>
@@ -111,7 +115,7 @@ onMounted(() => {
     <div id="main" class="z-10 absolute top-0 w-full overflow-clip" style="backface-visibility: hidden">
       <div id="main-content">
         <slot />
-        <LayoutFooter />
+        <LayoutFooter :theme="theme"/>
       </div>
     </div>
   </VueLenis>

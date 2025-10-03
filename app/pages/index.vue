@@ -30,6 +30,10 @@ useHead({
 //     })
 //   }
 // });
+
+definePageMeta({
+  theme: 'dark'
+})
 </script>
 
 

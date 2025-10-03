@@ -129,21 +129,21 @@ export type AboutDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<AboutDocumentData>, "about", Lang>;
 
 /**
- * Item in *Contact → socials*
+ * Item in *Contact → skills*
  */
-export interface ContactDocumentDataSocialsItem {
+export interface ContactDocumentDataSkillsItem {
   /**
-   * social field in *Contact → socials*
+   * skill field in *Contact → skills*
    *
-   * - **Field Type**: Link
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: contact.socials[].social
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **API ID Path**: contact.skills[].skill
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  social: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+  skill: prismic.KeyTextField;
 }
 
-type ContactDocumentDataSlicesSlice = BigImageSlice | CatchphraseSlice;
+type ContactDocumentDataSlicesSlice = never;
 
 /**
  * Content for Contact documents
@@ -161,37 +161,26 @@ interface ContactDocumentData {
   mail: prismic.KeyTextField;
 
   /**
-   * image up field in *Contact*
+   * catchphrase field in *Contact*
    *
-   * - **Field Type**: Image
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: contact.image_up
+   * - **API ID Path**: contact.catchphrase
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  image_up: prismic.ImageField<never>;
+  catchphrase: prismic.KeyTextField;
 
   /**
-   * image down field in *Contact*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: contact.image_down
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  image_down: prismic.ImageField<never>;
-
-  /**
-   * socials field in *Contact*
+   * skills field in *Contact*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: contact.socials[]
+   * - **API ID Path**: contact.skills[]
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#group
    */
-  socials: prismic.GroupField<Simplify<ContactDocumentDataSocialsItem>>;
+  skills: prismic.GroupField<Simplify<ContactDocumentDataSkillsItem>>;
 
   /**
    * Slice Zone field in *Contact*
@@ -252,12 +241,60 @@ export type ContactDocument<Lang extends string = string> =
     Lang
   >;
 
-type FooterDocumentDataSlicesSlice = ContactSlice;
+/**
+ * Item in *Footer → socials*
+ */
+export interface FooterDocumentDataSocialsItem {
+  /**
+   * social field in *Footer → socials*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.socials[].social
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  social: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+type FooterDocumentDataSlicesSlice = never;
 
 /**
  * Content for Footer documents
  */
 interface FooterDocumentData {
+  /**
+   * city field in *Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.city
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  city: prismic.KeyTextField;
+
+  /**
+   * mail field in *Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.mail
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  mail: prismic.KeyTextField;
+
+  /**
+   * socials field in *Footer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.socials[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  socials: prismic.GroupField<Simplify<FooterDocumentDataSocialsItem>>;
+
   /**
    * Slice Zone field in *Footer*
    *
@@ -861,6 +898,16 @@ export interface ContactSliceDefaultPrimarySocialsItem {
  */
 export interface ContactSliceDefaultPrimary {
   /**
+   * city field in *Contact → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.default.primary.city
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  city: prismic.KeyTextField;
+
+  /**
    * mail field in *Contact → Default → Primary*
    *
    * - **Field Type**: Text
@@ -1315,6 +1362,16 @@ export interface SkillsSliceDefaultPrimarySoftwaresItem {
  */
 export interface SkillsSliceDefaultPrimary {
   /**
+   * image field in *Skills → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
    * abilities field in *Skills → Default → Primary*
    *
    * - **Field Type**: Group
@@ -1472,10 +1529,11 @@ declare module "@prismicio/client" {
       AboutDocumentDataSlicesSlice,
       ContactDocument,
       ContactDocumentData,
-      ContactDocumentDataSocialsItem,
+      ContactDocumentDataSkillsItem,
       ContactDocumentDataSlicesSlice,
       FooterDocument,
       FooterDocumentData,
+      FooterDocumentDataSocialsItem,
       FooterDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,

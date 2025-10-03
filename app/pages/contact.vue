@@ -1,54 +1,102 @@
 <script setup lang="ts">
-import { components } from '~/slices'
-import { onMounted } from 'vue';
+import { components } from "~/slices";
+import { ref, onMounted, reactive } from "vue";
+import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
+
+gsap.registerPlugin(TextPlugin);
 
 const prismic = usePrismic();
-const { data: page } = await useAsyncData("[contact]", () =>
-  prismic.client.getSingle("contact"),
-);
+const { data: page } = await useAsyncData("[contact]", () => prismic.client.getSingle("contact"));
 
 useHead({
-  title: 'Contact - Paul Marchiset',
-})
+  title: "Contact - Paul Marchiset",
+});
 
 onMounted(() => {
-  const mailElement = document.getElementById('mail');
+  const mailElement = document.getElementById("mail");
   if (mailElement) {
-    mailElement.addEventListener('click', copyEmail);
+    mailElement.addEventListener("click", copyEmail);
   }
 });
 
+const copied = ref(false);
+const hovering = ref(false);
+
 function copyEmail() {
-  if (page.value?.data.mail) {
-    const mailElement = document.getElementById('mail');
-    navigator.clipboard.writeText(page.value.data.mail)
-      .then(() => {
-        if (mailElement) {
-          mailElement.innerText = 'Copied!';
-          setTimeout(() => {
-            mailElement.innerText = page?.value?.data.mail || 'Email';
-          }, 1000); // Remove class after 2 seconds
-        }
-      })
-      .catch(err => {
-        console.error('Failed to copy email: ', err)
-      })
+  const email = page.value?.data.mail;
+  if (email) {
+    navigator.clipboard.writeText(email).then(() => {
+      copied.value = true;
+      setTimeout(() => (copied.value = false), 1000);
+    });
   }
+}
+
+const mousePosition = reactive({ x: 0, y: 0 });
+
+function handleMouseMove(event: MouseEvent) {
+  const target = event.currentTarget as HTMLElement;
+  const rect = target.getBoundingClientRect();
+  mousePosition.x = event.clientX - rect.left;
+  mousePosition.y = event.clientY - rect.top;
+}
+
+type Skill = { skill: string };
+
+const skills = page.value?.data?.skills.map((cat: Skill) => cat.skill) || ["skill"];
+const skillIndex = ref(0);
+const skillText = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  cycleSkills();
+});
+
+function cycleSkills() {
+  const showNext = () => {
+    const next = skills[skillIndex.value] ?? "";
+    if (skillText.value) {
+      gsap.to(skillText.value, {
+        duration: 1,
+        text: typeof next === "string" ? next : String(next),
+        ease: "power2.out",
+      });
+    }
+
+    skillIndex.value = (skillIndex.value + 1) % skills.length;
+    setTimeout(showNext, 2000);
+  };
+
+  showNext();
 }
 </script>
 
-
 <template>
-  <main class="flex flex-col items-center justify-center bg-(--main-white) min-h-screen px-12 lg:px-20">
-    <!-- <PrismicImage :field="page?.data.image_up ?? {}" class="h-[10vh] md:h-[25vh] object-cover object-center" target="_blank" /> -->
-    <div class="flex flex-col gap-2 items-center justify-center px-0 lg:px-20">
-      <h2 class="font-serif text-5xl md:text-6xl">Available for anything, don't hesitate to reach me :)</h2>
-      <p class="hover-animation w-min text-2xl md:text-base" id="mail" @click="copyEmail">{{ page?.data.mail }}</p>
+  <main class="flex justify-end md:justify-between items-center bg-(--main-white) min-h-screen px-4 lg:px-20">
+    <div class="hidden md:flex flex-col">
+      <p ref="skillText" class="text-3xl font-sans font-light w-max"></p>
     </div>
-    <div class="absolute flex gap-4 w-full justify-center items-center bottom-[20vh]">
-        <PrismicLink class="hover-animation w-min text-lg md:text-base" v-for="(item, idx) in page?.data.socials" :field="item.social"
-          :key="idx" />
-      <!-- <PrismicImage :field="page?.data.image_down ?? {}" class="h-[10vh] md:h-[25vh]  object-cover object-center" target="_blank" /> -->
+    <div class="w-fit flex flex-col items-end justify-end px-4">
+      <div class="relative h-min" @mousemove="handleMouseMove" @mouseenter="hovering = true" @mouseleave="hovering = false">
+        <p
+          v-if="hovering"
+          class="absolute px-4 py-2 text-sm font-light z-20 pointer-events-none w-max"
+          :style="{
+            left: `${mousePosition.x}px`,
+            top: `${mousePosition.y}px`,
+            transform: 'translate(-50%, -125%)',
+          }"
+          :class="{
+            'bg-green-900 text-white': copied,
+            'bg-(--main-black) text-white': !copied
+          }"
+        >
+          {{ copied ? "Copied!" : "Click to copy" }}
+        </p>
+        <p @click="copyEmail" class="text-right font-sans font-medium text-xl lg:text-3xl hover-animation cursor-pointer">{{ page?.data.mail }}</p>
+      </div>
+      
+      <h3 class="text-right text-balance font-sans font-light text-base lg:text-3xl">{{ page?.data.catchphrase }}</h3>
     </div>
   </main>
 </template>
@@ -61,7 +109,7 @@ function copyEmail() {
 }
 
 .hover-animation:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);

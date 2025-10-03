@@ -12,6 +12,13 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "city": {
+          "type": "Text",
+          "config": {
+            "label": "city",
+            "placeholder": ""
+          }
+        },
         "mail": {
           "type": "Text",
           "config": {

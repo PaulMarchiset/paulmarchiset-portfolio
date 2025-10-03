@@ -61,16 +61,18 @@ const filteredProjects = computed(() => {
   )
 })
 
-
+definePageMeta({
+  theme: 'dark'
+})
 
 </script>
 
 <template>
   <section class="py-32 bg-(--main-black) text-white">
-    <div class="p-8 lg:p-12 flex flex-col">
-      <h2 class="font-serif text-7xl lg:text-9xl">Works</h2>
+    <div class="px-4 flex justify-between">
+      <h2 class="font-sans text-3xl w-fit font-light">Works</h2>
       <div
-        class="group flex flex-wrap items-center gap-x-1 lg:gap-x-2 text-white font-light text-3xl relative">
+        class="group hidden lg:flex flex-wrap items-center gap-x-1 lg:gap-x-2 text-white font-light text-3xl relative">
 
         <button :class="[selectedMainCategory === null ? 'text-white' : '']" @click="selectedMainCategory = null">
           All ({{ projects.length }})
@@ -88,29 +90,28 @@ const filteredProjects = computed(() => {
 
     <!-- Project list -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8 p-4">
-       <div v-for="project in filteredProjects" :key="project.id" class="flex flex-col gap-2"> 
-        <div class="relative w-full overflow-hidden rounded group" @mousemove="(e) => handleMouseMove(e, project.id)"
+       <NuxtLink :to="`/project/${project.uid}`" v-for="project in filteredProjects" :key="project.id" class="flex flex-col gap-2"> 
+        <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)"
           @mouseleave="handleMouseLeave">
           <PrismicImage :field="project.data.image_main"
             class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75" />
 
           <div v-if="hoveredProjectId === project.id" class="absolute inset-0 pointer-events-none cursor-none">
-            <NuxtLink :to="`/project/${project.uid}`"
-              class="absolute px-4 py-2 bg-(--main-white) text-black text-sm rounded-full font-light z-20 pointer-events-auto"
+            <p 
+              class="absolute px-4 py-2 bg-(--main-white) text-black text-sm font-light z-20 pointer-events-auto"
               :style="{
                 left: `${mousePosition.x}px`,
                 top: `${mousePosition.y}px`,
-                transform: 'translate(-50%, -50%)'
-              }">
+                transform: 'translate(-50%, -125%)'}">
               Discover
-            </NuxtLink>
+            </p>
           </div>
         </div>
 
         <!-- Text content -->
         <div class="w-full flex justify-between text-white">
-          <h2 class="text-xl font-medium">{{ project.data.name }}</h2>
-          <p class="text-xl font-light">
+          <h2 class="text-xl font-light">{{ project.data.name }}</h2>
+          <p class="text-xl font-light opacity-75">
             {{
               (project.data.main_categories || [])
                 .map((c) => c?.main_category)
@@ -123,7 +124,7 @@ const filteredProjects = computed(() => {
               <p>Discover</p>
             </NuxtLink> -->
         </div>
-      </div>
+      </NuxtLink>
     </section>
     
     

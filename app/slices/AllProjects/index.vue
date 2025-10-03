@@ -1,131 +1,105 @@
-  <script setup lang="ts">
-  import type { Content } from "@prismicio/client"
-  import { ref, computed } from "vue"
-  import { getSliceComponentProps } from "@prismicio/vue"
+<script setup lang="ts">
+import type { Content } from "@prismicio/client";
+import { ref, reactive, computed } from "vue";
+import { getSliceComponentProps } from "@prismicio/vue";
 
-  // Props from Prismic Slice
-  const props = defineProps(
-    getSliceComponentProps<Content.AllProjectsSlice>([
-      "slice",
-      "index",
-      "slices",
-      "context",
-    ])
-  )
+// Props from Prismic Slice
+const props = defineProps(getSliceComponentProps<Content.AllProjectsSlice>(["slice", "index", "slices", "context"]));
 
-  const prismic = usePrismic()
+const prismic = usePrismic();
 
-  // Fetch all projects from Prismic
-  const { data: rawProjects } = await useAsyncData("projects", () =>
-    prismic.client.getAllByType("project")
-  )
+// Fetch all projects from Prismic
+const { data: rawProjects } = await useAsyncData("projects", () => prismic.client.getAllByType("project"));
 
-  const projects = ref(rawProjects.value ?? [])
+const projects = ref(rawProjects.value ?? []);
 
-  // Only keep favorite projects
-  const favoriteProjects = computed(() => {
-    return projects.value.filter(
-      (project) => project.data.favorite === true // adjust field name if needed
-    )
-  })
+// Only keep favorite projects
+const favoriteProjects = computed(() => {
+  return projects.value.filter(
+    (project) => project.data.favorite === true // adjust field name if needed
+  );
+});
 
-  import { Swiper, SwiperSlide } from 'swiper/vue'
-  import { Autoplay, Pagination } from 'swiper/modules'
-  import 'swiper/css'
-  import 'swiper/css/pagination'
+const hoveredProjectId = ref<string | null>(null);
+
+// Track actual cursor vs smoothed cursor
+const mouseTarget = reactive({ x: 0, y: 0 });
+const mouseSmooth = reactive({ x: 0, y: 0 });
+
+let animationFrame: number | null = null;
+
+function handleMouseMove(event: MouseEvent, projectId: string) {
+  hoveredProjectId.value = projectId;
+  const target = event.currentTarget as HTMLElement;
+  const rect = target.getBoundingClientRect();
+  mouseTarget.x = event.clientX - rect.left;
+  mouseTarget.y = event.clientY - rect.top;
+
+  if (!animationFrame) animateCursor();
+}
+
+function handleMouseLeave() {
+  hoveredProjectId.value = null;
+  if (animationFrame) {
+    cancelAnimationFrame(animationFrame);
+    animationFrame = null;
+  }
+}
+
+// Animate smoothed position toward target
+function animateCursor() {
+  const ease = 0.1; // smaller = smoother & slower
+  mouseSmooth.x += (mouseTarget.x - mouseSmooth.x) * ease;
+  mouseSmooth.y += (mouseTarget.y - mouseSmooth.y) * ease;
+
+  animationFrame = requestAnimationFrame(animateCursor);
+}
 </script>
 
+<template>
+  <section class="py-32 text-white">
+    <div class="px-4 lg:px-8 flex justify-between">
+      <h2 class="font-sans text-xl w-fit font-light">Works</h2>
+      <NuxtLink to="/project" class="text-xl w-fit font-light opacity-75 hover:opacity-100 flex items-center gap-2"> See all projects <Arrow /> </NuxtLink>
+    </div>
 
-  <template>
-    <section class="py-32 text-white">
-      <div class="p-8 lg:p-16 flex flex-col">
-        <h2 class="font-serif text-7xl lg:text-9xl w-fit ml-[-0.5rem]">Works</h2>
-        <!-- <div class="group flex flex-wrap items-center gap-x-2 text-white font-light text-xl lg:text-3xl relative">
-          <button :class="[selectedMainCategory === null ? 'text-white' : '']" @click="selectedMainCategory = null">
-            All ({{ projects.length }})
-          </button>
-          <template v-for="(cat, index) in allMainCategories" :key="cat">
-            <span class="mx-1 select-none">—</span>
-            <button :class="[selectedMainCategory === cat ? 'text-white' : '']" @click="selectedMainCategory = cat">
-              {{ cat }} ({{ MainCategoryCounts[cat] }})
-            </button>
-          </template></div> -->
-        <NuxtLink to="/project" class="text-2xl lg:text-3xl font-light w-fit opacity-75 hover:opacity-100">
-          See all projects
-        </NuxtLink>
-      </div>
+    <!-- Project list -->
+    <article class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 px-4 lg:px-8">
+      <NuxtLink :to="`/project/${project.uid}`" v-for="project in favoriteProjects" :key="project.id" class="flex flex-col gap-2">
+        <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)" @mouseleave="handleMouseLeave">
+          <PrismicImage :field="project.data.image_main" class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75" />
 
+          <div v-if="hoveredProjectId === project.id" class="absolute inset-0 pointer-events-none cursor-none">
+            <p
+              class="absolute px-4 py-2 bg-(--main-white) text-black text-sm font-light z-20 pointer-events-auto"
+              :style="{
+                left: `${mouseSmooth.x}px`,
+                top: `${mouseSmooth.y}px`,
+                transform: 'translate(-50%, -125%)',
+                transition: 'none', // important: let JS handle smoothness
+              }"
+            >
+              Discover
+            </p>
+          </div>
+        </div>
 
-
-      <!-- Project list -->
-      <client-only>
-        <Swiper :modules="[Autoplay, Pagination]" :slides-per-view="'auto'" :space-between="30" :centered-slides="true"
-          :loop="true" :autoplay="{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true }"
-          :pagination="{ el: '.swiper-pagination ', clickable: true }" class="mySwiper cursor-grab">
-          <SwiperSlide v-for="project in favoriteProjects" :key="project.id"
-            class="relative aspect-3/4 lg:aspect-video">
-
-            <PrismicImage :field="project.data.image_main" class="w-full h-full object-cover rounded" />
-
-            <div
-              class=" absolute bottom-0 left-0 w-full h-full md:h-auto p-6 z-10 flex flex-col md:flex-row items-center justify-between bg-gradient-to-t from-black/30 to-transparent text-white">
-              <div class="flex flex-col gap-1 md:gap-0">
-                <h2 class="text-2xl leading-title">{{ project.data.name }}</h2>
-                <p class="text-sm font-light hidden md:block"> {{(project.data.main_categories || []).map((c) =>
-                  c?.main_category).filter(Boolean).join(", ") || "None" }} </p>
-              </div>
-              <NuxtLink :to="`/project/${project.uid}`"
-                class="text-m leading-none font-light rounded-full bg-(--main-white) text-black px-5 py-2 h-fit flex items-center justify-center w-min">
-                <p>Discover</p>
-              </NuxtLink>
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide class="relative aspect-3/4 lg:aspect-video">
-            <PrismicImage :field="slice.primary.image" class="w-full h-full object-cover rounded" />
-            <div
-              class="absolute bottom-0 left-0 w-full h-full p-6 z-10 flex flex-col items-center justify-between text-white">
-              <div class="h-full flex flex-col gap-4 justify-center items-center">
-                <h2 class="font-serif text-4xl font-light leading-title">Discover all works</h2>
-                <NuxtLink :to="`/project`"
-                  class="text-m leading-none font-light rounded-full bg-(--main-white) text-black px-5 py-2 h-fit flex items-center justify-center ">
-                  <p>See more projects</p>
-                </NuxtLink>
-              </div>
-            </div>
-          </SwiperSlide>
-          <div class="swiper-pagination"></div>
-        </Swiper>
-      </client-only>
-
-
-
-    </section>
-  </template>
-
-<style>
-.swiper-pagination {
-  position: relative !important;
-  bottom: auto !important;
-  top: auto !important;
-  /* margin-top: 2rem; */
-  display: flex;
-  justify-content: center;
-}
-
-.swiper-pagination-bullet {
-  background: white;
-  opacity: 0.5;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  margin: 0 4px;
-}
-
-.swiper-pagination-bullet-active {
-  background: white;
-  opacity: 1;
-}</style>
+        <!-- Text content -->
+        <!-- <div class="w-full flex justify-between text-white">
+          <h2 class="text-xl font-light">{{ project.data.name }}</h2>
+          <p class="text-xl font-light opacity-75">
+            {{
+              (project.data.main_categories || [])
+                .map((c) => c?.main_category)
+                .filter(Boolean)
+                .join(", ") || "None"
+            }}
+          </p>
+        </div> -->
+      </NuxtLink>
+    </article>
+  </section>
+</template>
 
 <style scoped>
 .group button,
@@ -140,22 +114,12 @@
 
 .group:hover button:not(:hover),
 .group:hover span {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
-.swiper-slide {
-  width: 85vw;
-}
-
-@media screen and (min-width: 1024px) {
-  .swiper-slide {
-    width: 67vw;
-  }
-}
-
-.mySwiper {
-  display: flex !important;
-  flex-direction: column;
-  gap: 1rem;
+.nuxt-link-hover {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 </style>

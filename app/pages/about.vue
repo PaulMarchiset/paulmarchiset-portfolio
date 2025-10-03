@@ -3,10 +3,9 @@ import { components } from '~/slices'
 import { ref, onMounted, computed } from "vue"
 
 import gsap from 'gsap'
-import { TextPlugin } from 'gsap/TextPlugin'
+import { TextPlugin } from "gsap/TextPlugin"
 
 gsap.registerPlugin(TextPlugin)
-
 
 const prismic = usePrismic()
 const { data: page } = await useAsyncData("[about]", () =>
@@ -42,7 +41,7 @@ function cycleActivities() {
     if (activityText.value) {
       gsap.to(activityText.value, {
         duration: 1,
-        text: next,
+        text: typeof next === 'string' ? next : String(next),
         ease: "power2.out",
       })
     }

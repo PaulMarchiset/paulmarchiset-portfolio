@@ -43,8 +43,8 @@
 							[
 								"social",
 								{
-									"__TYPE__": "LinkContent",
 									"key": "9f5301de-d7da-4ec2-ac46-619f42861775",
+									"__TYPE__": "LinkContent",
 									"value": {
 										"__TYPE__": "ExternalLink",
 										"url": "http://twitter.com",
@@ -55,6 +55,11 @@
 						]
 					}
 				]
+			},
+			"city": {
+				"__TYPE__": "FieldContent",
+				"value": "pool",
+				"type": "Text"
 			}
 		},
 		"items": []
