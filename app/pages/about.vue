@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { components } from '~/slices'
 import { ref, onMounted, computed } from "vue"
+import { usePrismic } from '@prismicio/vue'
+import { useHead } from '@unhead/vue'
 
 import gsap from 'gsap'
 import { TextPlugin } from "gsap/TextPlugin"
@@ -80,7 +82,7 @@ function cycleActivities() {
       </div>
 
       <div class="col-start-3 col-span-2 row-start-2">
-        <PrismicImage :field="about.data?.image_cover" class="w-full h-full aspect-square object-cover object-center" />
+        <PrismicImage v-if="about?.data?.image_cover" :field="about.data.image_cover" class="w-full h-full aspect-square object-cover object-center" />
       </div>
     </header>
 

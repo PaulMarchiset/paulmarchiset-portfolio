@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import gsap from 'gsap';
 
-import { useMenuStore } from '@/stores/menu'
+import { useMenuStore } from '../../stores/menu'
+
+import { onMounted, watch } from 'vue';
 
 const menuStore = useMenuStore()
 

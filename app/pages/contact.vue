@@ -3,6 +3,8 @@ import { components } from "~/slices";
 import { ref, onMounted, reactive } from "vue";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import { usePrismic } from "@prismicio/vue";
+import { useHead } from "@unhead/vue";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -44,7 +46,7 @@ function handleMouseMove(event: MouseEvent) {
 
 type Skill = { skill: string };
 
-const skills = page.value?.data?.skills.map((cat: Skill) => cat.skill) || ["skill"];
+const skills = page.value?.data?.skills.map((cat: { skill: string | null }) => cat.skill ?? "skill") || ["skill"];
 const skillIndex = ref(0);
 const skillText = ref<HTMLElement | null>(null);
 

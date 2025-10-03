@@ -8,7 +8,12 @@ const props = defineProps<{
 }>();
 
 const prismic = usePrismic();
-const { data: page } = await useAsyncData("[footer]", () => prismic.client.getSingle("footer"));
+import { onMounted } from "vue";
+const page = ref<any>(null);
+
+onMounted(async () => {
+  page.value = await prismic.client.getSingle("footer");
+});
 
 const copied = ref(false);
 const hovering = ref(false);

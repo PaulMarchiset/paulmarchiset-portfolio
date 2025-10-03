@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from "vue"
+import { useHead } from "@unhead/vue"
+import { usePrismic } from "@prismicio/vue"
 
 useHead({
   title: 'Works - Paul Marchiset',

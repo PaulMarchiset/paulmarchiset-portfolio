@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { components } from '~/slices'
+import { useHead } from '@unhead/vue'
+import { usePrismic } from '@prismicio/vue'
 
 const prismic = usePrismic();
 const { data: page } = await useAsyncData("[homepage]", () =>
   prismic.client.getSingle("homepage"),
 );
-
-import { onMounted } from 'vue'
-import gsap from 'gsap'
 
 useHead({
   title: 'Paul Marchiset'

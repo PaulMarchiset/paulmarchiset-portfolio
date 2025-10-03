@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { ref, watchEffect, onMounted, computed } from "vue";
-import { useMenuStore } from "@/stores/menu";
+import { ref, watchEffect, onMounted, computed, watch } from "vue";
+import { useMenuStore } from "../stores/menu";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { openHeaderAnimation, closeHeaderAnimation } from "@/animations/menuAnimation";
+import { openHeaderAnimation, closeHeaderAnimation } from "../animations/menuAnimation";
+import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
 
 const route = useRoute()
-const theme = computed(() => route.meta.theme || 'light')
+const theme = computed(() => {
+  const t = route.meta.theme;
+  return t === "dark" ? "dark" : "light";
+});
 
 const lenisRef = ref();
 

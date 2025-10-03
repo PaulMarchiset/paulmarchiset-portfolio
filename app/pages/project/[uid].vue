@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { components } from '~/slices'
+import { useHead } from '@unhead/vue'
+import { usePrismic } from '@prismicio/vue'
+import { useRoute } from 'vue-router'
+
+import { ref, onMounted } from 'vue'
 
 const prismic = usePrismic()
 const route = useRoute()
 const { data: page } = await useAsyncData(route.params.uid as string, () =>
   prismic.client.getByUID('project', route.params.uid as string)
 )
-
 const title = page.value?.data.name
 
 useHead({
@@ -18,7 +22,7 @@ console.log(page)
 
 const projectName = page.value?.data.name;
 const projectDate = page.value?.data.date;
-const projectCategories = page.value?.data.categories?.map(cat => cat.category) || ['Project'];
+const projectCategories = page.value?.data.categories?.map((cat: { category: any }) => cat.category) || ['Project'];
 
 
 </script>
@@ -38,7 +42,7 @@ const projectCategories = page.value?.data.categories?.map(cat => cat.category) 
           </ul>
         </div>
       </div>
-      <PrismicImage :field="page?.data.image_main" class="w-full h-full object-cover object-center" />
+      <PrismicImage v-if="page?.data.image_main" :field="page?.data.image_main" class="w-full h-full object-cover object-center" />
     </header>
     <div class="flex flex-col gap-32 py-32">
       <SliceZone :slices="page?.data.slices ?? []" :components="components" class="flex flex-col gap-32 " />
@@ -56,7 +60,7 @@ const projectCategories = page.value?.data.categories?.map(cat => cat.category) 
               </h5>
             </div>
           </div>
-          <PrismicLink v-if="page?.data.view_more.link_type != 'Any'" :field="page?.data.view_more"
+          <PrismicLink v-if="page?.data.view_more" :field="page?.data.view_more"
             class="text-xl leading-none font-light rounded-full border text-black px-5 py-3 h-fit flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300" />
         </div>
         <div v-if="page?.data.collaborators?.length" class="hidden md:flex gap-3">
@@ -68,7 +72,6 @@ const projectCategories = page.value?.data.categories?.map(cat => cat.category) 
             </span>
           </h5>
         </div>
-
       </div>
     </div>
   </section>

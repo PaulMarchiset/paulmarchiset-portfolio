@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { components } from '~/slices'
+import { useHead } from '@unhead/vue'
+import { usePrismic } from '@prismicio/vue'
+import { ref, onMounted } from 'vue'
 
 useHead({
   title: 'Photos - Paul Marchiset',
 })
 
 const prismic = usePrismic()
-const { data: page } = await useAsyncData('[photo]', () =>
-  prismic.client.getSingle('photo')
-)
+const page = ref()
 
+onMounted(async () => {
+  const response = await prismic.client.getSingle('photo')
+  page.value = response
+})
 
 </script>
 

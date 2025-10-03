@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMenuStore } from '@/stores/menu'
+import { useMenuStore } from '../../stores/menu'
 import { onMounted } from 'vue'
 import gsap from 'gsap'
 
