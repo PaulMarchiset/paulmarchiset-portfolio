@@ -61,7 +61,7 @@ function cycleActivities() {
 
 <template>
   <section class="bg-(--main-white) text-black z-10">
-    <header class="pt-[60vh] lg:pt-0 flex flex-col lg:grid grid-cols-4 grid-rows-2 gap-4 px-8 lg:px-24">
+    <header class="pt-[60vh] lg:pt-0 flex flex-col lg:grid lg:grid-cols-4 lg:grid-rows-2 gap-4 px-8 lg:px-24">
       <div class="h-full flex flex-col justify-end">
         <h1
           class="font-title uppercase font-stretch-condensed w-min font-semibold text-7xl lg:text-9xl leading-(--leading-title)">

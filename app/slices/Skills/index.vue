@@ -3,7 +3,7 @@ import type { Content } from "@prismicio/client";
 const props = defineProps(getSliceComponentProps<Content.SkillsSlice>(["slice", "index", "slices", "context"]));
 </script>
 <template>
-  <section class="flex flex-col lg:grid grid-cols-2 gap-16 px-8 lg:px-12">
+  <section class="flex flex-col lg:grid lg:grid-cols-2 gap-16 px-8 lg:px-12">
     
     <div class="flex flex-col gap-12 justify-center">
       <div class="flex flex-col items-start lg:flex-row justify-between w-full">
