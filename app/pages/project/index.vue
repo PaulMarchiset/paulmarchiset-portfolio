@@ -63,9 +63,9 @@ const filteredProjects = computed(() => {
   )
 })
 
-// definePageMeta({
-//   theme: 'dark'
-// })
+definePageMeta({
+  theme: 'dark'
+})
 
 </script>
 

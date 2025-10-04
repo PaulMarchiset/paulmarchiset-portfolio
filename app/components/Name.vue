@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import gsap from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
-
-gsap.registerPlugin(TextPlugin);
 
 // Refs for each text
 const paulRef = ref<HTMLElement | null>(null);
