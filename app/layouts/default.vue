@@ -119,7 +119,7 @@ onMounted(() => {
     <div id="main" class="z-10 absolute top-0 w-full overflow-clip" style="backface-visibility: hidden">
       <div id="main-content">
         <slot />
-        <LayoutFooter :theme="theme"/>
+        <!-- <LayoutFooter :theme="theme"/> -->
       </div>
     </div>
   </VueLenis>
