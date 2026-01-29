@@ -74,6 +74,17 @@ interface AboutDocumentData {
   image_cover: prismic.ImageField<never>;
 
   /**
+   * video field in *About*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.video
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  video: prismic.LinkToMediaField<prismic.FieldState, never>;
+
+  /**
    * Slice Zone field in *About*
    *
    * - **Field Type**: Slice Zone
@@ -484,7 +495,6 @@ export interface ProjectDocumentDataCategoriesItem {
     | "Print Design"
     | "Web Development"
     | "Video Direction"
-    | "Web development"
     | "Editing"
     | "Experimental"
   >;
@@ -1172,6 +1182,8 @@ export interface PhotoSliceDefaultPrimaryOnephotoItem {
     | "Jump!"
     | "Canada"
     | "Subway"
+    | "Impression"
+    | "Birds"
   >;
 }
 
