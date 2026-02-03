@@ -79,7 +79,7 @@ function animateCursor() {
                 transition: 'none', // important: let JS handle smoothness
               }"
             >
-              Discover
+              {{ project.data.name }}
             </p>
           </div>
         </div>

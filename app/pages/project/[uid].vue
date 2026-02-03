@@ -4,7 +4,7 @@ import { useHead } from '@unhead/vue'
 import { usePrismic } from '@prismicio/vue'
 import { useRoute } from 'vue-router'
 
-import { ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 const prismic = usePrismic()
 const route = useRoute()
@@ -23,6 +23,15 @@ console.log(page)
 const projectName = page.value?.data.name;
 const projectDate = page.value?.data.date;
 const projectCategories = page.value?.data.categories?.map((cat: { category: any }) => cat.category) || ['Project'];
+
+const collaborators = computed(() => {
+  const items = (page.value?.data as any)?.collaborators ?? []
+  return items
+    .map((c: any) => ({ ...c, name: (c?.name ?? '').toString().trim() }))
+    .filter((c: any) => c.name.length > 0)
+})
+
+const hasCollaborators = computed(() => collaborators.value.length > 0)
 
 
 </script>
@@ -50,12 +59,12 @@ const projectCategories = page.value?.data.categories?.map((cat: { category: any
         <div class="flex flex-col md:flex-row gap-6 md:gap-auto  justify-between items-start md:items-center">
           <div class="flex flex-col">
             <h3 class="text-5xl lg:text-8xl font-medium">{{ projectName }}</h3>
-            <div v-if="page?.data.collaborators?.length" class="flex md:hidden gap-3">
+            <div v-if="hasCollaborators" class="flex md:hidden gap-3">
               <h5 class="text-lg font-sans font-light">With
-                <span v-for="(oneCollaborator, index) in page.data.collaborators" :key="index">
+                <span v-for="(oneCollaborator, index) in collaborators" :key="`${oneCollaborator.name}-${index}`">
                   {{ oneCollaborator.name }}
-                  <template v-if="index < page.data.collaborators.length - 2">, </template>
-                  <template v-else-if="index === page.data.collaborators.length - 2"> and </template>
+                  <template v-if="Number(index) < collaborators.length - 2">, </template>
+                  <template v-else-if="Number(index) === collaborators.length - 2"> and </template>
                 </span>
               </h5>
             </div>
@@ -63,16 +72,16 @@ const projectCategories = page.value?.data.categories?.map((cat: { category: any
           <PrismicLink v-if="page?.data.view_more" :field="page?.data.view_more"
             class="text-xl leading-none font-light rounded-full border text-black px-5 py-3 h-fit flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300" />
         </div>
-        <div v-if="page?.data.collaborators?.length" class="hidden md:flex gap-3">
-          <h5 class="text-base font-sans font-light">With
-            <span v-for="(oneCollaborator, index) in page.data.collaborators" :key="index">
-              {{ oneCollaborator.name }}
-              <template v-if="index < page.data.collaborators.length - 2">, </template>
-              <template v-else-if="index === page.data.collaborators.length - 2"> and </template>
-            </span>
-          </h5>
+          <div v-if="hasCollaborators" class="hidden md:flex gap-3">
+            <h5 class="text-base font-sans font-light">With
+              <span v-for="(oneCollaborator, index) in collaborators" :key="`${oneCollaborator.name}-${index}`">
+                {{ oneCollaborator.name }}
+                <template v-if="Number(index) < collaborators.length - 2">, </template>
+                <template v-else-if="Number(index) === collaborators.length - 2"> and </template>
+              </span>
+            </h5>
+          </div>
         </div>
-      </div>
     </div>
   </section>
 </template>

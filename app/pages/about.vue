@@ -60,34 +60,32 @@ function cycleActivities() {
 </script>
 
 <template>
-  <section class="bg-(--main-white) text-black z-10">
-    <header class="pt-[60vh] lg:pt-0 flex flex-col lg:grid lg:grid-cols-4 lg:grid-rows-2 gap-4 px-8 lg:px-24">
+ <section class="bg-(--main-white) text-black z-10">
+    <header class="pt-[60vh] lg:pt-0 pb-[10vh] flex flex-col gap-4 px-8 lg:px-24 z-20 relative h-screen text-white">
       <div class="h-full flex flex-col justify-end">
         <h1
           class="font-title uppercase font-stretch-condensed w-min font-semibold text-7xl lg:text-9xl leading-(--leading-title)">
           Paul Marchiset
         </h1>
-      </div>
+      </div> 
 
       <div class="flex gap-24 row-start-2 col-span-2">
-        <!-- 🔁 Replaces ©2004 with animated age -->
         <p class="text-lg font-sans font-light">
           {{ year }}
         </p>
 
-        <!-- 🔁 Dynamic single activity -->
         <ul class="flex flex-col">
           <li ref="activityText" class="text-lg font-sans font-light w-max"></li>
         </ul>
       </div>
-
-      <div class="col-start-3 col-span-2 row-start-2">
-        <PrismicImage v-if="about?.data?.image_cover" :field="about.data.image_cover" class="w-full h-full aspect-square object-cover object-center" />
-      </div>
     </header>
+    <div class="absolute top-0 left-0 right-0 h-screen">
+      <video class="h-full w-full object-cover " :src="about?.data.video.url"
+    autoplay muted loop playsinline></video>
+    </div>
 
     <section class="flex flex-col gap-32 pt-32">
       <SliceZone :components="components" :slices="about?.data.slices ?? []" />
     </section>
-  </section>
+  </section> 
 </template>
