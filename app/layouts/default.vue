@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect, onMounted, computed, watch } from "vue";
 import { useMenuStore } from "../stores/menu";
-import gsap from "gsap";
 import { openHeaderAnimation, closeHeaderAnimation } from "../animations/menuAnimation";
 import { useRouter, useRoute } from "vue-router";
 
@@ -14,23 +13,6 @@ const theme = computed(() => {
 });
 
 const lenisRef = ref();
-
-// Lenis + GSAP ticker integration
-watchEffect((onInvalidate) => {
-  if (!lenisRef.value?.lenis) return;
-  const lenis = lenisRef.value.lenis;
-
-  // sync Lenis with GSAP's ticker
-  function update(time: number) {
-    lenis.raf(time * 1000);
-  }
-  gsap.ticker.add(update);
-  gsap.ticker.lagSmoothing(0);
-
-  onInvalidate(() => {
-    gsap.ticker.remove(update);
-  });
-});
 
 watchEffect(() => {
   if (lenisRef.value?.lenis) {
@@ -97,7 +79,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <VueLenis root ref="lenisRef" :options="{ autoRaf: false }">
+  <VueLenis root ref="lenisRef" :options="{ autoRaf: true }">
     <LayoutHeader />
     <LayoutMenu />
 

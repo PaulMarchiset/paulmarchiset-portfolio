@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import gsap from "gsap";
 
 // Refs for each text
 const paulRef = ref<HTMLElement | null>(null);
@@ -8,26 +7,42 @@ const marchisetRef = ref<HTMLElement | null>(null);
 const taglineRef = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-
-  // Animate "Paul"
-  tl.fromTo(paulRef.value, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 });
-
-  // Animate "Marchiset"
-  tl.fromTo(
-    marchisetRef.value,
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.8 },
-    "-=0.3"
-    // small pause after "Paul"
+  paulRef.value?.animate(
+    [
+      { opacity: 0, transform: "translateY(20px)" },
+      { opacity: 1, transform: "translateY(0)" },
+    ],
+    {
+      duration: 800,
+      easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+      fill: "forwards",
+    }
   );
 
-  // Animate tagline "Creative engineer student"
-  tl.fromTo(
-    taglineRef.value,
-    { opacity: 0, y: 10 },
-    { opacity: 1, y: 0, duration: 1 },
-    "+=0.25" // start after "Marchiset"
+  marchisetRef.value?.animate(
+    [
+      { opacity: 0, transform: "translateY(20px)" },
+      { opacity: 1, transform: "translateY(0)" },
+    ],
+    {
+      duration: 800,
+      delay: 500,
+      easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+      fill: "forwards",
+    }
+  );
+
+  taglineRef.value?.animate(
+    [
+      { opacity: 0, transform: "translateY(10px)" },
+      { opacity: 1, transform: "translateY(0)" },
+    ],
+    {
+      duration: 1000,
+      delay: 1300,
+      easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+      fill: "forwards",
+    }
   );
 });
 </script>

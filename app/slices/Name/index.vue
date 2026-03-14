@@ -17,17 +17,15 @@ defineProps(
     <section class="row-start-1 row-span-full col-start-1 col-span-full relative h-screen w-full">
       <div class="absolute top-0 h-full w-full">
         <picture>
-          <source
-            media="(min-width: 1024px)"
-            :srcset="slice.primary.image_desktop.url || slice.primary.image_mobile.url || ''"
-          />
-          <img 
-            :src="slice.primary.image_mobile.url || slice.primary.image_desktop.url || ''"
-            :alt="slice.primary.image_mobile.alt || slice.primary.image_desktop.alt || ''"
-            loading="eager"
-            fetchpriority="high"
-            class="hero-image"
-          />
+          <source media="(min-width: 1024px)"
+            :srcset="slice.primary.image_desktop.url + '?w=1600&auto=format,compress&q=70'" />
+
+          <img :src="slice.primary.image_mobile.url + '?w=600&auto=format,compress'" :srcset="`
+    ${slice.primary.image_mobile.url}?w=600&auto=format,compress 600w,
+    ${slice.primary.image_mobile.url}?w=900&auto=format,compress 900w,
+    ${slice.primary.image_mobile.url}?w=1200&auto=format,compress 1200w
+  `" sizes="100vw" :alt="slice.primary.image_mobile.alt || ''" loading="eager" fetchpriority="high"
+            class="hero-image" />
         </picture>
       </div>
     </section>
@@ -58,10 +56,12 @@ defineProps(
     transform: scale(1);
     border-radius: 0rem;
   }
+
   70% {
     transform: scale(0.9);
     border-radius: 0rem;
   }
+
   100% {
     transform: scale(0.9);
     border-radius: 2rem;

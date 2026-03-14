@@ -1,10 +1,4 @@
 // animations/header.ts
-import gsap from 'gsap'
-
-// Custom ease function
-function customEase(t: number) {
-  return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2
-}
 
 export function openHeaderAnimation({
   isMobile = false,
@@ -12,32 +6,56 @@ export function openHeaderAnimation({
   borderRadius = 25,
   duration = 1.5
 } = {}) {
-  gsap.set('#main-content', { y: -yOffset})
-  gsap.set('#main', { y: yOffset, pointerEvents: 'none'})
-  gsap.to('#main', {
-    borderRadius,
-    y: isMobile ? yOffset + 0.9 * window.innerHeight : yOffset + 0.9 * window.innerHeight,
-    scaleX: 0.96,
-    scaleY: 0.96,
-    duration,
-    ease: customEase
-  })
+  const main = document.getElementById("main")
+  const mainContent = document.getElementById("main-content")
+  if (!main || !mainContent) return
+
+  mainContent.style.transform = `translateY(${-yOffset}px)`
+  main.style.transform = `translateY(${yOffset}px) translateZ(0)`
+  main.style.pointerEvents = "none"
+
+  const targetY = isMobile ? yOffset + 0.9 * window.innerHeight : yOffset + 0.9 * window.innerHeight
+  main.animate(
+    [
+      { transform: `translateY(${yOffset}px) scale(1)`, borderRadius: "0px" },
+      { transform: `translateY(${targetY}px) scale(0.96)`, borderRadius: `${borderRadius}px` },
+    ],
+    {
+      duration: duration * 1000,
+      easing: "cubic-bezier(0.83, 0, 0.29, 0.99)",
+      fill: "forwards",
+    }
+  )
 }
 
 export function closeHeaderAnimation({
   yOffset = 0,
   duration = 1.5
 } = {}) {
-  gsap.to('#main', {
-    borderRadius: 0,
-    y: yOffset,
-    scaleX: 1,
-    scaleY: 1,
-    duration,
-    ease: customEase,
-    onComplete: () => {
-      gsap.set('#main-content', { clearProps: 'all' })
-      gsap.set('#main', { clearProps: 'all' })
+  const main = document.getElementById("main")
+  const mainContent = document.getElementById("main-content")
+  if (!main || !mainContent) return
+
+  const animation = main.animate(
+    [
+      {
+        transform: getComputedStyle(main).transform === "none"
+          ? `translateY(${yOffset}px) scale(0.96)`
+          : getComputedStyle(main).transform,
+      },
+      { transform: `translateY(${yOffset}px) scale(1)`, borderRadius: "0px" },
+    ],
+    {
+      duration: duration * 1000,
+      easing: "cubic-bezier(0.83, 0, 0.29, 0.99)",
+      fill: "forwards",
     }
-  })
+  )
+
+  animation.onfinish = () => {
+    mainContent.style.removeProperty("transform")
+    main.style.removeProperty("transform")
+    main.style.removeProperty("border-radius")
+    main.style.removeProperty("pointer-events")
+  }
 }
