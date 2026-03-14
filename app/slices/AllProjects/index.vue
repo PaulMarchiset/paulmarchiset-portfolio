@@ -60,12 +60,12 @@ function animateCursor() {
   <section class="py-32 text-white">
     <div class="px-4 lg:px-8 flex justify-between">
       <h2 class="font-sans text-xl w-fit font-light">Works</h2>
-      <NuxtLink to="/project" class="text-xl w-fit font-light opacity-75 hover:opacity-100 flex items-center gap-2"> See all projects <Arrow /> </NuxtLink>
+      <NuxtLink to="/project" aria-label="See all projects" class="text-xl w-fit font-light opacity-75 hover:opacity-100 flex items-center gap-2"> See all projects <Arrow /> </NuxtLink>
     </div>
 
     <!-- Project list -->
     <article class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 px-4 lg:px-8">
-      <NuxtLink :to="`/project/${project.uid}`" v-for="project in favoriteProjects" :key="project.id" class="flex flex-col gap-2">
+      <NuxtLink :to="`/project/${project.uid}`" :aria-label="`Go to ${project.data.name}`" v-for="project in favoriteProjects" :key="project.id" class="flex flex-col gap-2">
         <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)" @mouseleave="handleMouseLeave">
           <PrismicImage :field="project.data.image_main" class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75" />
 

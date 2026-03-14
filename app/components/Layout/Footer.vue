@@ -28,7 +28,19 @@ function copyEmail() {
   }
 }
 
-const time = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+// const time = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+const time = ref('--:--') 
+
+onMounted(() => {
+  // 2. Once the browser takes over, calculate the real time
+  time.value = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Europe/Paris',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date())
+})
+
 const mousePosition = reactive({ x: 0, y: 0 });
 
 function handleMouseMove(event: MouseEvent) {
@@ -47,7 +59,7 @@ function handleMouseMove(event: MouseEvent) {
 
     <ul class="flex flex-col">
       <li v-for="(item, index) in page?.data.socials" :key="index">
-        <NuxtLink
+        <NuxtLink aria-label="Visit social media profile"
           :to="item.social.url"
           class="hover-animation"
           :class="{

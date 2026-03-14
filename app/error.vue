@@ -25,7 +25,7 @@ onMounted(() => {
     </p>
 
     <div class="mt-8 flex gap-4">
-      <NuxtLink to="/" class="underline">Go to homepage</NuxtLink>
+      <NuxtLink to="/" aria-label="Go to homepage" class="underline">Go to homepage</NuxtLink>
       <button
         type="button"
         class="underline"

@@ -118,7 +118,7 @@ watch(() => menuStore.isOpen, (newVal) => {
   <header class="fixed top-8 flex items-center justify-center z-50 w-full mix-blend-difference pointer-events-none">
     <nav class="flex items-center justify-between font-sans text-xl md:gap-[10vw] w-[95%] pointer-events-none">
       <div class="flex items-center gap-12">
-        <NuxtLink to="/" class="flex gap-2 items-center icon-logo pointer-events-auto" @click="menuStore.isOpen = false">
+        <NuxtLink to="/" aria-label="Go to homepage" class="flex gap-2 items-center icon-logo pointer-events-auto" @click="menuStore.isOpen = false">
           <div class="flex gap-1.5 scale-75 lg:scale-90">
             <LogoP class="logoP" />
             <LogoM class="logoM" />

@@ -35,5 +35,5 @@ const router = useRouter();
 </script>
 
 <template>
-  <NuxtLink :to=nextProject class="text-4xl font-mono font-light w-3xl py-84 test">Next Project</NuxtLink>
+  <NuxtLink :to=nextProject :aria-label="`Go to ${nextProject}`" class="text-4xl font-mono font-light w-3xl py-84 test">Next Project</NuxtLink>
 </template>

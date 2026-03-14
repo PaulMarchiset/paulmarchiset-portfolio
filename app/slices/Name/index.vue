@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Content } from "@prismicio/client";
-import { ref, onMounted } from "vue";
 
 defineProps(
   getSliceComponentProps<Content.NameSlice>([
@@ -10,12 +9,6 @@ defineProps(
     "context",
   ])
 );
-
-const isMobile = ref(false);
-
-onMounted(() => {
-  isMobile.value = window.innerWidth < 1024;
-});
 </script>
 
 <template>
@@ -23,7 +16,18 @@ onMounted(() => {
     <Name class="z-10" />
     <section class="row-start-1 row-span-full col-start-1 col-span-full relative h-screen w-full">
       <div class="absolute top-0 h-full w-full">
-        <PrismicImage :field="isMobile ? slice.primary.image_mobile : slice.primary.image_desktop" class="hero-image" />
+        <picture>
+          <source
+            media="(min-width: 1024px)"
+            :srcset="slice.primary.image_desktop.url || slice.primary.image_mobile.url || ''"
+          />
+          <img 
+            :src="slice.primary.image_mobile.url || slice.primary.image_desktop.url || ''"
+            :alt="slice.primary.image_mobile.alt || slice.primary.image_desktop.alt || ''"
+            loading="lazy"
+            class="hero-image"
+          />
+        </picture>
       </div>
     </section>
   </section>

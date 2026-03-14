@@ -30,7 +30,9 @@ export default defineNuxtConfig({
         },
         { name: "format-detection", content: "telephone=no" },
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/logo.svg" }],
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }, 
+        { rel: "icon", type: "image/x-icon", href: "/paulmarchiset_logo.ico" }
+      ],
     },
   },
 

@@ -41,7 +41,7 @@ function handleMouseMove(event: MouseEvent) {
     </div>
     <ul class="flex flex-col">
       <li v-for="(item, index) in slice.primary.socials" :key="index">
-        <NuxtLink :to="item.social.url" class="hover-animation">{{ item.social.text }}</NuxtLink>
+        <NuxtLink :to="item.social.url" :aria-label="`Visit ${item.social.text} profile`" class="hover-animation">{{ item.social.text }}</NuxtLink>
       </li>
     </ul>
     <!-- Copy email with mouse-follow tooltip -->
@@ -66,7 +66,7 @@ function handleMouseMove(event: MouseEvent) {
       </p>
 
       <!-- Trigger -->
-      <p @click="copyEmail" class="cursor-pointer">Copy Email</p>
+      <p @click="copyEmail" :aria-label="`Copy ${slice.primary.mail} to clipboard`" class="cursor-pointer">Copy Email</p>
     </div>
     <p>©2025 Paul Marchiset</p>
   </footer>

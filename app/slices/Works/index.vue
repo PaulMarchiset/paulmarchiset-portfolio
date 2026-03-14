@@ -41,8 +41,9 @@ const currentImage = ref('');
   <nav
     class="hidden mr-8 row-start-3 row-span-5 col-span-3 col-end-8 lg:flex flex-col uppercase justify-evenly font-title items-end text-5xl z-10 text-whitezero text-white leading-[88%]">
     
-    <NuxtLink 
+    <NuxtLink  
       v-for="item in slice.primary.works" 
+      :aria-label="`Go to ${item.name}`"
       :key="item.name" 
       :to="`/${item.name.toLowerCase()}`" 
       :id="item.name"
@@ -59,7 +60,7 @@ const currentImage = ref('');
     <PrismicImage :field="currentImage" class="h-full w-full object-cover" />
   </div>
   <nav class="flex flex-col px-(--spacing-project-mobile) gap-8 lg:hidden">
-    <NuxtLink v-for="item in slice.primary.works" :key="item.name" :to="`/${item.name.toLowerCase()}`"
+    <NuxtLink v-for="item in slice.primary.works"  :key="item.name" :to="`/${item.name.toLowerCase()}`" :aria-label="`Go to ${item.name}`"
       class="grid grid-cols-1 font-mono font-regular text-xl uppercase text-white">
 
       <p

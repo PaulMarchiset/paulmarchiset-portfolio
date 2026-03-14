@@ -92,7 +92,7 @@ definePageMeta({
 
     <!-- Project list -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8 p-4">
-       <NuxtLink :to="`/project/${project.uid}`" v-for="project in filteredProjects" :key="project.id" class="flex flex-col gap-2"> 
+       <NuxtLink :to="`/project/${project.uid}`" :aria-label="`Go to ${project.data.name}`" v-for="project in filteredProjects" :key="project.id" class="flex flex-col gap-2"> 
         <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)"
           @mouseleave="handleMouseLeave">
           <PrismicImage :field="project.data.image_main"

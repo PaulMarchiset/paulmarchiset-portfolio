@@ -3,23 +3,27 @@
 @font-face {
   font-family: "Bahnschrift";
   src: url("../fonts/Bahnschrift.ttf") format("truetype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Editorial New";
   src: url("../fonts/PPEditorialNew-Ultralight.otf") format("opentype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Neue Montreal";
   src: url("../fonts/PPNeueMontreal-Book.otf") format("opentype");
   font-weight: 300;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Neue Montreal";
   src: url("../fonts/PPNeueMontreal-Medium.otf") format("opentype");
   font-weight: 500;
+  font-display: swap;
 }
 
 

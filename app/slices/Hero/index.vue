@@ -16,8 +16,18 @@ const projectName = props.slice.primary.name;
 <template>
   <section class="h-screen flex flex-col justify-end w-full relative">
     <div class="absolute top-0 w-full h-full">
-      <PrismicImage :field="slice.primary.image_mobile" class="object-cover w-full h-full block md:hidden" />
-      <PrismicImage :field="slice.primary.image_desktop" class="object-cover w-full h-full hidden md:block" />
+      <picture>
+        <source
+          media="(min-width: 768px)"
+          :srcset="slice.primary.image_desktop.url || slice.primary.image_mobile.url || ''"
+        />
+        <img 
+          :src="slice.primary.image_mobile.url || slice.primary.image_desktop.url || ''"
+          :alt="slice.primary.image_mobile.alt || slice.primary.image_desktop.alt || ''"
+          loading="lazy"
+          class="object-cover w-full h-full"
+        />
+      </picture>
     </div>
     <div class="flex flex-col z-10 items-center justify-center w-full h-full">
       <h1 class="font-serif font-light text-6xl leading-(--leading-title)">
