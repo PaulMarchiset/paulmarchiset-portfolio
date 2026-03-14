@@ -1,4 +1,4 @@
-import { repositoryName, apiEndpoint } from "./slicemachine.config.json"
+// import { repositoryName, apiEndpoint } from "./slicemachine.config.json"
 import tailwindcss from "@tailwindcss/vite"
 import { createClient } from "@prismicio/client"
 
@@ -24,14 +24,41 @@ export default defineNuxtConfig({
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
-          hid: "description",
           name: "description",
           content: "Portfolio of Paul Marchiset, graphic designer.",
         },
         { name: "format-detection", content: "telephone=no" },
       ],
       link: [{ rel: "icon", type: "image/svg+xml", href: "/logo.svg" }, 
-        { rel: "icon", type: "image/x-icon", href: "/paulmarchiset_logo.ico" }
+        { rel: "icon", type: "image/x-icon", href: "/paulmarchiset_logo.ico" },
+        { 
+          rel: 'preload', 
+          as: 'font', 
+          type: 'font/ttf', 
+          href: '/fonts/Bahnschrift.ttf', 
+          crossorigin: 'anonymous' 
+        },
+        { 
+          rel: 'preload', 
+          as: 'font', 
+          type: 'font/otf', 
+          href: '/fonts/PPNeueMontreal-Book.otf', 
+          crossorigin: 'anonymous' 
+        },
+        { 
+          rel: 'preload', 
+          as: 'font', 
+          type: 'font/otf', 
+          href: '/fonts/PPNeueMontreal-Medium.otf', 
+          crossorigin: 'anonymous' 
+        },
+        { 
+          rel: 'preload', 
+          as: 'font', 
+          type: 'font/otf', 
+          href: '/fonts/PPEditorialNew-Ultralight.otf', // Adjust filename to match yours
+          crossorigin: 'anonymous' 
+        },
       ],
     },
   },
@@ -53,7 +80,7 @@ export default defineNuxtConfig({
 
   /** ✅ Prismic Setup */
   prismic: {
-    endpoint: apiEndpoint || repositoryName,
+    endpoint: 'paulmarchiset-portfolio',
     preview: "/api/preview",
     clientConfig: {
       routes: [
@@ -93,7 +120,7 @@ export default defineNuxtConfig({
   /** ✅ Sitemap + Dynamic Prismic Routes */
   sitemap: {
     urls: async () => {
-      const client = createClient(apiEndpoint || repositoryName)
+      const client = createClient('paulmarchiset-portfolio',)
 
       // Fetch all project pages
       const projects = await client.getAllByType("project")
