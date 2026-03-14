@@ -29,6 +29,13 @@ const { data: page } = await useAsyncData('projects', () =>
 
 const projects = ref(page.value ?? [])
 
+const cardImageParams = {
+  auto: ["format", "compress"] as ("format" | "compress")[],
+  fit: "crop" as const,
+  q: 72,
+  w: 1400,
+}
+
 type mainCategoryMap = Record<string, number>
 
 const mainCategoryCounts = computed(() => {
@@ -95,8 +102,12 @@ definePageMeta({
        <NuxtLink :to="`/project/${project.uid}`" :aria-label="`Go to ${project.data.name}`" v-for="project in filteredProjects" :key="project.id" class="flex flex-col gap-2"> 
         <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)"
           @mouseleave="handleMouseLeave">
-          <PrismicImage :field="project.data.image_main"
-            class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75" />
+          <PrismicImage
+            :field="project.data.image_main"
+            :imgixParams="cardImageParams"
+            loading="lazy"
+            class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75"
+          />
 
           <div v-if="hoveredProjectId === project.id" class="absolute inset-0 pointer-events-none cursor-none">
             <p 

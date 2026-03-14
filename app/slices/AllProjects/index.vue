@@ -13,6 +13,13 @@ const { data: rawProjects } = await useAsyncData("projects", () => prismic.clien
 
 const projects = ref(rawProjects.value ?? []);
 
+const cardImageParams = {
+  auto: ["format", "compress"] as ("format" | "compress")[],
+  fit: "crop" as const,
+  q: 72,
+  w: 1400,
+};
+
 // Only keep favorite projects
 const favoriteProjects = computed(() => {
   return projects.value.filter(
@@ -67,7 +74,12 @@ function animateCursor() {
     <article class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 px-4 lg:px-8">
       <NuxtLink :to="`/project/${project.uid}`" :aria-label="`Go to ${project.data.name}`" v-for="project in favoriteProjects" :key="project.id" class="flex flex-col gap-2">
         <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)" @mouseleave="handleMouseLeave">
-          <PrismicImage :field="project.data.image_main" class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75" />
+          <PrismicImage
+            :field="project.data.image_main"
+            :imgixParams="cardImageParams"
+            loading="lazy"
+            class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75"
+          />
 
           <div v-if="hoveredProjectId === project.id" class="absolute inset-0 pointer-events-none cursor-none">
             <p

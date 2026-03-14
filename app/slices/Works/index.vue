@@ -10,6 +10,20 @@ const props = defineProps(
   ]),
 );
 
+const desktopImageParams = {
+  auto: ["format", "compress"] as ("format" | "compress")[],
+  fit: "crop" as const,
+  q: 72,
+  w: 1600,
+};
+
+const mobileImageParams = {
+  auto: ["format", "compress"] as ("format" | "compress")[],
+  fit: "crop" as const,
+  q: 70,
+  w: 960,
+};
+
 import { onMounted } from 'vue';
 import gsap from 'gsap';
 
@@ -33,7 +47,7 @@ onMounted(() => {
   animateText(".photo-text", 700);
 });
 
-const currentImage = ref('');
+const currentImage = ref<any>(null);
 
 </script>
 
@@ -42,14 +56,14 @@ const currentImage = ref('');
     class="hidden mr-8 row-start-3 row-span-5 col-span-3 col-end-8 lg:flex flex-col uppercase justify-evenly font-title items-end text-5xl z-10 text-whitezero text-white leading-[88%]">
     
     <NuxtLink  
-      v-for="item in slice.primary.works" 
+      v-for="(item, index) in slice.primary.works" 
       :aria-label="`Go to ${item.name}`"
-      :key="item.name" 
-      :to="`/${item.name.toLowerCase()}`" 
+      :key="`${item.name ?? 'work'}-${index}`"
+      :to="item.name ? `/${item.name.toLowerCase()}` : '/'"
       :id="item.name"
-      :class="`${item.name.toLowerCase()}-text`"
+      :class="item.name ? `${item.name.toLowerCase()}-text` : ''"
       @mouseover="currentImage = item.image"
-      @mouseleave="currentImage = ''"
+      @mouseleave="currentImage = null"
       class="opacity-50 hover:opacity-100 transition-opacity duration-250 ease-in-out"
     >
       {{ item.name }}
@@ -57,10 +71,19 @@ const currentImage = ref('');
   </nav>
 
   <div class="col-start-2 col-end-8 row-start-2 row-end-9 bg-cover bg-center">
-    <PrismicImage :field="currentImage" class="h-full w-full object-cover" />
+    <PrismicImage
+      :field="currentImage"
+      :imgixParams="desktopImageParams"
+      loading="lazy"
+      class="h-full w-full object-cover"
+    />
   </div>
   <nav class="flex flex-col px-(--spacing-project-mobile) gap-8 lg:hidden">
-    <NuxtLink v-for="item in slice.primary.works"  :key="item.name" :to="`/${item.name.toLowerCase()}`" :aria-label="`Go to ${item.name}`"
+    <NuxtLink
+      v-for="(item, index) in slice.primary.works"
+      :key="`${item.name ?? 'work-mobile'}-${index}`"
+      :to="item.name ? `/${item.name.toLowerCase()}` : '/'"
+      :aria-label="`Go to ${item.name}`"
       class="grid grid-cols-1 font-mono font-regular text-xl uppercase text-white">
 
       <p
@@ -69,7 +92,12 @@ const currentImage = ref('');
           item.name }}</p>
       <div
         class="project-image relative col-start-1 col-span-5 row-start-1 lg:row-start-2 lg:row-span-7 lg:col-start-3 lg:col-span-4 bg-amber-200 object-cover aspect-[3/2] lg:aspect-auto">
-        <PrismicImage :field="item.image" class="h-full w-full object-cover" />
+        <PrismicImage
+          :field="item.image"
+          :imgixParams="mobileImageParams"
+          loading="lazy"
+          class="h-full w-full object-cover"
+        />
         </div>
     </NuxtLink>
   </nav>

@@ -2,7 +2,6 @@
 import { ref, watchEffect, onMounted, computed, watch } from "vue";
 import { useMenuStore } from "../stores/menu";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { openHeaderAnimation, closeHeaderAnimation } from "../animations/menuAnimation";
 import { useRouter, useRoute } from "vue-router";
 
@@ -16,22 +15,10 @@ const theme = computed(() => {
 
 const lenisRef = ref();
 
-// Register GSAP plugin once
-onMounted(() => {
-  gsap.registerPlugin(ScrollTrigger);
-
-  ScrollTrigger.defaults({
-    markers: false,
-  });
-});
-
 // Lenis + GSAP ticker integration
 watchEffect((onInvalidate) => {
   if (!lenisRef.value?.lenis) return;
   const lenis = lenisRef.value.lenis;
-
-  // update ScrollTrigger on Lenis scroll
-  lenis.on("scroll", ScrollTrigger.update);
 
   // sync Lenis with GSAP's ticker
   function update(time: number) {
@@ -94,13 +81,11 @@ onMounted(() => {
   router.afterEach(() => {
     requestAnimationFrame(() => {
       lenisRef.value?.lenis?.resize();
-      ScrollTrigger.refresh();
     });
   });
 
   const observer = new ResizeObserver(() => {
     lenisRef.value?.lenis?.resize();
-    ScrollTrigger.refresh();
   });
 
   const mainContent = document.getElementById("main-content");
