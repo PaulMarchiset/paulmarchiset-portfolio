@@ -24,7 +24,8 @@ const projectName = props.slice.primary.name;
         <img 
           :src="slice.primary.image_mobile.url || slice.primary.image_desktop.url || ''"
           :alt="slice.primary.image_mobile.alt || slice.primary.image_desktop.alt || ''"
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
           class="object-cover w-full h-full"
         />
       </picture>

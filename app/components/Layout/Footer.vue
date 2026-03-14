@@ -59,7 +59,7 @@ function handleMouseMove(event: MouseEvent) {
 
     <ul class="flex flex-col">
       <li v-for="(item, index) in page?.data.socials" :key="index">
-        <NuxtLink aria-label="Visit social media profile"
+        <NuxtLink :aria-label="`Visit ${item.social.text} profile`"
           :to="item.social.url"
           class="hover-animation"
           :class="{
