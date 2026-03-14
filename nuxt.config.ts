@@ -1,16 +1,20 @@
-import { repositoryName, apiEndpoint } from "./slicemachine.config.json";
-import tailwindcss from "@tailwindcss/vite";
+import { repositoryName, apiEndpoint } from "./slicemachine.config.json"
+import tailwindcss from "@tailwindcss/vite"
+import { createClient } from "@prismicio/client"
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
 
+  compatibilityDate: "2025-01-06",
+
+  ssr: true,
+
   devtools: { enabled: true },
 
   app: {
-    pageTransition: { name: 'scale-slide' },
+    pageTransition: { name: "scale-slide" },
     head: {
       title: "Paul Marchiset - Portfolio",
       htmlAttrs: {
@@ -19,19 +23,33 @@ export default defineNuxtConfig({
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { hid: "description", name: "description", content: "" },
+        {
+          hid: "description",
+          name: "description",
+          content: "Portfolio of Paul Marchiset, graphic designer.",
+        },
         { name: "format-detection", content: "telephone=no" },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/logo.svg" }],
-    }
+    },
   },
 
-  modules: ["@nuxt/eslint", "@nuxtjs/prismic", "@pinia/nuxt", "nuxt-gtag", "lenis/nuxt"],
+  css: ["../assets/css/main.css"],
+
+  modules: [
+    "@nuxt/eslint",
+    "@nuxtjs/prismic",
+    "@pinia/nuxt",
+    "nuxt-gtag",
+    "lenis/nuxt",
+    "@nuxtjs/sitemap",
+  ],
 
   gtag: {
-    id: "G-JWDW19ZCXB" // if you see this, yes it is my token gtag and I know that it's visible for anyone
+    id: "G-JWDW19ZCXB",
   },
 
+  /** ✅ Prismic Setup */
   prismic: {
     endpoint: apiEndpoint || repositoryName,
     preview: "/api/preview",
@@ -44,14 +62,17 @@ export default defineNuxtConfig({
         },
         {
           type: "about",
+          uid: "about",
           path: "/about",
         },
         {
           type: "contact",
+          uid: "contact",
           path: "/contact",
         },
         {
           type: "photo",
+          uid: "photos",
           path: "/photos",
         },
         {
@@ -62,9 +83,34 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: "2025-01-06",
-  css: ["../assets/css/main.css"],
+  /** ✅ Required for Sitemap */
+  site: {
+    url: "https://paulmarchiset.me",
+  },
+
+  /** ✅ Sitemap + Dynamic Prismic Routes */
+  sitemap: {
+    urls: async () => {
+      const client = createClient(apiEndpoint || repositoryName)
+
+      // Fetch all project pages
+      const projects = await client.getAllByType("project")
+
+      return projects.map((doc) => ({
+        loc: `/project/${doc.uid}`,
+        lastmod: new Date(doc.last_publication_date).toISOString(),
+        images: doc.data.meta_image?.url
+          ? [
+            {
+              loc: doc.data.meta_image.url,
+            },
+          ]
+          : [],
+      }))
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },
-});
+})
