@@ -93,7 +93,7 @@ function handleMouseMove(event: MouseEvent) {
       <p @click="copyEmail" class="cursor-pointer">Copy Email</p>
     </div>
 
-    <p>©2025 Paul Marchiset</p>
+    <p>©2026 Paul Marchiset</p>
   </footer>
 </template>
 

@@ -68,7 +68,7 @@ function handleMouseMove(event: MouseEvent) {
       <!-- Trigger -->
       <p @click="copyEmail" :aria-label="`Copy ${slice.primary.mail} to clipboard`" class="cursor-pointer">Copy Email</p>
     </div>
-    <p>©2025 Paul Marchiset</p>
+    <p>©2026 Paul Marchiset</p>
   </footer>
 </template>
 <style scoped>
