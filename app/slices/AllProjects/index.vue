@@ -47,7 +47,7 @@ onMounted(async () => {
         ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
         scrollTrigger: {
           trigger: el,
-          start: "top 45%",
+          start: "top 65%",
           once: true,
         },
       }

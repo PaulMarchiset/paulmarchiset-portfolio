@@ -2,16 +2,22 @@
 import { components } from '~/slices'
 import { useHead, useSeoMeta } from '@unhead/vue'
 import { usePrismic } from '@prismicio/vue'
+import { computed } from 'vue'
 
 const prismic = usePrismic();
-const { data: page } = await useAsyncData("[homepage]", () =>
-  prismic.client.getSingle("homepage"),
+const { data: page } = await useAsyncData('homepage', () =>
+  prismic.client.getSingle('homepage'),
 );
 
 const siteUrl = 'https://paulmarchiset.me'
-const metaTitle = page.value?.data.meta_title || 'Paul Marchiset'
-const metaDescription = page.value?.data.meta_description || 'Portfolio of Paul Marchiset, graphic designer and videographer.'
-const metaImage = page.value?.data.meta_image?.url
+const metaTitle = computed(
+  () => page.value?.data.meta_title || 'Paul Marchiset'
+)
+const metaDescription = computed(
+  () => page.value?.data.meta_description
+    || 'Portfolio of Paul Marchiset, graphic designer and videographer.'
+)
+const metaImage = computed(() => page.value?.data.meta_image?.url || undefined)
 
 useSeoMeta({
   title: metaTitle,
@@ -70,8 +76,8 @@ definePageMeta({
 
 <template>
   <!-- <Intro /> -->
-  <section class="size-full overflow-hidden bg-(--main-black)">
-    <div class="z-0 flex flex-col bg-cover bg-center">
+  <section class="size-full min-h-screen overflow-hidden bg-(--main-black)">
+    <div class="z-0 flex flex-col bg-cover bg-center min-h-screen">
       <SliceZone :components="components" :slices="page?.data.slices ?? []" />
     </div>
   </section>

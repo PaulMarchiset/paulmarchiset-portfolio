@@ -2,12 +2,23 @@
 import { components } from '~/slices'
 import { useHead, useSeoMeta } from '@unhead/vue'
 import { usePrismic } from '@prismicio/vue'
-import { ref, onMounted } from 'vue'
+import { computed } from 'vue'
+
+const prismic = usePrismic()
+const { data: page } = await useAsyncData('photo', () =>
+  prismic.client.getSingle('photo')
+)
 
 const siteUrl = 'https://paulmarchiset.me'
 const canonicalUrl = `${siteUrl}/photos`
-const metaTitle = 'Photos - Paul Marchiset'
-const metaDescription = 'Photographs by Paul Marchiset.'
+
+const metaTitle = computed(
+  () => page.value?.data.meta_title || 'Photos - Paul Marchiset'
+)
+const metaDescription = computed(
+  () => page.value?.data.meta_description || 'Photographs by Paul Marchiset.'
+)
+const metaImage = computed(() => page.value?.data.meta_image?.url || undefined)
 
 useSeoMeta({
   title: metaTitle,
@@ -16,8 +27,10 @@ useSeoMeta({
   ogDescription: metaDescription,
   ogUrl: canonicalUrl,
   ogType: 'website',
+  ogImage: metaImage,
   twitterTitle: metaTitle,
   twitterDescription: metaDescription,
+  twitterImage: metaImage,
   twitterCard: 'summary_large_image',
 })
 
@@ -26,26 +39,19 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: metaTitle,
-        description: metaDescription,
-        url: canonicalUrl,
-        isPartOf: { '@type': 'WebSite', name: 'Paul Marchiset', url: siteUrl },
-      }),
+      innerHTML: computed(() =>
+        JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: metaTitle.value,
+          description: metaDescription.value,
+          url: canonicalUrl,
+          isPartOf: { '@type': 'WebSite', name: 'Paul Marchiset', url: siteUrl },
+        })
+      ),
     },
   ],
 })
-
-const prismic = usePrismic()
-const page = ref()
-
-onMounted(async () => {
-  const response = await prismic.client.getSingle('photo')
-  page.value = response
-})
-
 </script>
 
 <template>

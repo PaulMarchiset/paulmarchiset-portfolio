@@ -10,16 +10,20 @@ import { TextPlugin } from "gsap/TextPlugin"
 gsap.registerPlugin(TextPlugin)
 
 const prismic = usePrismic()
-const { data: page } = await useAsyncData("[about]", () =>
-  prismic.client.getSingle("about")
+const { data: page } = await useAsyncData('about', () =>
+  prismic.client.getSingle('about')
 )
 
 const siteUrl = 'https://paulmarchiset.me'
 const canonicalUrl = `${siteUrl}/about`
-const metaTitle = page.value?.data.meta_title || 'About - Paul Marchiset'
-const metaDescription = page.value?.data.meta_description
-  || 'About Paul Marchiset — graphic designer and videographer.'
-const metaImage = page.value?.data.meta_image?.url
+const metaTitle = computed(
+  () => page.value?.data.meta_title || 'About - Paul Marchiset'
+)
+const metaDescription = computed(
+  () => page.value?.data.meta_description
+    || 'About Paul Marchiset — graphic designer and videographer.'
+)
+const metaImage = computed(() => page.value?.data.meta_image?.url || undefined)
 
 useSeoMeta({
   title: metaTitle,
