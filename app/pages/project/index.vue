@@ -1,31 +1,46 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue"
-import { useHead } from "@unhead/vue"
+import { ref, computed } from "vue"
+import { useHead, useSeoMeta } from "@unhead/vue"
 import { usePrismic } from "@prismicio/vue"
-
-useHead({
-  title: 'Works - Paul Marchiset',
-})
-
-const hoveredProjectId = ref<string | null>(null)
-const mousePosition = reactive({ x: 0, y: 0 })
-
-function handleMouseMove(event: MouseEvent, projectId: string) {
-  hoveredProjectId.value = projectId
-  const target = event.currentTarget as HTMLElement
-  const rect = target.getBoundingClientRect()
-  mousePosition.x = event.clientX - rect.left
-  mousePosition.y = event.clientY - rect.top
-}
-
-function handleMouseLeave() {
-  hoveredProjectId.value = null
-}
 
 const prismic = usePrismic()
 const { data: page } = await useAsyncData('projects', () =>
   prismic.client.getAllByType('project')
 )
+
+const siteUrl = 'https://paulmarchiset.me'
+const canonicalUrl = `${siteUrl}/project`
+const metaTitle = 'Works - Paul Marchiset'
+const metaDescription = 'Selected works and projects by Paul Marchiset, graphic designer and videographer.'
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: metaTitle,
+  ogDescription: metaDescription,
+  ogUrl: canonicalUrl,
+  ogType: 'website',
+  twitterTitle: metaTitle,
+  twitterDescription: metaDescription,
+  twitterCard: 'summary_large_image',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: canonicalUrl }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: metaTitle,
+        description: metaDescription,
+        url: canonicalUrl,
+        isPartOf: { '@type': 'WebSite', name: 'Paul Marchiset', url: siteUrl },
+      }),
+    },
+  ],
+})
 
 const projects = ref(page.value ?? [])
 
@@ -99,9 +114,8 @@ definePageMeta({
 
     <!-- Project list -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8 p-4">
-       <NuxtLink :to="`/project/${project.uid}`" :aria-label="`Go to ${project.data.name}`" v-for="project in filteredProjects" :key="project.id" class="flex flex-col gap-2"> 
-        <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)"
-          @mouseleave="handleMouseLeave">
+       <NuxtLink :to="`/project/${project.uid}`" :aria-label="`Go to ${project.data.name}`" v-for="project in filteredProjects" :key="project.id" class="flex flex-col gap-2">
+        <div class="relative w-full overflow-hidden group">
           <PrismicImage
             :field="project.data.image_main"
             :imgixParams="cardImageParams"
@@ -109,14 +123,14 @@ definePageMeta({
             class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75"
           />
 
-          <div v-if="hoveredProjectId === project.id" class="absolute inset-0 pointer-events-none cursor-none">
-            <p 
-              class="absolute px-4 py-2 bg-(--main-white) text-black text-sm font-light z-20 pointer-events-auto"
-              :style="{
-                left: `${mousePosition.x}px`,
-                top: `${mousePosition.y}px`,
-                transform: 'translate(-50%, -125%)'}">
-              Discover
+          <div class="absolute top-5 left-5 flex flex-col items-start gap-2 z-20">
+            <p
+              v-for="(cat, i) in (project.data.main_categories || []).map((c) => c?.main_category).filter(Boolean)"
+              :key="`${project.id}-cat-${i}`"
+              class="project-categories-badge px-4 py-2 bg-(--main-white) text-black text-sm font-light"
+              :style="{ transitionDelay: `${i * 80}ms` }"
+            >
+              {{ cat }}
             </p>
           </div>
         </div>
@@ -124,18 +138,7 @@ definePageMeta({
         <!-- Text content -->
         <div class="w-full flex justify-between text-white">
           <h2 class="text-xl font-light">{{ project.data.name }}</h2>
-          <p class="text-xl font-light opacity-75">
-            {{
-              (project.data.main_categories || [])
-                .map((c) => c?.main_category)
-                .filter(Boolean)
-                .join(", ") || "None"
-            }}
-          </p>
-          <!-- <NuxtLink :to="`/project/${project.uid}`"
-              class="text-m leading-none font-light rounded-full bg-white text-black px-5 py-2 h-fit flex items-center justify-center">
-              <p>Discover</p>
-            </NuxtLink> -->
+          <p class="text-xl font-light opacity-75">{{ project.data.date }}</p>
         </div>
       </NuxtLink>
     </section>
@@ -163,5 +166,18 @@ definePageMeta({
 
 .nuxt-link-hover {
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.project-categories-badge {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s cubic-bezier(0.83, 0, 0.29, 0.99),
+    transform 0.5s cubic-bezier(0.83, 0, 0.29, 0.99);
+}
+
+.group:hover .project-categories-badge {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>

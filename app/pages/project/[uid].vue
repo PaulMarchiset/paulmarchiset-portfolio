@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { components } from '~/slices'
-import { useHead } from '@unhead/vue'
+import { useHead, useSeoMeta } from '@unhead/vue'
 import { usePrismic } from '@prismicio/vue'
 import { useRoute } from 'vue-router'
 
@@ -13,16 +13,53 @@ const { data: page } = await useAsyncData(route.params.uid as string, () =>
 )
 const title = page.value?.data.name
 
-useHead({
-  title: title + ' - Paul Marchiset',
-})
-
-console.log(page)
-
-
 const projectName = page.value?.data.name;
 const projectDate = page.value?.data.date;
 const projectCategories = page.value?.data.categories?.map((cat: { category: any }) => cat.category) || ['Project'];
+
+const siteUrl = 'https://paulmarchiset.me'
+const canonicalUrl = `${siteUrl}/project/${route.params.uid}`
+const metaTitle = page.value?.data.meta_title || `${title} - Paul Marchiset`
+const metaDescription = page.value?.data.meta_description
+  || `${projectName} — ${projectCategories.join(', ')} project by Paul Marchiset.`
+const metaImage = page.value?.data.meta_image?.url || page.value?.data.image_main?.url
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: metaTitle,
+  ogDescription: metaDescription,
+  ogUrl: canonicalUrl,
+  ogType: 'article',
+  ogImage: metaImage,
+  twitterTitle: metaTitle,
+  twitterDescription: metaDescription,
+  twitterImage: metaImage,
+  twitterCard: 'summary_large_image',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: canonicalUrl }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: projectName,
+        url: canonicalUrl,
+        dateCreated: projectDate,
+        genre: projectCategories,
+        image: metaImage,
+        author: {
+          '@type': 'Person',
+          name: 'Paul Marchiset',
+          url: siteUrl,
+        },
+      }),
+    },
+  ],
+})
 
 const collaborators = computed(() => {
   const items = (page.value?.data as any)?.collaborators ?? []

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { components } from '~/slices'
-import { useHead } from '@unhead/vue'
+import { useHead, useSeoMeta } from '@unhead/vue'
 import { usePrismic } from '@prismicio/vue'
 
 const prismic = usePrismic();
@@ -8,8 +8,40 @@ const { data: page } = await useAsyncData("[homepage]", () =>
   prismic.client.getSingle("homepage"),
 );
 
+const siteUrl = 'https://paulmarchiset.me'
+const metaTitle = page.value?.data.meta_title || 'Paul Marchiset'
+const metaDescription = page.value?.data.meta_description || 'Portfolio of Paul Marchiset, graphic designer and videographer.'
+const metaImage = page.value?.data.meta_image?.url
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: metaTitle,
+  ogDescription: metaDescription,
+  ogUrl: siteUrl,
+  ogType: 'website',
+  ogImage: metaImage,
+  twitterTitle: metaTitle,
+  twitterDescription: metaDescription,
+  twitterImage: metaImage,
+  twitterCard: 'summary_large_image',
+})
+
 useHead({
-  title: 'Paul Marchiset'
+  link: [{ rel: 'canonical', href: siteUrl }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Paul Marchiset',
+        url: siteUrl,
+        jobTitle: 'Graphic Designer & Videographer',
+        sameAs: [],
+      }),
+    },
+  ],
 })
 
 // onMounted(() => {

@@ -4,15 +4,52 @@ import { ref, onMounted, reactive } from "vue";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { usePrismic } from "@prismicio/vue";
-import { useHead } from "@unhead/vue";
+import { useHead, useSeoMeta } from "@unhead/vue";
 
 gsap.registerPlugin(TextPlugin);
 
 const prismic = usePrismic();
 const { data: page } = await useAsyncData("[contact]", () => prismic.client.getSingle("contact"));
 
+const siteUrl = "https://paulmarchiset.me";
+const canonicalUrl = `${siteUrl}/contact`;
+const metaTitle = page.value?.data.meta_title || "Contact - Paul Marchiset";
+const metaDescription = page.value?.data.meta_description
+  || "Get in touch with Paul Marchiset, graphic designer and videographer.";
+const metaImage = page.value?.data.meta_image?.url;
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: metaTitle,
+  ogDescription: metaDescription,
+  ogUrl: canonicalUrl,
+  ogType: "website",
+  ogImage: metaImage,
+  twitterTitle: metaTitle,
+  twitterDescription: metaDescription,
+  twitterImage: metaImage,
+  twitterCard: "summary_large_image",
+});
+
 useHead({
-  title: "Contact - Paul Marchiset",
+  link: [{ rel: "canonical", href: canonicalUrl }],
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        url: canonicalUrl,
+        mainEntity: {
+          "@type": "Person",
+          name: "Paul Marchiset",
+          email: page.value?.data.mail,
+          url: siteUrl,
+        },
+      }),
+    },
+  ],
 });
 
 onMounted(() => {

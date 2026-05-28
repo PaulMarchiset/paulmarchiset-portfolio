@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import type { Content } from "@prismicio/client";
-import { ref, reactive, computed } from "vue";
+import { ref, computed, onMounted, nextTick } from "vue";
 import { getSliceComponentProps } from "@prismicio/vue";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Props from Prismic Slice
 const props = defineProps(getSliceComponentProps<Content.AllProjectsSlice>(["slice", "index", "slices", "context"]));
@@ -27,40 +31,33 @@ const favoriteProjects = computed(() => {
   );
 });
 
-const hoveredProjectId = ref<string | null>(null);
+onMounted(async () => {
+  await nextTick();
+  const wrappers = document.querySelectorAll<HTMLElement>(".project-image-reveal");
+  if (!wrappers.length) return;
 
-// Track actual cursor vs smoothed cursor
-const mouseTarget = reactive({ x: 0, y: 0 });
-const mouseSmooth = reactive({ x: 0, y: 0 });
+  wrappers.forEach((el, i) => {
+    gsap.fromTo(
+      el,
+      { clipPath: "inset(100% 0% 0% 0%)" },
+      {
+        clipPath: "inset(0% 0% 0% 0%)",
+        duration: .7,
+        delay: (i % 2) * 0.15,
+        ease: "cubic-bezier(0.83, 0, 0.29, 0.99)",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 45%",
+          once: true,
+        },
+      }
+    );
+  });
 
-let animationFrame: number | null = null;
-
-function handleMouseMove(event: MouseEvent, projectId: string) {
-  hoveredProjectId.value = projectId;
-  const target = event.currentTarget as HTMLElement;
-  const rect = target.getBoundingClientRect();
-  mouseTarget.x = event.clientX - rect.left;
-  mouseTarget.y = event.clientY - rect.top;
-
-  if (!animationFrame) animateCursor();
-}
-
-function handleMouseLeave() {
-  hoveredProjectId.value = null;
-  if (animationFrame) {
-    cancelAnimationFrame(animationFrame);
-    animationFrame = null;
-  }
-}
-
-// Animate smoothed position toward target
-function animateCursor() {
-  const ease = 0.1; // smaller = smoother & slower
-  mouseSmooth.x += (mouseTarget.x - mouseSmooth.x) * ease;
-  mouseSmooth.y += (mouseTarget.y - mouseSmooth.y) * ease;
-
-  animationFrame = requestAnimationFrame(animateCursor);
-}
+  // Recalculate trigger positions after images load (their height affects layout)
+  window.addEventListener("load", () => ScrollTrigger.refresh());
+  setTimeout(() => ScrollTrigger.refresh(), 500);
+});
 </script>
 
 <template>
@@ -73,7 +70,7 @@ function animateCursor() {
     <!-- Project list -->
     <article class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 px-4 lg:px-8">
       <NuxtLink :to="`/project/${project.uid}`" :aria-label="`Go to ${project.data.name}`" v-for="project in favoriteProjects" :key="project.id" class="flex flex-col gap-2">
-        <div class="relative w-full overflow-hidden group" @mousemove="(e) => handleMouseMove(e, project.id)" @mouseleave="handleMouseLeave">
+        <div class="project-image-reveal relative w-full overflow-hidden group">
           <PrismicImage
             :field="project.data.image_main"
             :imgixParams="cardImageParams"
@@ -81,19 +78,9 @@ function animateCursor() {
             class="aspect-5/4 lg:aspect-3/2 max-h-[500px] w-full object-cover transition duration-300 ease-in-out group-hover:brightness-75"
           />
 
-          <div v-if="hoveredProjectId === project.id" class="absolute inset-0 pointer-events-none cursor-none">
-            <p
-              class="absolute px-4 py-2 bg-(--main-white) text-black text-sm font-light z-20 pointer-events-auto"
-              :style="{
-                left: `${mouseSmooth.x}px`,
-                top: `${mouseSmooth.y}px`,
-                transform: 'translate(-50%, -125%)',
-                transition: 'none', // important: let JS handle smoothness
-              }"
-            >
-              {{ project.data.name }}
-            </p>
-          </div>
+          <p class="project-name-badge absolute top-5 left-5 px-4 py-2 bg-(--main-white) text-black text-sm font-light z-20">
+            {{ project.data.name }}
+          </p>
         </div>
 
         <!-- Text content -->
@@ -133,5 +120,18 @@ function animateCursor() {
   transition:
     opacity 0.2s ease,
     transform 0.2s ease;
+}
+
+.project-name-badge {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s cubic-bezier(0.83, 0, 0.29, 0.99),
+    transform 0.5s cubic-bezier(0.83, 0, 0.29, 0.99);
+}
+
+.group:hover .project-name-badge {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>

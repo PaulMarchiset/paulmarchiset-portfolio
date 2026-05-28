@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.paulmarchiset.me/sitemap.xml
+Sitemap: https://paulmarchiset.me/sitemap.xml

@@ -2,7 +2,7 @@
 import { components } from '~/slices'
 import { ref, onMounted, computed } from "vue"
 import { usePrismic } from '@prismicio/vue'
-import { useHead } from '@unhead/vue'
+import { useHead, useSeoMeta } from '@unhead/vue'
 
 import gsap from 'gsap'
 import { TextPlugin } from "gsap/TextPlugin"
@@ -14,7 +14,46 @@ const { data: page } = await useAsyncData("[about]", () =>
   prismic.client.getSingle("about")
 )
 
-useHead({ title: 'About - Paul Marchiset' })
+const siteUrl = 'https://paulmarchiset.me'
+const canonicalUrl = `${siteUrl}/about`
+const metaTitle = page.value?.data.meta_title || 'About - Paul Marchiset'
+const metaDescription = page.value?.data.meta_description
+  || 'About Paul Marchiset — graphic designer and videographer.'
+const metaImage = page.value?.data.meta_image?.url
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: metaTitle,
+  ogDescription: metaDescription,
+  ogUrl: canonicalUrl,
+  ogType: 'profile',
+  ogImage: metaImage,
+  twitterTitle: metaTitle,
+  twitterDescription: metaDescription,
+  twitterImage: metaImage,
+  twitterCard: 'summary_large_image',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: canonicalUrl }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        url: canonicalUrl,
+        mainEntity: {
+          '@type': 'Person',
+          name: 'Paul Marchiset',
+          url: siteUrl,
+          jobTitle: 'Graphic Designer & Videographer',
+        },
+      }),
+    },
+  ],
+})
 
 const isMobile = ref(false)
 onMounted(() => {

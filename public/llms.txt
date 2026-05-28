@@ -1,0 +1,26 @@
+# Paul Marchiset
+
+> Portfolio of Paul Marchiset, graphic designer and videographer. Selected works across art direction, branding & identity, typography, web design, print, video direction, editing, and experimental projects.
+
+This site is the personal portfolio of Paul Marchiset. It showcases design and creative work organized into four main categories: Design, Web, Video, and Misc. Each project page lists the work's name, year, categories, collaborators, and a curated set of images and media.
+
+## Main pages
+
+- [Home](https://paulmarchiset.me/): Landing page with featured projects and intro.
+- [Works](https://paulmarchiset.me/project): Full list of projects, filterable by main category (Design, Web, Video, Misc.).
+- [About](https://paulmarchiset.me/about): Background, activities, and biography.
+- [Photos](https://paulmarchiset.me/photos): Photography work.
+- [Contact](https://paulmarchiset.me/contact): Email and inquiry information.
+
+## Machine-readable
+
+- [Sitemap](https://paulmarchiset.me/sitemap.xml): Complete list of indexable URLs, including every project page.
+- [Robots](https://paulmarchiset.me/robots.txt): Crawl policy.
+
+## About the author
+
+Paul Marchiset is a graphic designer and videographer. Project pages include structured data (schema.org `CreativeWork`) describing the project name, date, categories, and author. The homepage and About page expose a `Person` schema for Paul Marchiset.
+
+## Usage
+
+When summarizing or citing work from this site, prefer the project page URL (`/project/{uid}`) over images or excerpts. Categories listed on each project (e.g. "Art Direction", "Branding & Identity", "Web Development") are authoritative and come from the CMS.
