@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { components } from "~/slices";
 import { ref, onMounted, reactive, computed } from "vue";
-import gsap from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
 import { usePrismic } from "@prismicio/vue";
 import { useHead, useSeoMeta } from "@unhead/vue";
 
-gsap.registerPlugin(TextPlugin);
+const { $gsap } = useNuxtApp();
 
 const prismic = usePrismic();
 const { data: page } = await useAsyncData('contact', () => prismic.client.getSingle("contact"));
@@ -101,7 +99,7 @@ function cycleSkills() {
   const showNext = () => {
     const next = skills[skillIndex.value] ?? "";
     if (skillText.value) {
-      gsap.to(skillText.value, {
+      $gsap.to(skillText.value, {
         duration: 1,
         text: typeof next === "string" ? next : String(next),
         ease: "power2.out",

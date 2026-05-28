@@ -2,10 +2,8 @@
 import type { Content } from "@prismicio/client";
 import { ref, computed, onMounted, nextTick } from "vue";
 import { getSliceComponentProps } from "@prismicio/vue";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+const { $gsap, $ScrollTrigger } = useNuxtApp();
 
 // Props from Prismic Slice
 const props = defineProps(getSliceComponentProps<Content.AllProjectsSlice>(["slice", "index", "slices", "context"]));
@@ -37,7 +35,7 @@ onMounted(async () => {
   if (!wrappers.length) return;
 
   wrappers.forEach((el, i) => {
-    gsap.fromTo(
+    $gsap.fromTo(
       el,
       { clipPath: "inset(100% 0% 0% 0%)" },
       {
@@ -55,8 +53,8 @@ onMounted(async () => {
   });
 
   // Recalculate trigger positions after images load (their height affects layout)
-  window.addEventListener("load", () => ScrollTrigger.refresh());
-  setTimeout(() => ScrollTrigger.refresh(), 500);
+  window.addEventListener("load", () => $ScrollTrigger.refresh());
+  setTimeout(() => $ScrollTrigger.refresh(), 500);
 });
 </script>
 

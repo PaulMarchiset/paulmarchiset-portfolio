@@ -4,10 +4,7 @@ import { ref, onMounted, computed } from "vue"
 import { usePrismic } from '@prismicio/vue'
 import { useHead, useSeoMeta } from '@unhead/vue'
 
-import gsap from 'gsap'
-import { TextPlugin } from "gsap/TextPlugin"
-
-gsap.registerPlugin(TextPlugin)
+const { $gsap } = useNuxtApp()
 
 const prismic = usePrismic()
 const { data: page } = await useAsyncData('about', () =>
@@ -84,7 +81,7 @@ function cycleActivities() {
   const showNext = () => {
     const next = activities[activityIndex.value]
     if (activityText.value) {
-      gsap.to(activityText.value, {
+      $gsap.to(activityText.value, {
         duration: 1,
         text: typeof next === 'string' ? next : String(next),
         ease: "power2.out",
